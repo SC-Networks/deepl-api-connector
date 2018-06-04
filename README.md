@@ -1,6 +1,8 @@
-# deepl-api-connector
+# deepl-api-connector - Unofficial PHP Client for the API of deepl.com.
 
-Unofficial PHP Client for the API of deepl.com.
+[![Monthly Downloads](https://poser.pugx.org/scn/deepl-api-connector/d/monthly)](https://packagist.org/packages/scn/deepl-api-connector)
+[![License](https://poser.pugx.org/scn/deepl-api-connector/license)](LICENSE)
+[![Build Status](https://travis-ci.org/SC-Networks/deepl-api-connector.svg?branch=master)](https://travis-ci.org/SC-Networks/deepl-api-connector)
 
 Information about Deepl: https://www.deepl.com
 Information about Deepl API: https://www.deepl.com/api.html
