@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Model;
 
@@ -10,50 +11,28 @@ namespace Scn\DeeplApiConnector\Model;
 final class Translation extends AbstractResponseModel implements TranslationInterface
 {
 
-    /**
-     * @var string
-     */
     private $detectedSourceLanguage;
 
-    /**
-     * @var string
-     */
     private $text;
 
-    /**
-     * @return string
-     */
-    public function getDetectedSourceLanguage()
+    public function getDetectedSourceLanguage(): string
     {
         return $this->detectedSourceLanguage;
     }
 
-    /**
-     * @param string $detectedSourceLanguage
-     *
-     * @return Translation
-     */
-    public function setDetectedSourceLanguage($detectedSourceLanguage)
+    public function setDetectedSourceLanguage(string $detectedSourceLanguage): TranslationInterface
     {
         $this->detectedSourceLanguage = $detectedSourceLanguage;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getText()
+    public function getText(): string
     {
         return $this->text;
     }
 
-    /**
-     * @param string $text
-     *
-     * @return Translation
-     */
-    public function setText($text)
+    public function setText(string $text): TranslationInterface
     {
         $this->text = $text;
 

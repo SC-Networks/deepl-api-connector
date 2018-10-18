@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Handler;
 
@@ -12,36 +13,19 @@ use Scn\DeeplApiConnector\Model\TranslationConfigInterface;
 final class DeeplRequestFactory implements DeeplRequestFactoryInterface
 {
 
-    /**
-     * @var string
-     */
     private $authKey;
 
-    /**
-     * DeeplRequestFactory constructor.
-     *
-     * @param string $authKey
-     */
-    public function __construct($authKey)
+    public function __construct(string $authKey)
     {
         $this->authKey = $authKey;
     }
 
-    /**
-     * @param TranslationConfigInterface $translation
-     *
-     * @return DeeplTranslationRequestHandler
-     */
-    public function createDeeplTranslationRequestHandler(TranslationConfigInterface $translation)
+    public function createDeeplTranslationRequestHandler(TranslationConfigInterface $translation): DeeplRequestHandlerInterface
     {
         return new DeeplTranslationRequestHandler($this->authKey, $translation);
     }
 
-    /**
-     *
-     * @return DeeplUsageRequestHandler
-     */
-    public function createDeeplUsageRequestHandler()
+    public function createDeeplUsageRequestHandler(): DeeplRequestHandlerInterface
     {
         return new DeeplUsageRequestHandler($this->authKey);
     }

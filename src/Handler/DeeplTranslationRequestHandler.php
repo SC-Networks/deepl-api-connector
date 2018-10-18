@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Handler;
 
@@ -15,51 +16,27 @@ final class DeeplTranslationRequestHandler implements DeeplRequestHandlerInterfa
     const SEPARATOR = ',';
     const API_ENDPOINT = 'https://api.deepl.com/v1/translate';
 
-    /**
-     * @var string
-     */
     private $authKey;
 
-    /**
-     * @var TranslationConfigInterface
-     */
     private $translation;
 
-    /**
-     * DeeplTranslationRequestHandler constructor.
-     *
-     * @param string $authKey
-     * @param TranslationConfigInterface $translation
-     */
-    public function __construct($authKey, TranslationConfigInterface $translation)
+    public function __construct(string $authKey, TranslationConfigInterface $translation)
     {
         $this->authKey = $authKey;
         $this->translation = $translation;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return DeeplRequestHandlerInterface::METHOD_POST;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getPath()
+    public function getPath(): string
     {
         return static::API_ENDPOINT;
     }
 
-    /**
-     *
-     * @return array
-     */
-    public function getBody()
+    public function getBody(): array
     {
         return [
             'form_params' => array_filter(

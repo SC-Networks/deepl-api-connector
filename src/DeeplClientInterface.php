@@ -1,11 +1,10 @@
 <?php
+declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector;
 
-use Scn\DeeplApiConnector\Exception\RequestException;
 use Scn\DeeplApiConnector\Model\ResponseModelInterface;
 use Scn\DeeplApiConnector\Model\TranslationConfigInterface;
-use Scn\DeeplApiConnector\Model\UsageInterface;
 
 /**
  * Class DeeplClientInterface
@@ -14,36 +13,11 @@ use Scn\DeeplApiConnector\Model\UsageInterface;
  */
 interface DeeplClientInterface
 {
+    public function getUsage(): ResponseModelInterface;
 
-    /**
-     * @return ResponseModelInterface
-     * @throws RequestException
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getUsage();
+    public function getTranslation(TranslationConfigInterface $translation): ResponseModelInterface;
 
-    /**
-     * @param TranslationConfigInterface $translation
-     *
-     * @return ResponseModelInterface
-     * @throws RequestException
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getTranslation(TranslationConfigInterface $translation);
+    public function translate(string $text, string $target_language): ResponseModelInterface;
 
-
-    /**
-     * @param string $text
-     * @param string $target_language
-     *
-     * @return ResponseModelInterface
-     */
-    public function translate($text, $target_language);
-
-    /**
-     * @param string $apiKey
-     *
-     * @return DeeplClient
-     */
-    public static function create($apiKey);
+    public static function create(string $apiKey): DeeplClientInterface;
 }

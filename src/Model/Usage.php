@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Model;
 
@@ -9,52 +10,28 @@ namespace Scn\DeeplApiConnector\Model;
  */
 final class Usage extends AbstractResponseModel implements UsageInterface
 {
-
-    /**
-     * @var int
-     */
     private $characterCount;
 
-
-    /**
-     * @var int
-     */
     private $characterLimit;
 
-    /**
-     * @return int
-     */
-    public function getCharacterCount()
+    public function getCharacterCount(): int
     {
         return $this->characterCount;
     }
 
-    /**
-     * @param int $characterCount
-     *
-     * @return Usage
-     */
-    public function setCharacterCount($characterCount)
+    public function setCharacterCount(int $characterCount): UsageInterface
     {
         $this->characterCount = $characterCount;
 
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getCharacterLimit()
+    public function getCharacterLimit(): int
     {
         return $this->characterLimit;
     }
 
-    /**
-     * @param int $characterLimit
-     *
-     * @return Usage
-     */
-    public function setCharacterLimit($characterLimit)
+    public function setCharacterLimit(int $characterLimit): UsageInterface
     {
         $this->characterLimit = $characterLimit;
 

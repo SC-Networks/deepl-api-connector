@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Handler;
 
@@ -13,21 +14,9 @@ interface DeeplRequestHandlerInterface
     const METHOD_POST = 'POST';
     const METHOD_GET = 'GET';
 
-    /**
-     *
-     * @return string
-     */
-    public function getMethod();
+    public function getMethod(): string;
 
-    /**
-     *
-     * @return string
-     */
-    public function getPath();
+    public function getPath(): string;
 
-    /**
-     *
-     * @return array
-     */
-    public function getBody();
+    public function getBody(): array;
 }

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector;
 
@@ -12,7 +13,6 @@ use Scn\DeeplApiConnector\Model\Translation;
 use Scn\DeeplApiConnector\Model\TranslationConfig;
 use Scn\DeeplApiConnector\Model\TranslationConfigInterface;
 use Scn\DeeplApiConnector\Model\Usage;
-use Scn\DeeplApiConnector\Model\UsageInterface;
 
 /**
  * Class DeeplClient
@@ -21,23 +21,10 @@ use Scn\DeeplApiConnector\Model\UsageInterface;
  */
 class DeeplClient implements DeeplClientInterface
 {
-
-    /**
-     * @var ClientInterface
-     */
     private $httpClient;
 
-    /**
-     * @var DeeplRequestFactoryInterface
-     */
     private $requestFactory;
 
-    /**
-     * DeeplClient constructor.
-     *
-     * @param ClientInterface $httpClient
-     * @param DeeplRequestFactoryInterface $requestFactory
-     */
     public function __construct(ClientInterface $httpClient, DeeplRequestFactoryInterface $requestFactory)
     {
         $this->httpClient = $httpClient;
@@ -52,11 +39,10 @@ class DeeplClient implements DeeplClientInterface
      *      -> characterCount 123
      *      -> characterLimit 5647
      *
-     * @return ResponseModelInterface
      * @throws RequestException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getUsage()
+    public function getUsage(): ResponseModelInterface
     {
         return (new Usage())->hydrate(
             $this->executeRequest($this->requestFactory->createDeeplUsageRequestHandler())
@@ -71,25 +57,17 @@ class DeeplClient implements DeeplClientInterface
      *      -> detectedSourceLanguage EN
      *                -> text some translated text
      *
-     * @param TranslationConfigInterface $translation
-     *
-     * @return ResponseModelInterface
      * @throws RequestException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getTranslation(TranslationConfigInterface $translation)
+    public function getTranslation(TranslationConfigInterface $translation): ResponseModelInterface
     {
         return (new Translation())->hydrate($this->executeRequest(
             $this->requestFactory->createDeeplTranslationRequestHandler($translation)
         ));
     }
 
-    /**
-     * @param string $apiKey
-     *
-     * @return DeeplClient
-     */
-    public static function create($apiKey)
+    public static function create($apiKey): DeeplClientInterface
     {
         return new DeeplClient(
             new \GuzzleHttp\Client(),
@@ -100,14 +78,10 @@ class DeeplClient implements DeeplClientInterface
     /**
      * Return TranslationConfig for given Text / Target Language with Default TranslationConfig Configuration
      *
-     * @param string $text
-     * @param string $target_language
-     *
-     * @return ResponseModelInterface
      * @throws RequestException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function translate($text, $target_language)
+    public function translate(string $text, string $target_language): ResponseModelInterface
     {
         $translation = new TranslationConfig($text, $target_language);
 
@@ -118,13 +92,10 @@ class DeeplClient implements DeeplClientInterface
      * Execute given RequestHandler Request and returns decoded Json Object or throws Exception with Error Code
      * and maybe given Error Message
      *
-     * @param DeeplRequestHandlerInterface $requestHandler
-     *
-     * @return \stdClass
      * @throws RequestException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    private function executeRequest(DeeplRequestHandlerInterface $requestHandler)
+    private function executeRequest(DeeplRequestHandlerInterface $requestHandler): \stdClass
     {
         try {
             $response = $this->httpClient->request(

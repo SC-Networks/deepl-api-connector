@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Model;
 
@@ -18,99 +19,35 @@ interface TranslationConfigInterface
     const LANGUAGE_NL = 'NL';
     const LANGUAGE_PL = 'PL';
 
-    /**
-     * @return string
-     */
-    public function getText();
+    public function getText(): string;
 
-    /**
-     * @param string $text
-     *
-     * @return TranslationConfigInterface
-     */
-    public function setText($text);
+    public function setText(string $text): TranslationConfigInterface;
 
-    /**
-     * @return string
-     */
-    public function getTargetLang();
+    public function getTargetLang(): string;
 
-    /**
-     * @param string $targetLang
-     *
-     * @return TranslationConfigInterface
-     */
-    public function setTargetLang($targetLang);
+    public function setTargetLang(string $targetLang): TranslationConfigInterface;
 
-    /**
-     * @return string
-     */
-    public function getSourceLang();
+    public function getSourceLang(): string;
 
-    /**
-     * @param string $sourceLang
-     *
-     * @return TranslationConfigInterface
-     */
-    public function setSourceLang($sourceLang);
+    public function setSourceLang(string $sourceLang): TranslationConfigInterface;
 
-    /**
-     * @return string[]
-     */
-    public function getTagHandling();
+    public function getTagHandling(): array;
 
-    /**
-     * @param string[] $tagHandling
-     *
-     * @return TranslationConfigInterface
-     */
-    public function setTagHandling(array $tagHandling);
+    public function setTagHandling(array $tagHandling): TranslationConfigInterface;
 
-    /**
-     * @return string[]
-     */
-    public function getNonSplittingTags();
+    public function getNonSplittingTags(): array;
 
-    /**
-     * @param string[] $nonSplittingTags
-     *
-     * @return TranslationConfigInterface
-     */
-    public function setNonSplittingTags(array $nonSplittingTags);
+    public function setNonSplittingTags(array $nonSplittingTags): TranslationConfigInterface;
 
-    /**
-     * @return string[]
-     */
-    public function getIgnoreTags();
+    public function getIgnoreTags(): array;
 
-    /**
-     * @param string[] $ignoreTags
-     *
-     * @return TranslationConfigInterface
-     */
-    public function setIgnoreTags(array $ignoreTags);
+    public function setIgnoreTags(array $ignoreTags): TranslationConfigInterface;
 
-    /**
-     * @return bool
-     */
-    public function getSplitSentences();
+    public function getSplitSentences(): bool;
 
-    /**
-     * @param bool $splitSentences
-     *
-     * @return TranslationConfigInterface
-     */
-    public function setSplitSentences($splitSentences);
+    public function setSplitSentences(bool $splitSentences): TranslationConfigInterface;
 
-    /**
-     * @return bool
-     */
-    public function getPreserveFormatting();
+    public function getPreserveFormatting(): bool;
 
-    /**
-     * @param bool $preserveFormatting
-     *
-     * @return TranslationConfigInterface
-     */
-    public function setPreserveFormatting($preserveFormatting);
+    public function setPreserveFormatting(bool $preserveFormatting): TranslationConfigInterface;
 }

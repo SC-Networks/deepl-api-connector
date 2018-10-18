@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Model;
 
@@ -9,28 +10,11 @@ namespace Scn\DeeplApiConnector\Model;
  */
 interface UsageInterface
 {
+    public function getCharacterCount(): int;
 
-    /**
-     * @return int
-     */
-    public function getCharacterCount();
+    public function setCharacterCount(int $characterCount): UsageInterface;
 
-    /**
-     * @param int $characterCount
-     *
-     * @return Usage
-     */
-    public function setCharacterCount($characterCount);
+    public function getCharacterLimit(): int;
 
-    /**
-     * @return int
-     */
-    public function getCharacterLimit();
-
-    /**
-     * @param int $characterLimit
-     *
-     * @return Usage
-     */
-    public function setCharacterLimit($characterLimit);
+    public function setCharacterLimit(int $characterLimit): UsageInterface;
 }

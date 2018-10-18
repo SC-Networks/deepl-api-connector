@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Handler;
 
@@ -12,16 +13,8 @@ use Scn\DeeplApiConnector\Model\TranslationConfigInterface;
 interface DeeplRequestFactoryInterface
 {
 
-    /**
-     * @param TranslationConfigInterface $translation
-     *
-     * @return DeeplTranslationRequestHandler
-     */
-    public function createDeeplTranslationRequestHandler(TranslationConfigInterface $translation);
+    public function createDeeplTranslationRequestHandler(TranslationConfigInterface $translation
+    ): DeeplRequestHandlerInterface;
 
-    /**
-     *
-     * @return DeeplUsageRequestHandler
-     */
-    public function createDeeplUsageRequestHandler();
+    public function createDeeplUsageRequestHandler(): DeeplRequestHandlerInterface;
 }

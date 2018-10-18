@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Model;
 
@@ -9,12 +10,5 @@ namespace Scn\DeeplApiConnector\Model;
  */
 interface ResponseModelInterface
 {
-
-    /**
-     * @param \stdClass $responseModel
-     *
-     * @return ResponseModelInterface
-     */
-    public function hydrate(\stdClass $responseModel);
-
+    public function hydrate(\stdClass $responseModel): ResponseModelInterface;
 }
