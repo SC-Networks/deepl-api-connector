@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Model;
 
@@ -12,12 +13,7 @@ abstract class AbstractResponseModel implements ResponseModelInterface
 
     const SETTER_PREFIX = 'set';
 
-    /**
-     * @param \stdClass $responseModel
-     *
-     * @return ResponseModelInterface
-     */
-    public function hydrate(\stdClass $responseModel)
+    public function hydrate(\stdClass $responseModel): ResponseModelInterface
     {
         foreach ($responseModel as $key => $value) {
 
@@ -36,12 +32,7 @@ abstract class AbstractResponseModel implements ResponseModelInterface
         return $this;
     }
 
-    /**
-     * @param string $key
-     *
-     * @return string
-     */
-    private function getModelSetter($key)
+    private function getModelSetter(string $key): string
     {
         return self::SETTER_PREFIX .
             str_replace(

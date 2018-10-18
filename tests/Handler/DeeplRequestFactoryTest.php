@@ -3,8 +3,9 @@
 namespace Scn\DeeplApiConnector\Handler;
 
 use Scn\DeeplApiConnector\Model\TranslationConfigInterface;
+use Scn\DeeplApiConnector\TestCase;
 
-class DeeplRequestFactoryTest extends \PHPUnit_Framework_TestCase
+class DeeplRequestFactoryTest extends TestCase
 {
 
     /**

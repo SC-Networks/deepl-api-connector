@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Handler;
 
@@ -12,44 +13,24 @@ final class DeeplUsageRequestHandler implements DeeplRequestHandlerInterface
 
     const API_ENDPOINT = 'https://api.deepl.com/v1/usage';
 
-    /**
-     * @var string
-     */
     private $authKey;
 
-    /**
-     * DeeplUsageRequestHandler constructor.
-     *
-     * @param string $authKey
-     */
-    public function __construct($authKey)
+    public function __construct(string $authKey)
     {
         $this->authKey = $authKey;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return DeeplRequestHandlerInterface::METHOD_GET;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getPath()
+    public function getPath(): string
     {
         return static::API_ENDPOINT;
     }
 
-    /**
-     *
-     * @return array
-     */
-    public function getBody()
+    public function getBody(): array
     {
         return [
             'form_params' => array_filter(

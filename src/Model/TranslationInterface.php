@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Model;
 
@@ -9,28 +10,11 @@ namespace Scn\DeeplApiConnector\Model;
  */
 interface TranslationInterface
 {
-    /**
-     * @return string
-     */
-    public function getDetectedSourceLanguage();
+    public function getDetectedSourceLanguage(): string;
 
-    /**
-     * @param string $detectedSourceLanguage
-     *
-     * @return Translation
-     */
-    public function setDetectedSourceLanguage($detectedSourceLanguage);
+    public function setDetectedSourceLanguage(string $detectedSourceLanguage): TranslationInterface;
 
-    /**
-     * @return string
-     */
-    public function getText();
+    public function getText(): string;
 
-    /**
-     * @param string $text
-     *
-     * @return Translation
-     */
-    public function setText($text);
-
+    public function setText(string $text): TranslationInterface;
 }
