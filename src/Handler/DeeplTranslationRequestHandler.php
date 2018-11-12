@@ -14,7 +14,7 @@ final class DeeplTranslationRequestHandler implements DeeplRequestHandlerInterfa
 {
 
     const SEPARATOR = ',';
-    const API_ENDPOINT = 'https://api.deepl.com/v1/translate';
+    const API_ENDPOINT = 'https://api.deepl.com/v2/translate';
 
     private $authKey;
 
