@@ -11,7 +11,7 @@ namespace Scn\DeeplApiConnector\Handler;
 final class DeeplUsageRequestHandler implements DeeplRequestHandlerInterface
 {
 
-    const API_ENDPOINT = 'https://api.deepl.com/v1/usage';
+    const API_ENDPOINT = 'https://api.deepl.com/v2/usage';
 
     private $authKey;
 
