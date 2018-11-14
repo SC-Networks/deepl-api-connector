@@ -1,7 +1,7 @@
 # Changelog
 
-## [1.2.0] - 2018-11-13
-### Added 
+## [1.2.0] - 2018-11-14
+### Added
 - Changelog
 
 ### Changed
@@ -13,9 +13,9 @@
 - Minimum required php version: 7.2
 
 ## [1.0.1] - 2018-06-22
-### Added 
+### Added
 - Add missing methods in interface declarations
 
 ## [1.0.0] - 2018-06-04
-### Added 
+### Added
 - Initial Release
