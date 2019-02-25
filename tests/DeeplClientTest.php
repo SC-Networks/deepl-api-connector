@@ -36,7 +36,7 @@ class DeeplClientTest extends TestCase
      */
     private $requestFactory;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->httpClient = $this->createMock(ClientInterface::class);
         $this->requestFactory = $this->createMock(DeeplRequestFactoryInterface::class);

@@ -23,7 +23,7 @@ class TranslationRequestHandlerTest extends TestCase
      */
     private $translation;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->translation = $this->createMock(TranslationConfigInterface::class);
 

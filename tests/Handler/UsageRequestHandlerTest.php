@@ -17,7 +17,7 @@ class UsageRequestHandlerTest extends TestCase
      */
     private $subject;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->subject = new DeeplUsageRequestHandler(
             'some key'
@@ -36,6 +36,12 @@ class UsageRequestHandlerTest extends TestCase
 
     public function testGetBodyCanReturnArray()
     {
-        $this->assertArraySubset(['form_params' => ['auth_key' => 'some key']], $this->subject->getBody());
+        $expected = ['form_params' => ['auth_key' => 'some key']];
+        $return = $this->subject->getBody();
+
+        foreach ($expected as $key => $value) {
+            $this->assertArrayHasKey($key, $return);
+            $this->assertSame($value, $return[$key]);
+        }
     }
 }
