@@ -20,6 +20,8 @@ $ composer require scn/deepl-api-connector
 #### Get Usage of API Key
 
 ```php
+require_once __DIR__  . '/vendor/autoload.php';
+
 $deepl = \Scn\DeeplApiConnector\DeeplClient::create('your-api-key');
 
 try {
@@ -33,6 +35,8 @@ try {
 #### Get Translation
 
 ```php
+require_once __DIR__  . '/vendor/autoload.php';
+
 $deepl = \Scn\DeeplApiConnector\DeeplClient::create('your-api-key');
 
 try {

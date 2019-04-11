@@ -18,6 +18,8 @@ interface TranslationConfigInterface
     const LANGUAGE_IT = 'IT';
     const LANGUAGE_NL = 'NL';
     const LANGUAGE_PL = 'PL';
+    const LANGUAGE_PT = 'PT';
+    const LANGUAGE_RU = 'RU';
 
     public function getText(): string;
 
