@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0] - 2019-04-12
+### Added
+- new Language PT/RU
+
+### Changed
+- added PHP7.3 Travis
+
 ## [1.2.0] - 2018-11-14
 ### Added
 - Changelog
