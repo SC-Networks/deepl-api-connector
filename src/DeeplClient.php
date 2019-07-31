@@ -8,17 +8,17 @@ use GuzzleHttp\Exception\ClientException;
 use Scn\DeeplApiConnector\Exception\RequestException;
 use Scn\DeeplApiConnector\Handler\DeeplRequestFactoryInterface;
 use Scn\DeeplApiConnector\Handler\DeeplRequestHandlerInterface;
+use Scn\DeeplApiConnector\Model\FileSubmission;
+use Scn\DeeplApiConnector\Model\FileSubmissionInterface;
+use Scn\DeeplApiConnector\Model\FileTranslation;
+use Scn\DeeplApiConnector\Model\FileTranslationConfigInterface;
+use Scn\DeeplApiConnector\Model\FileTranslationStatus;
 use Scn\DeeplApiConnector\Model\ResponseModelInterface;
 use Scn\DeeplApiConnector\Model\Translation;
 use Scn\DeeplApiConnector\Model\TranslationConfig;
 use Scn\DeeplApiConnector\Model\TranslationConfigInterface;
 use Scn\DeeplApiConnector\Model\Usage;
 
-/**
- * Class DeeplClient
- *
- * @package Scn\DeeplApiConnector
- */
 class DeeplClient implements DeeplClientInterface
 {
     private $httpClient;
@@ -88,6 +88,26 @@ class DeeplClient implements DeeplClientInterface
         return $this->getTranslation($translation);
     }
 
+    public function translateFile(FileTranslationConfigInterface $fileTranslation): ResponseModelInterface
+    {
+        return (new FileSubmission())->hydrate($this->executeRequest(
+            $this->requestFactory->createDeeplFileSubmissionRequestHandler($fileTranslation)
+        ));
+    }
+
+    public function getFileTranslationStatus(FileSubmissionInterface $fileSubmission): ResponseModelInterface
+    {
+        return (new FileTranslationStatus())->hydrate($this->executeRequest(
+            $this->requestFactory->createDeeplFileTranslationStatusRequestHandler($fileSubmission)
+        ));
+    }
+
+    public function getFileTranslation(FileSubmissionInterface $fileSubmission): ResponseModelInterface {
+        return (new FileTranslation())->hydrate($this->executeRequest(
+            $this->requestFactory->createDeeplFileTranslationRequestHandler($fileSubmission)
+        ));
+    }
+
     /**
      * Execute given RequestHandler Request and returns decoded Json Object or throws Exception with Error Code
      * and maybe given Error Message
@@ -104,7 +124,14 @@ class DeeplClient implements DeeplClientInterface
                 $requestHandler->getBody()
             );
 
-            return \GuzzleHttp\json_decode($response->getBody()->getContents());
+            if (in_array('application/json', $response->getHeader('Content-Type'))) {
+                return \GuzzleHttp\json_decode($response->getBody()->getContents());
+            } else {
+                $content = new \stdClass();
+                $content->content = $response->getBody()->getContents();
+
+                return $content;
+            }
         } catch (ClientException $exception) {
             throw new RequestException(
                 $exception->getCode() .

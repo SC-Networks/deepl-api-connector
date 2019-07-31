@@ -41,10 +41,10 @@ class TranslationConfigTest extends TestCase
         $this->assertContains('tags', $this->subject->getIgnoreTags());
     }
 
-    public function testGetPreserveFormattingCanReturnBool()
+    public function testGetPreserveFormattingCanReturnInteger()
     {
-        $this->subject->setPreserveFormatting(true);
-        $this->assertTrue($this->subject->getPreserveFormatting());
+        $this->subject->setPreserveFormatting(1);
+        $this->assertSame(1, $this->subject->getPreserveFormatting());
     }
 
     public function testGetTargetLangCanReturnString()
@@ -72,9 +72,9 @@ class TranslationConfigTest extends TestCase
         $this->assertSame('some source lang', $this->subject->getSourceLang());
     }
 
-    public function testGetSplitSentencesCanReturnBool()
+    public function testGetSplitSentencesCanReturnInteger()
     {
-        $this->subject->setSplitSentences(false);
-        $this->assertFalse($this->subject->getSplitSentences());
+        $this->subject->setSplitSentences(1);
+        $this->assertSame(1, $this->subject->getSplitSentences());
     }
 }
