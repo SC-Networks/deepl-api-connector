@@ -45,11 +45,11 @@ interface TranslationConfigInterface
 
     public function setIgnoreTags(array $ignoreTags): TranslationConfigInterface;
 
-    public function getSplitSentences(): bool;
+    public function getSplitSentences(): int;
 
-    public function setSplitSentences(bool $splitSentences): TranslationConfigInterface;
+    public function setSplitSentences(int $splitSentences): TranslationConfigInterface;
 
-    public function getPreserveFormatting(): bool;
+    public function getPreserveFormatting(): int;
 
-    public function setPreserveFormatting(bool $preserveFormatting): TranslationConfigInterface;
+    public function setPreserveFormatting(int $preserveFormatting): TranslationConfigInterface;
 }

@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.4.0] - 2019-08-01
+### Added
+- new Feature File Translation
+
 ## [1.3.0] - 2019-04-12
 ### Added
 - new Language PT/RU

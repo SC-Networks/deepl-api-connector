@@ -57,6 +57,79 @@ try {
 }
 ```
 
+#### Add File to Translation Queue
+
+```php
+require_once __DIR__  . '/vendor/autoload.php';
+
+$deepl = \Scn\DeeplApiConnector\DeeplClient::create('your-api-key');
+
+try {
+    $fileTranslation = new \Scn\DeeplApiConnector\Model\FileTranslationConfig(
+        file_get_contents('test.txt'),
+        'test.txt',
+        \Scn\DeeplApiConnector\Model\TranslationConfigInterface::LANGUAGE_EN,
+        \Scn\DeeplApiConnector\Model\TranslationConfigInterface::LANGUAGE_DE
+    );
+
+    $fileSubmission = $deepl->translateFile($fileTranslation);
+
+    $fileSubmission->getDocumentId() 
+    
+    .....
+}
+```
+
+#### Check File Translation Status
+
+```php
+require_once __DIR__  . '/vendor/autoload.php';
+
+$deepl = \Scn\DeeplApiConnector\DeeplClient::create('your-api-key');
+
+try {
+    $fileTranslation = new \Scn\DeeplApiConnector\Model\FileTranslationConfig(
+        file_get_contents('test.txt'),
+        'test.txt',
+        \Scn\DeeplApiConnector\Model\TranslationConfigInterface::LANGUAGE_EN,
+        \Scn\DeeplApiConnector\Model\TranslationConfigInterface::LANGUAGE_DE
+    );
+
+    $fileSubmission = $deepl->translateFile($fileTranslation);
+
+    $translationStatus = $deepl->getFileTranslationStatus($fileSubmission);
+    
+    if ($translationStatus->getStatus() === \Scn\DeeplApiConnector\Enum\FileStatusEnum::FILE_TRANSLATION_DONE)
+    {
+    ....
+    }
+}
+```
+
+#### Get Translated File Content
+
+```php
+require_once __DIR__  . '/vendor/autoload.php';
+
+$deepl = \Scn\DeeplApiConnector\DeeplClient::create('your-api-key');
+
+try {
+    $fileTranslation = new \Scn\DeeplApiConnector\Model\FileTranslationConfig(
+        file_get_contents('test.txt'),
+        'test.txt',
+        \Scn\DeeplApiConnector\Model\TranslationConfigInterface::LANGUAGE_EN,
+        \Scn\DeeplApiConnector\Model\TranslationConfigInterface::LANGUAGE_DE
+    );
+
+    $fileSubmission = $deepl->translateFile($fileTranslation);
+
+    $file = $deepl->getFileTranslation($fileSubmission);
+
+    echo $file->getContent();
+    .....
+}
+```
+
 ## Testing
 
 ``` bash

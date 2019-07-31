@@ -34,8 +34,8 @@ final class TranslationConfig implements TranslationConfigInterface
         array $tagHandling = [],
         array $nonSplittingTags = [],
         array $ignoreTags = [],
-        bool $splitSentences = true,
-        bool $preserveFormatting = false
+        int $splitSentences = 1,
+        int $preserveFormatting = 0
     ) {
         $this->setText($text);
         $this->setTargetLang($targetLang);
@@ -119,24 +119,24 @@ final class TranslationConfig implements TranslationConfigInterface
         return $this;
     }
 
-    public function getSplitSentences(): bool
+    public function getSplitSentences(): int
     {
         return $this->splitSentences;
     }
 
-    public function setSplitSentences(bool $splitSentences): TranslationConfigInterface
+    public function setSplitSentences(int $splitSentences): TranslationConfigInterface
     {
         $this->splitSentences = $splitSentences;
 
         return $this;
     }
 
-    public function getPreserveFormatting(): bool
+    public function getPreserveFormatting(): int
     {
         return $this->preserveFormatting;
     }
 
-    public function setPreserveFormatting(bool $preserveFormatting): TranslationConfigInterface
+    public function setPreserveFormatting(int $preserveFormatting): TranslationConfigInterface
     {
         $this->preserveFormatting = $preserveFormatting;
 
