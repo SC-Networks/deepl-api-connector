@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Handler;
 
@@ -34,9 +36,9 @@ final class DeeplFileTranslationStatusRequestHandler implements DeeplRequestHand
             'form_params' => array_filter(
                 [
                     'auth_key' => $this->authKey,
-                    'document_key' => $this->fileSubmission->getDocumentKey()
+                    'document_key' => $this->fileSubmission->getDocumentKey(),
                 ]
-            )
+            ),
         ];
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Handler;
@@ -7,14 +8,8 @@ use Scn\DeeplApiConnector\Model\FileSubmissionInterface;
 use Scn\DeeplApiConnector\Model\FileTranslationConfigInterface;
 use Scn\DeeplApiConnector\Model\TranslationConfigInterface;
 
-/**
- * Class DeeplRequestFactory
- *
- * @package Scn\DeeplApiConnector\Handler
- */
 final class DeeplRequestFactory implements DeeplRequestFactoryInterface
 {
-
     private $authKey;
 
     public function __construct(string $authKey)
@@ -24,8 +19,7 @@ final class DeeplRequestFactory implements DeeplRequestFactoryInterface
 
     public function createDeeplTranslationRequestHandler(
         TranslationConfigInterface $translation
-    ): DeeplRequestHandlerInterface
-    {
+    ): DeeplRequestHandlerInterface {
         return new DeeplTranslationRequestHandler($this->authKey, $translation);
     }
 
@@ -36,22 +30,19 @@ final class DeeplRequestFactory implements DeeplRequestFactoryInterface
 
     public function createDeeplFileSubmissionRequestHandler(
         FileTranslationConfigInterface $fileTranslation
-    ): DeeplRequestHandlerInterface
-    {
+    ): DeeplRequestHandlerInterface {
         return new DeeplFileSubmissionRequestHandler($this->authKey, $fileTranslation);
     }
 
     public function createDeeplFileTranslationStatusRequestHandler(
         FileSubmissionInterface $fileSubmission
-    ): DeeplRequestHandlerInterface
-    {
+    ): DeeplRequestHandlerInterface {
         return new DeeplFileTranslationStatusRequestHandler($this->authKey, $fileSubmission);
     }
 
     public function createDeeplFileTranslationRequestHandler(
         FileSubmissionInterface $fileSubmission
-    ): DeeplRequestHandlerInterface
-    {
+    ): DeeplRequestHandlerInterface {
         return new DeeplFileRequestHandler($this->authKey, $fileSubmission);
     }
 }

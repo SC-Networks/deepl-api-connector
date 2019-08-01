@@ -4,14 +4,8 @@ namespace Scn\DeeplApiConnector\Handler;
 
 use Scn\DeeplApiConnector\TestCase;
 
-/**
- * Class UsageRequestHandlerTest
- *
- * @package Scn\DeeplApiConnector\Handler
- */
 class UsageRequestHandlerTest extends TestCase
 {
-
     /**
      * @var DeeplUsageRequestHandler
      */

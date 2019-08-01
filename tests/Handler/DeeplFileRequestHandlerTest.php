@@ -44,11 +44,10 @@ class DeeplFileRequestHandlerTest extends TestCase
 
         $this->assertSame(
             [
-                'form_params' =>
-                    [
-                        'auth_key' => 'some key',
-                        'document_key' => 'document key'
-                    ]
+                'form_params' => [
+                    'auth_key' => 'some key',
+                    'document_key' => 'document key',
+                ],
             ],
             $this->subject->getBody()
         );

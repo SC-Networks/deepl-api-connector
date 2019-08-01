@@ -19,7 +19,6 @@ use Scn\DeeplApiConnector\Model\UsageInterface;
 
 class DeeplClientTest extends TestCase
 {
-
     /**
      * @var DeeplClient
      */

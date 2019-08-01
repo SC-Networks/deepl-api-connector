@@ -1,16 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Model;
 
-/**
- * Class Translation
- *
- * @package Scn\DeeplApiConnector\Model
- */
 final class Translation extends AbstractResponseModel implements TranslationInterface
 {
-
     private $detectedSourceLanguage;
 
     private $text;

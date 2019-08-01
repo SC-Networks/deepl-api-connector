@@ -3,7 +3,6 @@
 namespace Scn\DeeplApiConnector\Handler;
 
 use PHPUnit\Framework\MockObject\MockObject;
-use Scn\DeeplApiConnector\Model\FileSubmissionInterface;
 use Scn\DeeplApiConnector\Model\FileTranslationConfigInterface;
 use Scn\DeeplApiConnector\TestCase;
 
@@ -54,30 +53,29 @@ class DeeplFileSubmissionRequestHandlerTest extends TestCase
 
         $this->assertSame(
             [
-                'multipart' =>
+                'multipart' => [
                     [
-                        [
-                            'name' => 'auth_key',
-                            'contents' => 'some key'
-                        ],
-                        [
-                            'name' => 'file',
-                            'filename' => 'file name',
-                            'contents' => 'file content'
-                        ],
-                        [
-                            'name' => 'filename',
-                            'contents' => 'file name'
-                        ],
-                        [
-                            'name' => 'source_lang',
-                            'contents' => 'source lang'
-                        ],
-                        [
-                            'name' => 'target_lang',
-                            'contents' => 'target lang'
-                        ],
-                    ]
+                        'name' => 'auth_key',
+                        'contents' => 'some key',
+                    ],
+                    [
+                        'name' => 'file',
+                        'filename' => 'file name',
+                        'contents' => 'file content',
+                    ],
+                    [
+                        'name' => 'filename',
+                        'contents' => 'file name',
+                    ],
+                    [
+                        'name' => 'source_lang',
+                        'contents' => 'source lang',
+                    ],
+                    [
+                        'name' => 'target_lang',
+                        'contents' => 'target lang',
+                    ],
+                ],
             ],
             $this->subject->getBody()
         );

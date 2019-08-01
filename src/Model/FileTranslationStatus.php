@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Model;
 
@@ -20,6 +22,7 @@ final class FileTranslationStatus extends AbstractResponseModel implements FileT
     public function setDocumentId(string $documentId): FileTranslationStatusInterface
     {
         $this->documentId = $documentId;
+
         return $this;
     }
 
@@ -31,6 +34,7 @@ final class FileTranslationStatus extends AbstractResponseModel implements FileT
     public function setStatus(string $status): FileTranslationStatusInterface
     {
         $this->status = $status;
+
         return $this;
     }
 
@@ -42,6 +46,7 @@ final class FileTranslationStatus extends AbstractResponseModel implements FileT
     public function setSecondsRemaining(?int $secondsRemaining): FileTranslationStatusInterface
     {
         $this->secondsRemaining = $secondsRemaining;
+
         return $this;
     }
 
@@ -53,6 +58,7 @@ final class FileTranslationStatus extends AbstractResponseModel implements FileT
     public function setBilledCharacters(int $billedCharacters): FileTranslationStatusInterface
     {
         $this->billedCharacters = $billedCharacters;
+
         return $this;
     }
 }

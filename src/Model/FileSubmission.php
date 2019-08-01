@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Model;
 
@@ -16,6 +18,7 @@ final class FileSubmission extends AbstractResponseModel implements FileSubmissi
     public function setDocumentId(string $documentId): FileSubmissionInterface
     {
         $this->documentId = $documentId;
+
         return $this;
     }
 
@@ -27,6 +30,7 @@ final class FileSubmission extends AbstractResponseModel implements FileSubmissi
     public function setDocumentKey(string $documentKey): FileSubmissionInterface
     {
         $this->documentKey = $documentKey;
+
         return $this;
     }
 }

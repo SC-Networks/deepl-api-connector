@@ -1,16 +1,9 @@
 <?php
-declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Model;
 
-/**
- * Interface TranslationConfigInterface
- *
- * @package Scn\DeeplApiConnector\Model
- */
 interface TranslationConfigInterface
 {
-
     const LANGUAGE_EN = 'EN';
     const LANGUAGE_DE = 'DE';
     const LANGUAGE_FR = 'FR';

@@ -9,7 +9,6 @@ use Scn\DeeplApiConnector\TestCase;
 
 class DeeplRequestFactoryTest extends TestCase
 {
-
     /**
      * @var DeeplRequestFactory
      */

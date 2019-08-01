@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Model;
 
@@ -14,6 +16,7 @@ final class FileTranslation extends AbstractResponseModel implements FileTransla
     public function setContent(string $content): FileTranslationInterface
     {
         $this->content = $content;
+
         return $this;
     }
 }
