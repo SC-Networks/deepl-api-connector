@@ -4,14 +4,8 @@ namespace Scn\DeeplApiConnector\Model;
 
 use Scn\DeeplApiConnector\TestCase;
 
-/**
- * Class TranslationConfigTest
- *
- * @package Scn\DeeplApiConnector\Model
- */
 class TranslationConfigTest extends TestCase
 {
-
     /**
      * @var TranslationConfig
      */

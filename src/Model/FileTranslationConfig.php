@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Model;
 
@@ -17,8 +19,7 @@ final class FileTranslationConfig implements FileTranslationConfigInterface
         string $fileName,
         string $targetLang,
         string $sourceLang = ''
-    )
-    {
+    ) {
         $this->setFileContent($fileContent);
         $this->setFileName($fileName);
         $this->setTargetLang($targetLang);
@@ -33,6 +34,7 @@ final class FileTranslationConfig implements FileTranslationConfigInterface
     public function setFileContent(string $fileContent): FileTranslationConfigInterface
     {
         $this->fileContent = $fileContent;
+
         return $this;
     }
 
@@ -44,6 +46,7 @@ final class FileTranslationConfig implements FileTranslationConfigInterface
     public function setFileName(string $fileName): FileTranslationConfigInterface
     {
         $this->fileName = $fileName;
+
         return $this;
     }
 
@@ -55,6 +58,7 @@ final class FileTranslationConfig implements FileTranslationConfigInterface
     public function setTargetLang(string $targetLang): FileTranslationConfigInterface
     {
         $this->targetLang = $targetLang;
+
         return $this;
     }
 
@@ -66,6 +70,7 @@ final class FileTranslationConfig implements FileTranslationConfigInterface
     public function setSourceLang(string $sourceLang): FileTranslationConfigInterface
     {
         $this->sourceLang = $sourceLang;
+
         return $this;
     }
 }

@@ -1,13 +1,7 @@
 <?php
-declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Model;
 
-/**
- * Interface UsageInterface
- *
- * @package Scn\DeeplApiConnector\Model
- */
 interface UsageInterface
 {
     public function getCharacterCount(): int;

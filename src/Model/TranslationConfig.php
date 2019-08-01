@@ -1,16 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Model;
 
-/**
- * Class TranslationConfig
- *
- * @package Scn\DeeplApiConnector\Handler
- */
 final class TranslationConfig implements TranslationConfigInterface
 {
-
     private $text;
 
     private $targetLang;

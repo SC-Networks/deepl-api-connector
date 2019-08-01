@@ -5,14 +5,8 @@ namespace Scn\DeeplApiConnector\Handler;
 use Scn\DeeplApiConnector\Model\TranslationConfigInterface;
 use Scn\DeeplApiConnector\TestCase;
 
-/**
- * Class TranslationRequestHandlerTest
- *
- * @package Scn\DeeplApiConnector\Handler
- */
 class TranslationRequestHandlerTest extends TestCase
 {
-
     /**
      * @var DeeplTranslationRequestHandler
      */
@@ -50,12 +44,11 @@ class TranslationRequestHandlerTest extends TestCase
 
         $this->assertSame(
             [
-                'form_params' =>
-                    [
-                        'text' => 'some text to translate',
-                        'target_lang' => 'some target language',
-                        'auth_key' => 'some key'
-                    ]
+                'form_params' => [
+                    'text' => 'some text to translate',
+                    'target_lang' => 'some target language',
+                    'auth_key' => 'some key',
+                ],
             ],
             $this->subject->getBody()
         );
@@ -97,17 +90,16 @@ class TranslationRequestHandlerTest extends TestCase
 
         $this->assertSame(
             [
-                'form_params' =>
-                    [
-                        'text' => 'some text to translate',
-                        'target_lang' => 'some target language',
-                        'source_lang' => 'some source lang',
-                        'tag_handling' => 'a,b',
-                        'non_splitting_tags' => 'b,a,c',
-                        'ignore_tags' => 'ef,fa,qa',
-                        'split_sentences' => '1',
-                        'auth_key' => 'some key',
-                    ]
+                'form_params' => [
+                    'text' => 'some text to translate',
+                    'target_lang' => 'some target language',
+                    'source_lang' => 'some source lang',
+                    'tag_handling' => 'a,b',
+                    'non_splitting_tags' => 'b,a,c',
+                    'ignore_tags' => 'ef,fa,qa',
+                    'split_sentences' => '1',
+                    'auth_key' => 'some key',
+                ],
             ],
             $this->subject->getBody()
         );

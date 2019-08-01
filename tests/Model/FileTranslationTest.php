@@ -20,8 +20,8 @@ class FileTranslationTest extends TestCase
     {
         $this->subject->setContent('some content');
         $this->assertSame(
-           'some content',
-           $this->subject->getContent()
+            'some content',
+            $this->subject->getContent()
         );
     }
 }

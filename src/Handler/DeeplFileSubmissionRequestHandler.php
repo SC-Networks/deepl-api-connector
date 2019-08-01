@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Handler;
 
@@ -34,26 +36,26 @@ final class DeeplFileSubmissionRequestHandler implements DeeplRequestHandlerInte
             'multipart' => [
                 [
                     'name' => 'auth_key',
-                    'contents' => $this->authKey
+                    'contents' => $this->authKey,
                 ],
                 [
                     'name' => 'file',
                     'filename' => $this->fileTranslation->getFileName(),
-                    'contents' => $this->fileTranslation->getFileContent()
+                    'contents' => $this->fileTranslation->getFileContent(),
                 ],
                 [
                     'name' => 'filename',
-                    'contents' => $this->fileTranslation->getFileName()
+                    'contents' => $this->fileTranslation->getFileName(),
                 ],
                 [
                     'name' => 'source_lang',
-                    'contents' => $this->fileTranslation->getSourceLang()
+                    'contents' => $this->fileTranslation->getSourceLang(),
                 ],
                 [
                     'name' => 'target_lang',
-                    'contents' => $this->fileTranslation->getTargetLang()
+                    'contents' => $this->fileTranslation->getTargetLang(),
                 ],
-            ]
+            ],
         ];
     }
 }

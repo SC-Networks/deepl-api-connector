@@ -34,9 +34,9 @@ final class DeeplFileRequestHandler implements DeeplRequestHandlerInterface
             'form_params' => array_filter(
                 [
                     'auth_key' => $this->authKey,
-                    'document_key' => $this->fileSubmission->getDocumentKey()
+                    'document_key' => $this->fileSubmission->getDocumentKey(),
                 ]
-            )
+            ),
         ];
     }
 }

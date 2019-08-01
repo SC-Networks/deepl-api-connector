@@ -1,13 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Model;
 
-/**
- * Class Usage
- *
- * @package Scn\DeeplApiConnector\Model
- */
 final class Usage extends AbstractResponseModel implements UsageInterface
 {
     private $characterCount;

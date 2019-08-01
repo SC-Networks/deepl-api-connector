@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector;
@@ -33,7 +34,7 @@ class DeeplClient implements DeeplClientInterface
 
     /**
      * Return Usage of API- Key
-     * Possible Return:
+     * Possible Return:.
      *
      * Usage
      *      -> characterCount 123
@@ -51,7 +52,7 @@ class DeeplClient implements DeeplClientInterface
 
     /**
      * Return TranslationConfig from given TranslationConfig Object
-     * Possible Return:
+     * Possible Return:.
      *
      * Translation
      *      -> detectedSourceLanguage EN
@@ -76,7 +77,7 @@ class DeeplClient implements DeeplClientInterface
     }
 
     /**
-     * Return TranslationConfig for given Text / Target Language with Default TranslationConfig Configuration
+     * Return TranslationConfig for given Text / Target Language with Default TranslationConfig Configuration.
      *
      * @throws RequestException
      * @throws \GuzzleHttp\Exception\GuzzleException
@@ -102,7 +103,8 @@ class DeeplClient implements DeeplClientInterface
         ));
     }
 
-    public function getFileTranslation(FileSubmissionInterface $fileSubmission): ResponseModelInterface {
+    public function getFileTranslation(FileSubmissionInterface $fileSubmission): ResponseModelInterface
+    {
         return (new FileTranslation())->hydrate($this->executeRequest(
             $this->requestFactory->createDeeplFileTranslationRequestHandler($fileSubmission)
         ));
@@ -110,7 +112,7 @@ class DeeplClient implements DeeplClientInterface
 
     /**
      * Execute given RequestHandler Request and returns decoded Json Object or throws Exception with Error Code
-     * and maybe given Error Message
+     * and maybe given Error Message.
      *
      * @throws RequestException
      * @throws \GuzzleHttp\Exception\GuzzleException
@@ -134,8 +136,8 @@ class DeeplClient implements DeeplClientInterface
             }
         } catch (ClientException $exception) {
             throw new RequestException(
-                $exception->getCode() .
-                ' ' .
+                $exception->getCode().
+                ' '.
                 $exception->getResponse()->getBody()->getContents()
             );
         }

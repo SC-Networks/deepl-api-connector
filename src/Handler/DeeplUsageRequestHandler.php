@@ -1,16 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Handler;
 
-/**
- * Class DeeplUsageRequestHandler
- *
- * @package Scn\DeeplApiConnector\Handler
- */
 final class DeeplUsageRequestHandler implements DeeplRequestHandlerInterface
 {
-
     const API_ENDPOINT = 'https://api.deepl.com/v2/usage';
 
     private $authKey;
@@ -35,9 +30,9 @@ final class DeeplUsageRequestHandler implements DeeplRequestHandlerInterface
         return [
             'form_params' => array_filter(
                 [
-                    'auth_key' => $this->authKey
+                    'auth_key' => $this->authKey,
                 ]
-            )
+            ),
         ];
     }
 }

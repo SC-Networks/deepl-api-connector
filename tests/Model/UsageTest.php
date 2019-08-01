@@ -4,14 +4,8 @@ namespace Scn\DeeplApiConnector\Model;
 
 use Scn\DeeplApiConnector\TestCase;
 
-/**
- * Class UsageTest
- *
- * @package Scn\DeeplApiConnector\Model
- */
 class UsageTest extends TestCase
 {
-
     /**
      * @var Usage
      */
