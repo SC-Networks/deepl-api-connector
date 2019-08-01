@@ -42,7 +42,7 @@ $deepl = \Scn\DeeplApiConnector\DeeplClient::create('your-api-key');
 try {
     $translation = new \Scn\DeeplApiConnector\Model\TranslationConfig(
         'My little Test',
-        \Scn\DeeplApiConnector\Model\TranslationConfigInterface::LANGUAGE_DE
+        \Scn\DeeplApiConnector\Enum\LanguageEnum::LANGUAGE_DE
         ...,
         ...,
     );
@@ -68,8 +68,8 @@ try {
     $fileTranslation = new \Scn\DeeplApiConnector\Model\FileTranslationConfig(
         file_get_contents('test.txt'),
         'test.txt',
-        \Scn\DeeplApiConnector\Model\TranslationConfigInterface::LANGUAGE_EN,
-        \Scn\DeeplApiConnector\Model\TranslationConfigInterface::LANGUAGE_DE
+        \Scn\DeeplApiConnector\Enum\LanguageEnum::LANGUAGE_EN,
+        \Scn\DeeplApiConnector\Enum\LanguageEnum::LANGUAGE_DE
     );
 
     $fileSubmission = $deepl->translateFile($fileTranslation);
@@ -91,8 +91,8 @@ try {
     $fileTranslation = new \Scn\DeeplApiConnector\Model\FileTranslationConfig(
         file_get_contents('test.txt'),
         'test.txt',
-        \Scn\DeeplApiConnector\Model\TranslationConfigInterface::LANGUAGE_EN,
-        \Scn\DeeplApiConnector\Model\TranslationConfigInterface::LANGUAGE_DE
+        \Scn\DeeplApiConnector\Enum\LanguageEnum::LANGUAGE_EN,
+        \Scn\DeeplApiConnector\Enum\LanguageEnum::LANGUAGE_DE
     );
 
     $fileSubmission = $deepl->translateFile($fileTranslation);
@@ -117,8 +117,8 @@ try {
     $fileTranslation = new \Scn\DeeplApiConnector\Model\FileTranslationConfig(
         file_get_contents('test.txt'),
         'test.txt',
-        \Scn\DeeplApiConnector\Model\TranslationConfigInterface::LANGUAGE_EN,
-        \Scn\DeeplApiConnector\Model\TranslationConfigInterface::LANGUAGE_DE
+        \Scn\DeeplApiConnector\Enum\LanguageEnum::LANGUAGE_EN,
+        \Scn\DeeplApiConnector\Enum\LanguageEnum::LANGUAGE_DE
     );
 
     $fileSubmission = $deepl->translateFile($fileTranslation);

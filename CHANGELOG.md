@@ -1,5 +1,10 @@
 # Changelog
 
+## [2.0.0] - 2019-08-02
+### Changed
+- move Language Constants to separate Enum
+- prettify classes/interfaces
+
 ## [1.4.0] - 2019-08-01
 ### Added
 - new Feature File Translation

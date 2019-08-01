@@ -4,16 +4,6 @@ namespace Scn\DeeplApiConnector\Model;
 
 interface TranslationConfigInterface
 {
-    const LANGUAGE_EN = 'EN';
-    const LANGUAGE_DE = 'DE';
-    const LANGUAGE_FR = 'FR';
-    const LANGUAGE_ES = 'ES';
-    const LANGUAGE_IT = 'IT';
-    const LANGUAGE_NL = 'NL';
-    const LANGUAGE_PL = 'PL';
-    const LANGUAGE_PT = 'PT';
-    const LANGUAGE_RU = 'RU';
-
     public function getText(): string;
 
     public function setText(string $text): TranslationConfigInterface;

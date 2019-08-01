@@ -2,6 +2,7 @@
 
 namespace Scn\DeeplApiConnector\Model;
 
+use Scn\DeeplApiConnector\Enum\LanguageEnum;
 use Scn\DeeplApiConnector\TestCase;
 
 class FileTranslationConfigTest extends TestCase
@@ -16,8 +17,8 @@ class FileTranslationConfigTest extends TestCase
         $this->subject = new FileTranslationConfig(
             'abc',
             'abc.txt',
-            TranslationConfigInterface::LANGUAGE_EN,
-            TranslationConfigInterface::LANGUAGE_DE
+            LanguageEnum::LANGUAGE_EN,
+            LanguageEnum::LANGUAGE_DE
         );
     }
 
@@ -40,7 +41,7 @@ class FileTranslationConfigTest extends TestCase
     public function testGetTargetLangCanReturnString()
     {
         $this->assertSame(
-            TranslationConfigInterface::LANGUAGE_EN,
+            LanguageEnum::LANGUAGE_EN,
             $this->subject->getTargetLang()
         );
     }
@@ -48,7 +49,7 @@ class FileTranslationConfigTest extends TestCase
     public function testGetSourceLangCanReturnString()
     {
         $this->assertSame(
-            TranslationConfigInterface::LANGUAGE_DE,
+            LanguageEnum::LANGUAGE_DE,
             $this->subject->getSourceLang()
         );
     }
