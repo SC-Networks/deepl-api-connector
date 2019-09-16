@@ -28,11 +28,11 @@ interface TranslationConfigInterface
 
     public function setIgnoreTags(array $ignoreTags): TranslationConfigInterface;
 
-    public function getSplitSentences(): int;
+    public function getSplitSentences(): string;
 
-    public function setSplitSentences(int $splitSentences): TranslationConfigInterface;
+    public function setSplitSentences(string $splitSentences): TranslationConfigInterface;
 
-    public function getPreserveFormatting(): int;
+    public function getPreserveFormatting(): string;
 
-    public function setPreserveFormatting(int $preserveFormatting): TranslationConfigInterface;
+    public function setPreserveFormatting(string $preserveFormatting): TranslationConfigInterface;
 }

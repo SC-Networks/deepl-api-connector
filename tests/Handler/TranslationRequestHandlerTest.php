@@ -2,6 +2,7 @@
 
 namespace Scn\DeeplApiConnector\Handler;
 
+use Scn\DeeplApiConnector\Enum\TextHandlingEnum;
 use Scn\DeeplApiConnector\Model\TranslationConfigInterface;
 use Scn\DeeplApiConnector\TestCase;
 
@@ -82,11 +83,11 @@ class TranslationRequestHandlerTest extends TestCase
 
         $this->translation->expects($this->once())
             ->method('getSplitSentences')
-            ->willReturn(1);
+            ->willReturn(TextHandlingEnum::SPLITSENTENCES_ON);
 
         $this->translation->expects($this->once())
             ->method('getPreserveFormatting')
-            ->willReturn(0);
+            ->willReturn(TextHandlingEnum::PRESERVEFORMATTING_ON);
 
         $this->assertSame(
             [
@@ -98,6 +99,7 @@ class TranslationRequestHandlerTest extends TestCase
                     'non_splitting_tags' => 'b,a,c',
                     'ignore_tags' => 'ef,fa,qa',
                     'split_sentences' => '1',
+                    'preserve_formatting' => '1',
                     'auth_key' => 'some key',
                 ],
             ],

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Model;
 
+use Scn\DeeplApiConnector\Enum\TextHandlingEnum;
+
 final class TranslationConfig implements TranslationConfigInterface
 {
     private $text;
@@ -29,8 +31,8 @@ final class TranslationConfig implements TranslationConfigInterface
         array $tagHandling = [],
         array $nonSplittingTags = [],
         array $ignoreTags = [],
-        int $splitSentences = 1,
-        int $preserveFormatting = 0
+        string $splitSentences = TextHandlingEnum::SPLITSENTENCES_ON,
+        string $preserveFormatting = TextHandlingEnum::PRESERVEFORMATTING_OFF
     ) {
         $this->setText($text);
         $this->setTargetLang($targetLang);
@@ -114,24 +116,24 @@ final class TranslationConfig implements TranslationConfigInterface
         return $this;
     }
 
-    public function getSplitSentences(): int
+    public function getSplitSentences(): string
     {
         return $this->splitSentences;
     }
 
-    public function setSplitSentences(int $splitSentences): TranslationConfigInterface
+    public function setSplitSentences(string $splitSentences): TranslationConfigInterface
     {
         $this->splitSentences = $splitSentences;
 
         return $this;
     }
 
-    public function getPreserveFormatting(): int
+    public function getPreserveFormatting(): string
     {
         return $this->preserveFormatting;
     }
 
-    public function setPreserveFormatting(int $preserveFormatting): TranslationConfigInterface
+    public function setPreserveFormatting(string $preserveFormatting): TranslationConfigInterface
     {
         $this->preserveFormatting = $preserveFormatting;
 

@@ -2,6 +2,7 @@
 
 namespace Scn\DeeplApiConnector\Model;
 
+use Scn\DeeplApiConnector\Enum\TextHandlingEnum;
 use Scn\DeeplApiConnector\TestCase;
 
 class TranslationConfigTest extends TestCase
@@ -37,8 +38,8 @@ class TranslationConfigTest extends TestCase
 
     public function testGetPreserveFormattingCanReturnInteger()
     {
-        $this->subject->setPreserveFormatting(1);
-        $this->assertSame(1, $this->subject->getPreserveFormatting());
+        $this->subject->setPreserveFormatting(TextHandlingEnum::PRESERVEFORMATTING_ON);
+        $this->assertSame('1', $this->subject->getPreserveFormatting());
     }
 
     public function testGetTargetLangCanReturnString()
@@ -68,7 +69,7 @@ class TranslationConfigTest extends TestCase
 
     public function testGetSplitSentencesCanReturnInteger()
     {
-        $this->subject->setSplitSentences(1);
-        $this->assertSame(1, $this->subject->getSplitSentences());
+        $this->subject->setSplitSentences(TextHandlingEnum::SPLITSENTENCES_NONEWLINES);
+        $this->assertSame(TextHandlingEnum::SPLITSENTENCES_NONEWLINES, $this->subject->getSplitSentences());
     }
 }
