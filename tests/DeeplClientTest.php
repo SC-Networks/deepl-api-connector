@@ -36,7 +36,7 @@ class DeeplClientTest extends TestCase
 
     public function setUp(): void
     {
-        $this->httpClient = $this->createMock(ClientInterface::class);
+        $this->httpClient = $this->createMock(\GuzzleHttp\Client::class);
         $this->requestFactory = $this->createMock(DeeplRequestFactoryInterface::class);
 
         $this->subject = new DeeplClient(
