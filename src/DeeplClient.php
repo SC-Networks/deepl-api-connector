@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector;
 
-use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\ClientException;
+use Psr\Http\Client\ClientExceptionInterface;
+use Psr\Http\Client\ClientInterface;
 use Scn\DeeplApiConnector\Exception\RequestException;
 use Scn\DeeplApiConnector\Handler\DeeplRequestFactoryInterface;
 use Scn\DeeplApiConnector\Handler\DeeplRequestHandlerInterface;
@@ -127,14 +127,14 @@ class DeeplClient implements DeeplClientInterface
             );
 
             if (in_array('application/json', $response->getHeader('Content-Type'))) {
-                return \GuzzleHttp\json_decode($response->getBody()->getContents());
+                return json_decode($response->getBody()->getContents());
             } else {
                 $content = new \stdClass();
                 $content->content = $response->getBody()->getContents();
 
                 return $content;
             }
-        } catch (ClientException $exception) {
+        } catch (ClientExceptionInterface $exception) {
             throw new RequestException(
                 $exception->getCode().
                 ' '.
