@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.1] - 2020-07-27
+### Added
+- Missing changelog update for 2.1.0
+
+## [2.1.0] - 2020-07-20
+### Added
+- Support japanese and simplified chinese
+
 ## [2.0.0] - 2019-08-02
 ### Changed
 - move Language Constants to separate Enum
