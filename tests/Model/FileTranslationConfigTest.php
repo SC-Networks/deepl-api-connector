@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Scn\DeeplApiConnector\Model;
 
 use Scn\DeeplApiConnector\Enum\LanguageEnum;
@@ -22,7 +24,7 @@ class FileTranslationConfigTest extends TestCase
         );
     }
 
-    public function testGetFileContentCanReturnString()
+    public function testGetFileContentCanReturnString(): void
     {
         $this->assertSame(
             'abc',
@@ -30,7 +32,7 @@ class FileTranslationConfigTest extends TestCase
         );
     }
 
-    public function testGetFileNameCanReturnString()
+    public function testGetFileNameCanReturnString(): void
     {
         $this->assertSame(
             'abc.txt',
@@ -38,7 +40,7 @@ class FileTranslationConfigTest extends TestCase
         );
     }
 
-    public function testGetTargetLangCanReturnString()
+    public function testGetTargetLangCanReturnString(): void
     {
         $this->assertSame(
             LanguageEnum::LANGUAGE_EN,
@@ -46,7 +48,7 @@ class FileTranslationConfigTest extends TestCase
         );
     }
 
-    public function testGetSourceLangCanReturnString()
+    public function testGetSourceLangCanReturnString(): void
     {
         $this->assertSame(
             LanguageEnum::LANGUAGE_DE,

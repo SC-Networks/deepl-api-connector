@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Scn\DeeplApiConnector\Handler;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use Scn\DeeplApiConnector\Enum\TextHandlingEnum;
 use Scn\DeeplApiConnector\Model\TranslationConfigInterface;
 use Scn\DeeplApiConnector\TestCase;
@@ -14,7 +17,7 @@ class TranslationRequestHandlerTest extends TestCase
     private $subject;
 
     /**
-     * @var TranslationConfigInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var TranslationConfigInterface|MockObject
      */
     private $translation;
 
@@ -28,12 +31,12 @@ class TranslationRequestHandlerTest extends TestCase
         );
     }
 
-    public function testGetPathCanReturnPath()
+    public function testGetPathCanReturnPath(): void
     {
         $this->assertSame(DeeplTranslationRequestHandler::API_ENDPOINT, $this->subject->getPath());
     }
 
-    public function testGetBodyCanReturnFilteredArray()
+    public function testGetBodyCanReturnFilteredArray(): void
     {
         $this->translation->expects($this->once())
             ->method('getText')
@@ -55,7 +58,7 @@ class TranslationRequestHandlerTest extends TestCase
         );
     }
 
-    public function testGetBodyCanReturnArrayWithOptionalTags()
+    public function testGetBodyCanReturnArrayWithOptionalTags(): void
     {
         $this->translation->expects($this->once())
             ->method('getText')
@@ -107,7 +110,7 @@ class TranslationRequestHandlerTest extends TestCase
         );
     }
 
-    public function testGetMethodCanReturnMethod()
+    public function testGetMethodCanReturnMethod(): void
     {
         $this->assertSame(DeeplRequestHandlerInterface::METHOD_POST, $this->subject->getMethod());
     }

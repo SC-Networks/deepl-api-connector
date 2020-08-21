@@ -1,9 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Scn\DeeplApiConnector;
 
+use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException;
+use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 use Scn\DeeplApiConnector\Exception\RequestException;
@@ -25,18 +29,18 @@ class DeeplClientTest extends TestCase
     private $subject;
 
     /**
-     * @var ClientInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var ClientInterface|MockObject
      */
     private $httpClient;
 
     /**
-     * @var DeeplRequestFactoryInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var DeeplRequestFactoryInterface|MockObject
      */
     private $requestFactory;
 
     public function setUp(): void
     {
-        $this->httpClient = $this->createMock(\GuzzleHttp\Client::class);
+        $this->httpClient = $this->createMock(Client::class);
         $this->requestFactory = $this->createMock(DeeplRequestFactoryInterface::class);
 
         $this->subject = new DeeplClient(
@@ -45,7 +49,7 @@ class DeeplClientTest extends TestCase
         );
     }
 
-    public function testGetUsageCanThrowException()
+    public function testGetUsageCanThrowException(): void
     {
         $requestHandler = $this->createMock(DeeplRequestHandlerInterface::class);
         $requestHandler->method('getMethod')
@@ -82,7 +86,7 @@ class DeeplClientTest extends TestCase
         $this->subject->getUsage();
     }
 
-    public function testGetUsageCanReturnUsageModel()
+    public function testGetUsageCanReturnUsageModel(): void
     {
         $requestHandler = $this->createMock(DeeplRequestHandlerInterface::class);
         $requestHandler->method('getMethod')
@@ -118,7 +122,7 @@ class DeeplClientTest extends TestCase
         $this->assertInstanceOf(UsageInterface::class, $this->subject->getUsage());
     }
 
-    public function testGetTranslationCanThrowException()
+    public function testGetTranslationCanThrowException(): void
     {
         $translation = $this->createMock(TranslationConfigInterface::class);
 
@@ -157,7 +161,7 @@ class DeeplClientTest extends TestCase
         $this->subject->getTranslation($translation);
     }
 
-    public function testGetTranslationCanReturnTranslationModel()
+    public function testGetTranslationCanReturnTranslationModel(): void
     {
         $translation = $this->createMock(TranslationConfigInterface::class);
 
@@ -195,7 +199,7 @@ class DeeplClientTest extends TestCase
         $this->assertInstanceOf(TranslationInterface::class, $this->subject->getTranslation($translation));
     }
 
-    public function testTranslateCanReturnJsonEncodedObject()
+    public function testTranslateCanReturnJsonEncodedObject(): void
     {
         $requestHandler = $this->createMock(DeeplRequestHandlerInterface::class);
         $requestHandler->method('getMethod')
@@ -231,7 +235,7 @@ class DeeplClientTest extends TestCase
         $this->assertInstanceOf(TranslationInterface::class, $this->subject->translate('some text', 'some language'));
     }
 
-    public function testTranslateFileCanReturnInstanceOfResponseModel()
+    public function testTranslateFileCanReturnInstanceOfResponseModel(): void
     {
         $fileTranslation = $this->createMock(FileTranslationConfigInterface::class);
 
@@ -269,7 +273,7 @@ class DeeplClientTest extends TestCase
         $this->assertInstanceOf(FileSubmissionInterface::class, $this->subject->translateFile($fileTranslation));
     }
 
-    public function testGetFileTranslationStatusCanReturnInstanceOfResponseModel()
+    public function testGetFileTranslationStatusCanReturnInstanceOfResponseModel(): void
     {
         $fileSubmission = $this->createMock(FileSubmissionInterface::class);
 
@@ -307,7 +311,7 @@ class DeeplClientTest extends TestCase
         $this->assertInstanceOf(FileTranslationStatusInterface::class, $this->subject->getFileTranslationStatus($fileSubmission));
     }
 
-    public function testGetFileTranslationCanReturnInstanceOfResponseModel()
+    public function testGetFileTranslationCanReturnInstanceOfResponseModel(): void
     {
         $fileSubmission = $this->createMock(FileSubmissionInterface::class);
 
@@ -345,7 +349,7 @@ class DeeplClientTest extends TestCase
         $this->assertInstanceOf(FileTranslationInterface::class, $this->subject->getFileTranslation($fileSubmission));
     }
 
-    public function testCreateReturnsConnectorInstance()
+    public function testCreateReturnsConnectorInstance(): void
     {
         $this->assertInstanceOf(
             DeeplClient::class,

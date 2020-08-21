@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Scn\DeeplApiConnector\Model;
 
 use Scn\DeeplApiConnector\TestCase;
@@ -16,19 +18,19 @@ class UsageTest extends TestCase
         $this->subject = new Usage();
     }
 
-    public function testGetCharacterCountCanReturnInt()
+    public function testGetCharacterCountCanReturnInt(): void
     {
         $this->subject->setCharacterCount(10);
         $this->assertSame(10, $this->subject->getCharacterCount());
     }
 
-    public function testGetCharacterLimitCanReturnInt()
+    public function testGetCharacterLimitCanReturnInt(): void
     {
         $this->subject->setCharacterLimit(123456789);
         $this->assertSame(123456789, $this->subject->getCharacterLimit());
     }
 
-    public function testHydrateCanHydrateUsageStdClass()
+    public function testHydrateCanHydrateUsageStdClass(): void
     {
         $demo_response = json_decode('{ "character_count": 180118, "character_limit": 1250000, "some_other": 123 }');
 

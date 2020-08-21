@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Scn\DeeplApiConnector\Handler;
 
 use Scn\DeeplApiConnector\Model\FileSubmissionInterface;
@@ -21,7 +23,7 @@ class DeeplRequestFactoryTest extends TestCase
         );
     }
 
-    public function testCreateDeeplUsageRequestHandlerCanReturnInstanceOfUsageRequestHandler()
+    public function testCreateDeeplUsageRequestHandlerCanReturnInstanceOfUsageRequestHandler(): void
     {
         $this->assertInstanceOf(
             DeeplUsageRequestHandler::class,
@@ -29,7 +31,7 @@ class DeeplRequestFactoryTest extends TestCase
         );
     }
 
-    public function testCreateDeeplTranslationRequestHandler()
+    public function testCreateDeeplTranslationRequestHandler(): void
     {
         $translation = $this->createMock(TranslationConfigInterface::class);
         $this->assertInstanceOf(
@@ -38,7 +40,7 @@ class DeeplRequestFactoryTest extends TestCase
         );
     }
 
-    public function testCreateDeeplfileSubmissionRequestHandler()
+    public function testCreateDeeplfileSubmissionRequestHandler(): void
     {
         $fileTranslation = $this->createMock(FileTranslationConfigInterface::class);
         $this->assertInstanceOf(
@@ -47,7 +49,7 @@ class DeeplRequestFactoryTest extends TestCase
         );
     }
 
-    public function testCreateDeeplFileTranslationStatusRequestHandler()
+    public function testCreateDeeplFileTranslationStatusRequestHandler(): void
     {
         $fileSubmission = $this->createMock(FileSubmissionInterface::class);
         $this->assertInstanceOf(
@@ -56,7 +58,7 @@ class DeeplRequestFactoryTest extends TestCase
         );
     }
 
-    public function testCreateDeeplFileTranslationRequestHandler()
+    public function testCreateDeeplFileTranslationRequestHandler(): void
     {
         $fileSubmission = $this->createMock(FileSubmissionInterface::class);
         $this->assertInstanceOf(

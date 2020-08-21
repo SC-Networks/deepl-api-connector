@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Scn\DeeplApiConnector\Model;
 
 use Scn\DeeplApiConnector\TestCase;
@@ -16,7 +18,7 @@ class FileTranslationTest extends TestCase
         $this->subject = new FileTranslation();
     }
 
-    public function testGetContentCanReturnString()
+    public function testGetContentCanReturnString(): void
     {
         $this->subject->setContent('some content');
         $this->assertSame(

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Scn\DeeplApiConnector\Model;
 
 use Scn\DeeplApiConnector\TestCase;
@@ -16,7 +18,7 @@ class FileSubmissionTest extends TestCase
         $this->subject = new FileSubmission();
     }
 
-    public function testGetDocumentIdCanReturnString()
+    public function testGetDocumentIdCanReturnString(): void
     {
         $value = 'some value';
         $this->assertSame(
@@ -25,7 +27,7 @@ class FileSubmissionTest extends TestCase
         );
     }
 
-    public function testGetDocumentKeyCanReturnString()
+    public function testGetDocumentKeyCanReturnString(): void
     {
         $value = 'some value';
         $this->assertSame(

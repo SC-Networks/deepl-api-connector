@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Model;
 
+use stdClass;
+
 abstract class AbstractResponseModel implements ResponseModelInterface
 {
     const SETTER_PREFIX = 'set';
 
-    public function hydrate(\stdClass $responseModel): ResponseModelInterface
+    public function hydrate(stdClass $responseModel): ResponseModelInterface
     {
         foreach ($responseModel as $key => $value) {
             if (is_array($value)) {
