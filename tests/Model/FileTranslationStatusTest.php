@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Scn\DeeplApiConnector\Model;
 
 use Scn\DeeplApiConnector\TestCase;
@@ -25,7 +27,7 @@ class FileTranslationStatusTest extends TestCase
         );
     }
 
-    public function testGetStatusCanReturnString()
+    public function testGetStatusCanReturnString(): void
     {
         $value = 'some value';
         $this->assertSame(
@@ -34,7 +36,7 @@ class FileTranslationStatusTest extends TestCase
         );
     }
 
-    public function testGetSecondsRemainingCanReturnInteger()
+    public function testGetSecondsRemainingCanReturnInteger(): void
     {
         $value = 1234;
         $this->assertSame(
@@ -43,7 +45,7 @@ class FileTranslationStatusTest extends TestCase
         );
     }
 
-    public function testGetBilledCharractersCanReturnInteger()
+    public function testGetBilledCharactersCanReturnInteger(): void
     {
         $value = 1234;
         $this->assertSame(

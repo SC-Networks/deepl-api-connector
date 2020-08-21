@@ -2,6 +2,8 @@
 
 namespace Scn\DeeplApiConnector\Exception;
 
-class RequestException extends \Exception
+use Exception;
+
+class RequestException extends Exception
 {
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Scn\DeeplApiConnector\Handler;
 
 use PHPUnit\Framework\MockObject\MockObject;
@@ -28,12 +30,12 @@ class DeeplFileSubmissionRequestHandlerTest extends TestCase
         );
     }
 
-    public function testGetPathCanReturnPath()
+    public function testGetPathCanReturnPath(): void
     {
         $this->assertSame(DeeplFileSubmissionRequestHandler::API_ENDPOINT, $this->subject->getPath());
     }
 
-    public function testGetBodyCanReturnFilteredArray()
+    public function testGetBodyCanReturnFilteredArray(): void
     {
         $this->fileTranslation->expects($this->exactly(2))
             ->method('getFileName')
@@ -81,7 +83,7 @@ class DeeplFileSubmissionRequestHandlerTest extends TestCase
         );
     }
 
-    public function testGetMethodCanReturnMethod()
+    public function testGetMethodCanReturnMethod(): void
     {
         $this->assertSame(DeeplRequestHandlerInterface::METHOD_POST, $this->subject->getMethod());
     }

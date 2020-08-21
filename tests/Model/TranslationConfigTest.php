@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Scn\DeeplApiConnector\Model;
 
 use Scn\DeeplApiConnector\Enum\TextHandlingEnum;
@@ -20,7 +22,7 @@ class TranslationConfigTest extends TestCase
         );
     }
 
-    public function testGetNonSplittingTagsCanReturnString()
+    public function testGetNonSplittingTagsCanReturnString(): void
     {
         $this->subject->setNonSplittingTags(['some', 'splitting', 'tags']);
         $this->assertContains('some', $this->subject->getNonSplittingTags());
@@ -28,7 +30,7 @@ class TranslationConfigTest extends TestCase
         $this->assertContains('tags', $this->subject->getNonSplittingTags());
     }
 
-    public function testGetIgnoreTagsCanReturnString()
+    public function testGetIgnoreTagsCanReturnString(): void
     {
         $this->subject->setIgnoreTags(['some', 'ignore', 'tags']);
         $this->assertContains('some', $this->subject->getIgnoreTags());
@@ -36,38 +38,38 @@ class TranslationConfigTest extends TestCase
         $this->assertContains('tags', $this->subject->getIgnoreTags());
     }
 
-    public function testGetPreserveFormattingCanReturnInteger()
+    public function testGetPreserveFormattingCanReturnInteger(): void
     {
         $this->subject->setPreserveFormatting(TextHandlingEnum::PRESERVEFORMATTING_ON);
         $this->assertSame('1', $this->subject->getPreserveFormatting());
     }
 
-    public function testGetTargetLangCanReturnString()
+    public function testGetTargetLangCanReturnString(): void
     {
         $this->subject->setTargetLang('some target lang');
         $this->assertSame('some target lang', $this->subject->getTargetLang());
     }
 
-    public function testGetTagHandlingCanReturnString()
+    public function testGetTagHandlingCanReturnString(): void
     {
         $this->subject->setTagHandling(['some', 'tags']);
         $this->assertContains('some', $this->subject->getTagHandling());
         $this->assertContains('tags', $this->subject->getTagHandling());
     }
 
-    public function testGetTextCanReturnString()
+    public function testGetTextCanReturnString(): void
     {
         $this->subject->setText('some text to translate');
         $this->assertSame('some text to translate', $this->subject->getText());
     }
 
-    public function testGetSourceLangCanReturnString()
+    public function testGetSourceLangCanReturnString(): void
     {
         $this->subject->setSourceLang('some source lang');
         $this->assertSame('some source lang', $this->subject->getSourceLang());
     }
 
-    public function testGetSplitSentencesCanReturnInteger()
+    public function testGetSplitSentencesCanReturnInteger(): void
     {
         $this->subject->setSplitSentences(TextHandlingEnum::SPLITSENTENCES_NONEWLINES);
         $this->assertSame(TextHandlingEnum::SPLITSENTENCES_NONEWLINES, $this->subject->getSplitSentences());

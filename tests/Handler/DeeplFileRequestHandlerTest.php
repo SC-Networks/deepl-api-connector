@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Scn\DeeplApiConnector\Handler;
 
 use PHPUnit\Framework\MockObject\MockObject;
@@ -28,7 +30,7 @@ class DeeplFileRequestHandlerTest extends TestCase
         );
     }
 
-    public function testGetPathCanReturnPath()
+    public function testGetPathCanReturnPath(): void
     {
         $this->fileSubmission->expects($this->once())
             ->method('getDocumentId')
@@ -36,7 +38,7 @@ class DeeplFileRequestHandlerTest extends TestCase
         $this->assertSame(sprintf(DeeplFileRequestHandler::API_ENDPOINT, 'documentId'), $this->subject->getPath());
     }
 
-    public function testGetBodyCanReturnFilteredArray()
+    public function testGetBodyCanReturnFilteredArray(): void
     {
         $this->fileSubmission->expects($this->once())
             ->method('getDocumentKey')
@@ -53,7 +55,7 @@ class DeeplFileRequestHandlerTest extends TestCase
         );
     }
 
-    public function testGetMethodCanReturnMethod()
+    public function testGetMethodCanReturnMethod(): void
     {
         $this->assertSame(DeeplRequestHandlerInterface::METHOD_GET, $this->subject->getMethod());
     }
