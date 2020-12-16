@@ -142,6 +142,7 @@ class DeeplClient implements DeeplClientInterface
                 $exception->getCode().
                 ' '.
                 $exception->getResponse()->getBody()->getContents(),
+                $exception->getCode(),
                 $exception
             );
         }
