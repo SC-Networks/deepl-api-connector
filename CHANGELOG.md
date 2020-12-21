@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.1.2] - 2020-12-21
+### Added
+- Let the original exception bubble up within the RequestException (Thx @Mistralys)
+
 ## [2.1.1] - 2020-07-27
 ### Added
 - Missing changelog update for 2.1.0
