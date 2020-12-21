@@ -141,7 +141,9 @@ class DeeplClient implements DeeplClientInterface
             throw new RequestException(
                 $exception->getCode().
                 ' '.
-                $exception->getResponse()->getBody()->getContents()
+                $exception->getResponse()->getBody()->getContents(),
+                $exception->getCode(),
+                $exception
             );
         }
     }
