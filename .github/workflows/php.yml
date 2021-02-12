@@ -8,13 +8,12 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.operating-system }}
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        operating-system: [ ubuntu-20.04 ]
-        php-versions: [ '7.3', '7.4', '8.0' ]
-    name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
+        os: [ubuntu-20.04]
+        php: [7.3, 7.4, 8.0]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -22,7 +21,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-versions }}
+          php-version: ${{ matrix.php }}
           tools: phpunit
 
       - name: Install dependencies
