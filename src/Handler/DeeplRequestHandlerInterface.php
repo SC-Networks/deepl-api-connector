@@ -2,6 +2,8 @@
 
 namespace Scn\DeeplApiConnector\Handler;
 
+use Psr\Http\Message\StreamInterface;
+
 interface DeeplRequestHandlerInterface
 {
     const METHOD_POST = 'POST';
@@ -11,5 +13,7 @@ interface DeeplRequestHandlerInterface
 
     public function getPath(): string;
 
-    public function getBody(): array;
+    public function getBody(): StreamInterface;
+    
+    public function getContentType(): string;
 }

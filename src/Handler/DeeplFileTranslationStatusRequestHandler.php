@@ -4,19 +4,27 @@ declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Handler;
 
+use Psr\Http\Message\StreamFactoryInterface;
+use Psr\Http\Message\StreamInterface;
 use Scn\DeeplApiConnector\Model\FileSubmissionInterface;
 
 final class DeeplFileTranslationStatusRequestHandler implements DeeplRequestHandlerInterface
 {
-    const API_ENDPOINT = 'https://api.deepl.com/v2/document/%s';
+    public const API_ENDPOINT = 'https://api.deepl.com/v2/document/%s';
 
     private $authKey;
 
+    private $streamFactory;
+
     private $fileSubmission;
 
-    public function __construct(string $authKey, FileSubmissionInterface $fileSubmission)
-    {
+    public function __construct(
+        string $authKey,
+        StreamFactoryInterface $streamFactory,
+        FileSubmissionInterface $fileSubmission
+    ) {
         $this->authKey = $authKey;
+        $this->streamFactory = $streamFactory;
         $this->fileSubmission = $fileSubmission;
     }
 
@@ -30,15 +38,22 @@ final class DeeplFileTranslationStatusRequestHandler implements DeeplRequestHand
         return sprintf(static::API_ENDPOINT, $this->fileSubmission->getDocumentId());
     }
 
-    public function getBody(): array
+    public function getBody(): StreamInterface
     {
-        return [
-            'form_params' => array_filter(
-                [
-                    'auth_key' => $this->authKey,
-                    'document_key' => $this->fileSubmission->getDocumentKey(),
-                ]
-            ),
-        ];
+        return $this->streamFactory->createStream(
+            http_build_query(
+                array_filter(
+                    [
+                        'auth_key' => $this->authKey,
+                        'document_key' => $this->fileSubmission->getDocumentKey(),
+                    ]
+                )
+            )
+        );
+    }
+
+    public function getContentType(): string
+    {
+        return 'application/x-www-form-urlencoded';
     }
 }

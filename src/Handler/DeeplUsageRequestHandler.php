@@ -4,15 +4,23 @@ declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Handler;
 
+use Psr\Http\Message\StreamFactoryInterface;
+use Psr\Http\Message\StreamInterface;
+
 final class DeeplUsageRequestHandler implements DeeplRequestHandlerInterface
 {
-    const API_ENDPOINT = 'https://api.deepl.com/v2/usage';
+    public const API_ENDPOINT = 'https://api.deepl.com/v2/usage';
 
     private $authKey;
 
-    public function __construct(string $authKey)
-    {
+    private $streamFactory;
+
+    public function __construct(
+        string $authKey,
+        StreamFactoryInterface $streamFactory
+    ) {
         $this->authKey = $authKey;
+        $this->streamFactory = $streamFactory;
     }
 
     public function getMethod(): string
@@ -25,14 +33,21 @@ final class DeeplUsageRequestHandler implements DeeplRequestHandlerInterface
         return static::API_ENDPOINT;
     }
 
-    public function getBody(): array
+    public function getBody(): StreamInterface
     {
-        return [
-            'form_params' => array_filter(
-                [
-                    'auth_key' => $this->authKey,
-                ]
-            ),
-        ];
+        return $this->streamFactory->createStream(
+            http_build_query(
+                array_filter(
+                    [
+                        'auth_key' => $this->authKey,
+                    ]
+                )
+            )
+        );
+    }
+
+    public function getContentType(): string
+    {
+        return 'application/x-www-form-urlencoded';
     }
 }

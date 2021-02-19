@@ -20,6 +20,4 @@ interface DeeplClientInterface
     public function getFileTranslationStatus(FileSubmissionInterface $fileSubmission): ResponseModelInterface;
 
     public function getFileTranslation(FileSubmissionInterface $fileSubmission): ResponseModelInterface;
-
-    public static function create(string $apiKey): DeeplClientInterface;
 }
