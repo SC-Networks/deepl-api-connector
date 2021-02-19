@@ -4,20 +4,28 @@ declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Handler;
 
+use Http\Message\MultipartStream\MultipartStreamBuilder;
+use Psr\Http\Message\StreamInterface;
 use Scn\DeeplApiConnector\Model\FileTranslationConfigInterface;
 
 final class DeeplFileSubmissionRequestHandler implements DeeplRequestHandlerInterface
 {
-    const API_ENDPOINT = 'https://api.deepl.com/v2/document';
+    public const API_ENDPOINT = 'https://api.deepl.com/v2/document';
 
     private $authKey;
 
     private $fileTranslation;
 
-    public function __construct(string $authKey, FileTranslationConfigInterface $fileTranslation)
-    {
+    private $multipartStreamBuilder;
+
+    public function __construct(
+        string $authKey,
+        FileTranslationConfigInterface $fileTranslation,
+        MultipartStreamBuilder $multipartStreamBuilder
+    ) {
         $this->authKey = $authKey;
         $this->fileTranslation = $fileTranslation;
+        $this->multipartStreamBuilder = $multipartStreamBuilder;
     }
 
     public function getMethod(): string
@@ -30,32 +38,20 @@ final class DeeplFileSubmissionRequestHandler implements DeeplRequestHandlerInte
         return static::API_ENDPOINT;
     }
 
-    public function getBody(): array
+    public function getBody(): StreamInterface
     {
-        return [
-            'multipart' => [
-                [
-                    'name' => 'auth_key',
-                    'contents' => $this->authKey,
-                ],
-                [
-                    'name' => 'file',
-                    'filename' => $this->fileTranslation->getFileName(),
-                    'contents' => $this->fileTranslation->getFileContent(),
-                ],
-                [
-                    'name' => 'filename',
-                    'contents' => $this->fileTranslation->getFileName(),
-                ],
-                [
-                    'name' => 'source_lang',
-                    'contents' => $this->fileTranslation->getSourceLang(),
-                ],
-                [
-                    'name' => 'target_lang',
-                    'contents' => $this->fileTranslation->getTargetLang(),
-                ],
-            ],
-        ];
+        return $this->multipartStreamBuilder
+            ->setBoundary('boundary')
+            ->addResource('auth_key', $this->authKey)
+            ->addResource('file', $this->fileTranslation->getFileContent())
+            ->addResource('filename', $this->fileTranslation->getFileName())
+            ->addResource('source_lang', $this->fileTranslation->getSourceLang())
+            ->addResource('target_lang', $this->fileTranslation->getTargetLang())
+            ->build();
+    }
+
+    public function getContentType(): string
+    {
+        return 'multipart/form-data;boundary="boundary"';
     }
 }

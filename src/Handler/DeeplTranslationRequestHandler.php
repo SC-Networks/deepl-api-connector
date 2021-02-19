@@ -4,20 +4,28 @@ declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Handler;
 
+use Psr\Http\Message\StreamFactoryInterface;
+use Psr\Http\Message\StreamInterface;
 use Scn\DeeplApiConnector\Model\TranslationConfigInterface;
 
 final class DeeplTranslationRequestHandler implements DeeplRequestHandlerInterface
 {
-    const SEPARATOR = ',';
-    const API_ENDPOINT = 'https://api.deepl.com/v2/translate';
+    private const SEPARATOR = ',';
+    public const API_ENDPOINT = 'https://api.deepl.com/v2/translate';
 
     private $authKey;
 
+    private $streamFactory;
+
     private $translation;
 
-    public function __construct(string $authKey, TranslationConfigInterface $translation)
-    {
+    public function __construct(
+        string $authKey,
+        StreamFactoryInterface $streamFactory,
+        TranslationConfigInterface $translation
+    ) {
         $this->authKey = $authKey;
+        $this->streamFactory = $streamFactory;
         $this->translation = $translation;
     }
 
@@ -31,28 +39,35 @@ final class DeeplTranslationRequestHandler implements DeeplRequestHandlerInterfa
         return static::API_ENDPOINT;
     }
 
-    public function getBody(): array
+    public function getBody(): StreamInterface
     {
-        return [
-            'form_params' => array_filter(
-                [
-                    'text' => $this->translation->getText(),
-                    'target_lang' => $this->translation->getTargetLang(),
-                    'source_lang' => $this->translation->getSourceLang(),
-                    'tag_handling' => implode(
-                        static::SEPARATOR,
-                        (array) $this->translation->getTagHandling()
-                    ),
-                    'non_splitting_tags' => implode(
-                        static::SEPARATOR,
-                        (array) $this->translation->getNonSplittingTags()
-                    ),
-                    'ignore_tags' => implode(static::SEPARATOR, (array) $this->translation->getIgnoreTags()),
-                    'split_sentences' => (string) $this->translation->getSplitSentences(),
-                    'preserve_formatting' => $this->translation->getPreserveFormatting(),
-                    'auth_key' => $this->authKey,
-                ]
-            ),
-        ];
+        return $this->streamFactory->createStream(
+            http_build_query(
+                array_filter(
+                    [
+                        'text' => $this->translation->getText(),
+                        'target_lang' => $this->translation->getTargetLang(),
+                        'source_lang' => $this->translation->getSourceLang(),
+                        'tag_handling' => implode(
+                            static::SEPARATOR,
+                            (array) $this->translation->getTagHandling()
+                        ),
+                        'non_splitting_tags' => implode(
+                            static::SEPARATOR,
+                            (array) $this->translation->getNonSplittingTags()
+                        ),
+                        'ignore_tags' => implode(static::SEPARATOR, (array) $this->translation->getIgnoreTags()),
+                        'split_sentences' => (string) $this->translation->getSplitSentences(),
+                        'preserve_formatting' => $this->translation->getPreserveFormatting(),
+                        'auth_key' => $this->authKey,
+                    ]
+                )
+            )
+        );
+    }
+
+    public function getContentType(): string
+    {
+        return 'application/x-www-form-urlencoded';
     }
 }

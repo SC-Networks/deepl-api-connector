@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestFactoryInterface;
 use Scn\DeeplApiConnector\Exception\RequestException;
 use Scn\DeeplApiConnector\Handler\DeeplRequestFactoryInterface;
 use Scn\DeeplApiConnector\Handler\DeeplRequestHandlerInterface;
@@ -25,12 +24,18 @@ use stdClass;
 
 class DeeplClient implements DeeplClientInterface
 {
+    private $deeplRequestFactory;
+    
     private $httpClient;
 
     private $requestFactory;
 
-    public function __construct(ClientInterface $httpClient, DeeplRequestFactoryInterface $requestFactory)
-    {
+    public function __construct(
+        DeeplRequestFactoryInterface $deeplRequestFactory,
+        ClientInterface $httpClient,
+        RequestFactoryInterface $requestFactory
+    ) {
+        $this->deeplRequestFactory = $deeplRequestFactory;
         $this->httpClient = $httpClient;
         $this->requestFactory = $requestFactory;
     }
@@ -44,12 +49,11 @@ class DeeplClient implements DeeplClientInterface
      *      -> characterLimit 5647
      *
      * @throws RequestException
-     * @throws GuzzleException
      */
     public function getUsage(): ResponseModelInterface
     {
         return (new Usage())->hydrate(
-            $this->executeRequest($this->requestFactory->createDeeplUsageRequestHandler())
+            $this->executeRequest($this->deeplRequestFactory->createDeeplUsageRequestHandler())
         );
     }
 
@@ -62,28 +66,18 @@ class DeeplClient implements DeeplClientInterface
      *                -> text some translated text
      *
      * @throws RequestException
-     * @throws GuzzleException
      */
     public function getTranslation(TranslationConfigInterface $translation): ResponseModelInterface
     {
         return (new Translation())->hydrate($this->executeRequest(
-            $this->requestFactory->createDeeplTranslationRequestHandler($translation)
+            $this->deeplRequestFactory->createDeeplTranslationRequestHandler($translation)
         ));
-    }
-
-    public static function create($apiKey): DeeplClientInterface
-    {
-        return new DeeplClient(
-            new Client(),
-            new Handler\DeeplRequestFactory($apiKey)
-        );
     }
 
     /**
      * Return TranslationConfig for given Text / Target Language with Default TranslationConfig Configuration.
      *
      * @throws RequestException
-     * @throws GuzzleException
      */
     public function translate(string $text, string $target_language): ResponseModelInterface
     {
@@ -95,21 +89,21 @@ class DeeplClient implements DeeplClientInterface
     public function translateFile(FileTranslationConfigInterface $fileTranslation): ResponseModelInterface
     {
         return (new FileSubmission())->hydrate($this->executeRequest(
-            $this->requestFactory->createDeeplFileSubmissionRequestHandler($fileTranslation)
+            $this->deeplRequestFactory->createDeeplFileSubmissionRequestHandler($fileTranslation)
         ));
     }
 
     public function getFileTranslationStatus(FileSubmissionInterface $fileSubmission): ResponseModelInterface
     {
         return (new FileTranslationStatus())->hydrate($this->executeRequest(
-            $this->requestFactory->createDeeplFileTranslationStatusRequestHandler($fileSubmission)
+            $this->deeplRequestFactory->createDeeplFileTranslationStatusRequestHandler($fileSubmission)
         ));
     }
 
     public function getFileTranslation(FileSubmissionInterface $fileSubmission): ResponseModelInterface
     {
         return (new FileTranslation())->hydrate($this->executeRequest(
-            $this->requestFactory->createDeeplFileTranslationRequestHandler($fileSubmission)
+            $this->deeplRequestFactory->createDeeplFileTranslationRequestHandler($fileSubmission)
         ));
     }
 
@@ -118,17 +112,20 @@ class DeeplClient implements DeeplClientInterface
      * and maybe given Error Message.
      *
      * @throws RequestException
-     * @throws GuzzleException
      */
     private function executeRequest(DeeplRequestHandlerInterface $requestHandler): stdClass
     {
         try {
-            $response = $this->httpClient->request(
+            $request = $this->requestFactory->createRequest(
                 $requestHandler->getMethod(),
-                $requestHandler->getPath(),
-                $requestHandler->getBody()
-            );
+                $requestHandler->getPath()
+            )->withHeader(
+                'Content-Type',
+                $requestHandler->getContentType()
+            )->withBody($requestHandler->getBody());
 
+            $response = $this->httpClient->sendRequest($request);
+            
             if (in_array('application/json', $response->getHeader('Content-Type'))) {
                 return json_decode($response->getBody()->getContents());
             } else {

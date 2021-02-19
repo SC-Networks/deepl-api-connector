@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use GuzzleHttp\Exception\ClientException;
 use PHPUnit\Framework\MockObject\MockObject;
+use Psr\Http\Message\RequestFactoryInterface;
+use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 use Scn\DeeplApiConnector\Exception\RequestException;
@@ -23,27 +24,26 @@ use Scn\DeeplApiConnector\Model\UsageInterface;
 
 class DeeplClientTest extends TestCase
 {
-    /**
-     * @var DeeplClient
-     */
+    /** @var DeeplClient */
     private $subject;
 
-    /**
-     * @var ClientInterface|MockObject
-     */
+    /** @var ClientInterface|MockObject */
     private $httpClient;
 
-    /**
-     * @var DeeplRequestFactoryInterface|MockObject
-     */
+    /** @var DeeplRequestFactoryInterface|MockObject */
+    private $deeplRequestFactory;
+    
+    /** @var RequestFactoryInterface|MockObject */
     private $requestFactory;
 
     public function setUp(): void
     {
-        $this->httpClient = $this->createMock(Client::class);
-        $this->requestFactory = $this->createMock(DeeplRequestFactoryInterface::class);
+        $this->deeplRequestFactory = $this->createMock(DeeplRequestFactoryInterface::class);
+        $this->httpClient = $this->createMock(ClientInterface::class);
+        $this->requestFactory = $this->createMock(RequestFactoryInterface::class);
 
         $this->subject = new DeeplClient(
+            $this->deeplRequestFactory,
             $this->httpClient,
             $this->requestFactory
         );
@@ -56,10 +56,8 @@ class DeeplClientTest extends TestCase
             ->willReturn('some method');
         $requestHandler->method('getPath')
             ->willReturn('some path');
-        $requestHandler->method('getBody')
-            ->willReturn(['some body' => 'with Elements']);
 
-        $this->requestFactory->method('createDeeplUsageRequestHandler')
+        $this->deeplRequestFactory->method('createDeeplUsageRequestHandler')
             ->willReturn($requestHandler);
 
         $stream = $this->createMock(StreamInterface::class);
@@ -77,9 +75,15 @@ class DeeplClientTest extends TestCase
             ->method('getResponse')
             ->willReturn($response);
 
+        $request = $this->createRequestExpectations(
+            $requestHandler,
+            'some method',
+            'some path'
+        );
+
         $this->httpClient->expects($this->once())
-            ->method('request')
-            ->with('some method', 'some path', ['some body' => 'with Elements'])
+            ->method('sendRequest')
+            ->with($request)
             ->willThrowException($clientException);
 
         $this->expectException(RequestException::class);
@@ -93,10 +97,8 @@ class DeeplClientTest extends TestCase
             ->willReturn('some method');
         $requestHandler->method('getPath')
             ->willReturn('some path');
-        $requestHandler->method('getBody')
-            ->willReturn(['some body' => 'with Elements']);
 
-        $this->requestFactory->method('createDeeplUsageRequestHandler')
+        $this->deeplRequestFactory->method('createDeeplUsageRequestHandler')
             ->willReturn($requestHandler);
 
         $json = json_encode(['some string' => 'with value']);
@@ -115,8 +117,15 @@ class DeeplClientTest extends TestCase
             ->method('getBody')
             ->willReturn($stream);
 
-        $this->httpClient->method('request')
-            ->with('some method', 'some path', ['some body' => 'with Elements'])
+        $request = $this->createRequestExpectations(
+            $requestHandler,
+            'some method',
+            'some path'
+        );
+
+        $this->httpClient->expects($this->once())
+            ->method('sendRequest')
+            ->with($request)
             ->willReturn($response);
 
         $this->assertInstanceOf(UsageInterface::class, $this->subject->getUsage());
@@ -131,10 +140,8 @@ class DeeplClientTest extends TestCase
             ->willReturn('some method');
         $requestHandler->method('getPath')
             ->willReturn('some path');
-        $requestHandler->method('getBody')
-            ->willReturn(['some body' => 'with Elements']);
 
-        $this->requestFactory->method('createDeeplTranslationRequestHandler')
+        $this->deeplRequestFactory->method('createDeeplTranslationRequestHandler')
             ->willReturn($requestHandler);
 
         $stream = $this->createMock(StreamInterface::class);
@@ -152,9 +159,15 @@ class DeeplClientTest extends TestCase
             ->method('getResponse')
             ->willReturn($response);
 
+        $request = $this->createRequestExpectations(
+            $requestHandler,
+            'some method',
+            'some path'
+        );
+
         $this->httpClient->expects($this->once())
-            ->method('request')
-            ->with('some method', 'some path', ['some body' => 'with Elements'])
+            ->method('sendRequest')
+            ->with($request)
             ->willThrowException($clientException);
 
         $this->expectException(RequestException::class);
@@ -170,10 +183,8 @@ class DeeplClientTest extends TestCase
             ->willReturn('some method');
         $requestHandler->method('getPath')
             ->willReturn('some path');
-        $requestHandler->method('getBody')
-            ->willReturn(['some body' => 'with Elements']);
 
-        $this->requestFactory->method('createDeeplTranslationRequestHandler')
+        $this->deeplRequestFactory->method('createDeeplTranslationRequestHandler')
             ->willReturn($requestHandler);
 
         $json = json_encode(['some string' => 'with value']);
@@ -192,8 +203,15 @@ class DeeplClientTest extends TestCase
             ->method('getBody')
             ->willReturn($stream);
 
-        $this->httpClient->method('request')
-            ->with('some method', 'some path', ['some body' => 'with Elements'])
+        $request = $this->createRequestExpectations(
+            $requestHandler,
+            'some method',
+            'some path'
+        );
+
+        $this->httpClient->expects($this->once())
+            ->method('sendRequest')
+            ->with($request)
             ->willReturn($response);
 
         $this->assertInstanceOf(TranslationInterface::class, $this->subject->getTranslation($translation));
@@ -206,10 +224,8 @@ class DeeplClientTest extends TestCase
             ->willReturn('some method');
         $requestHandler->method('getPath')
             ->willReturn('some path');
-        $requestHandler->method('getBody')
-            ->willReturn(['some body' => 'with Elements']);
 
-        $this->requestFactory->method('createDeeplTranslationRequestHandler')
+        $this->deeplRequestFactory->method('createDeeplTranslationRequestHandler')
             ->willReturn($requestHandler);
 
         $json = json_encode(['some string' => 'with value', 'some other string' => ['more text' => 'more values']]);
@@ -228,8 +244,15 @@ class DeeplClientTest extends TestCase
             ->method('getBody')
             ->willReturn($stream);
 
-        $this->httpClient->method('request')
-            ->with('some method', 'some path', ['some body' => 'with Elements'])
+        $request = $this->createRequestExpectations(
+            $requestHandler,
+            'some method',
+            'some path'
+        );
+
+        $this->httpClient->expects($this->once())
+            ->method('sendRequest')
+            ->with($request)
             ->willReturn($response);
 
         $this->assertInstanceOf(TranslationInterface::class, $this->subject->translate('some text', 'some language'));
@@ -244,10 +267,8 @@ class DeeplClientTest extends TestCase
             ->willReturn('some method');
         $requestHandler->method('getPath')
             ->willReturn('some path');
-        $requestHandler->method('getBody')
-            ->willReturn(['some body' => 'with Elements']);
 
-        $this->requestFactory->method('createDeeplFileSubmissionRequestHandler')
+        $this->deeplRequestFactory->method('createDeeplFileSubmissionRequestHandler')
             ->willReturn($requestHandler);
 
         $json = json_encode(['some string' => 'with value']);
@@ -266,8 +287,15 @@ class DeeplClientTest extends TestCase
             ->method('getBody')
             ->willReturn($stream);
 
-        $this->httpClient->method('request')
-            ->with('some method', 'some path', ['some body' => 'with Elements'])
+        $request = $this->createRequestExpectations(
+            $requestHandler,
+            'some method',
+            'some path'
+        );
+
+        $this->httpClient->expects($this->once())
+            ->method('sendRequest')
+            ->with($request)
             ->willReturn($response);
 
         $this->assertInstanceOf(FileSubmissionInterface::class, $this->subject->translateFile($fileTranslation));
@@ -282,10 +310,8 @@ class DeeplClientTest extends TestCase
             ->willReturn('some method');
         $requestHandler->method('getPath')
             ->willReturn('some path');
-        $requestHandler->method('getBody')
-            ->willReturn(['some body' => 'with Elements']);
 
-        $this->requestFactory->method('createDeeplFileTranslationStatusRequestHandler')
+        $this->deeplRequestFactory->method('createDeeplFileTranslationStatusRequestHandler')
             ->willReturn($requestHandler);
 
         $json = json_encode(['some string' => 'with value']);
@@ -304,8 +330,15 @@ class DeeplClientTest extends TestCase
             ->method('getBody')
             ->willReturn($stream);
 
-        $this->httpClient->method('request')
-            ->with('some method', 'some path', ['some body' => 'with Elements'])
+        $request = $this->createRequestExpectations(
+            $requestHandler,
+            'some method',
+            'some path'
+        );
+
+        $this->httpClient->expects($this->once())
+            ->method('sendRequest')
+            ->with($request)
             ->willReturn($response);
 
         $this->assertInstanceOf(FileTranslationStatusInterface::class, $this->subject->getFileTranslationStatus($fileSubmission));
@@ -316,14 +349,8 @@ class DeeplClientTest extends TestCase
         $fileSubmission = $this->createMock(FileSubmissionInterface::class);
 
         $requestHandler = $this->createMock(DeeplRequestHandlerInterface::class);
-        $requestHandler->method('getMethod')
-            ->willReturn('some method');
-        $requestHandler->method('getPath')
-            ->willReturn('some path');
-        $requestHandler->method('getBody')
-            ->willReturn(['some body' => 'with Elements']);
 
-        $this->requestFactory->method('createDeeplFileTranslationRequestHandler')
+        $this->deeplRequestFactory->method('createDeeplFileTranslationRequestHandler')
             ->willReturn($requestHandler);
 
         $json = json_encode(['some string' => 'with value']);
@@ -341,19 +368,65 @@ class DeeplClientTest extends TestCase
         $response->expects($this->once())
             ->method('getBody')
             ->willReturn($stream);
+        
+        $request = $this->createRequestExpectations(
+            $requestHandler,
+            'some method',
+            'some path'
+        );
 
-        $this->httpClient->method('request')
-            ->with('some method', 'some path', ['some body' => 'with Elements'])
+        $this->httpClient->expects($this->once())
+            ->method('sendRequest')
+            ->with($request)
             ->willReturn($response);
 
         $this->assertInstanceOf(FileTranslationInterface::class, $this->subject->getFileTranslation($fileSubmission));
+    }
+    
+    private function createRequestExpectations(
+        MockObject $requestHandler,
+        string $method,
+        string $path
+    ): MockObject {
+        $request = $this->createMock(RequestInterface::class);
+        $stream = $this->createMock(StreamInterface::class);
+        
+        $contentType = 'some-content-type';
+        $requestHandler->expects($this->once())
+            ->method('getMethod')
+            ->willReturn('some method');
+        $requestHandler->expects($this->once())
+            ->method('getPath')
+            ->willReturn('some path');
+        $requestHandler->expects($this->once())
+            ->method('getBody')
+            ->willReturn($stream);
+        $requestHandler->expects($this->once())
+            ->method('getContentType')
+            ->willReturn($contentType);
+        
+        $this->requestFactory->expects($this->once())
+            ->method('createRequest')
+            ->with($method, $path)
+            ->willReturn($request);
+        
+        $request->expects($this->once())
+            ->method('withHeader')
+            ->with('Content-Type', $contentType)
+            ->willReturnSelf();
+        $request->expects($this->once())
+            ->method('withBody')
+            ->with($stream)
+            ->willReturnSelf();
+        
+        return $request;
     }
 
     public function testCreateReturnsConnectorInstance(): void
     {
         $this->assertInstanceOf(
             DeeplClient::class,
-            DeeplClient::create('some-api-key')
+            DeeplClientFactory::create('some-api-key')
         );
     }
 }

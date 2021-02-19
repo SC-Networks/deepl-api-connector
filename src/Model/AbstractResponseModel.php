@@ -8,7 +8,7 @@ use stdClass;
 
 abstract class AbstractResponseModel implements ResponseModelInterface
 {
-    const SETTER_PREFIX = 'set';
+    private const SETTER_PREFIX = 'set';
 
     public function hydrate(stdClass $responseModel): ResponseModelInterface
     {
