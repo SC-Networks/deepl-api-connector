@@ -17,4 +17,17 @@ final class LanguageEnum
     public const LANGUAGE_EN = 'EN';
     public const LANGUAGE_JA = 'JA';
     public const LANGUAGE_ZH = 'ZH';
+    public const LANGUAGE_BG = 'BG';
+    public const LANGUAGE_CS = 'CS';
+    public const LANGUAGE_DA = 'DA';
+    public const LANGUAGE_EL = 'EL';
+    public const LANGUAGE_ET = 'ET';
+    public const LANGUAGE_FI = 'FI';
+    public const LANGUAGE_HU = 'HU';
+    public const LANGUAGE_LT = 'LT';
+    public const LANGUAGE_LV = 'LV';
+    public const LANGUAGE_RO = 'RO';
+    public const LANGUAGE_SK = 'SK';
+    public const LANGUAGE_SL = 'SL';
+    public const LANGUAGE_SV = 'SV';
 }
