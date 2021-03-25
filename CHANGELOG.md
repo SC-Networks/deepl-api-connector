@@ -1,5 +1,10 @@
 # Changelog
 
+## [2.2.0] - 2021-03-25
+### Added
+- Support new languages introduced by deepl (https://www.deepl.com/blog/20210316/)
+- Support PHP8
+
 ## [2.1.2] - 2020-12-21
 ### Added
 - Let the original exception bubble up within the RequestException (Thx @Mistralys)
