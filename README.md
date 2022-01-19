@@ -130,6 +130,17 @@ try {
 }
 ```
 
+## HttpClient Implementation
+
+If a custom HTTP client implementation is to be used, this can also be done via the DeeplClientFactory::create method. 
+The Client must support PSR18.
+
+```php
+require_once __DIR__  . '/vendor/autoload.php';
+
+$deepl = \Scn\DeeplApiConnector\DeeplClientFactory::create('your-api-key', new AweSomeHttpClient());
+```
+
 ## Testing
 
 ``` bash
