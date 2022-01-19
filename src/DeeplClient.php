@@ -25,7 +25,7 @@ use stdClass;
 class DeeplClient implements DeeplClientInterface
 {
     private $deeplRequestFactory;
-    
+
     private $httpClient;
 
     private $requestFactory;
@@ -118,14 +118,14 @@ class DeeplClient implements DeeplClientInterface
         try {
             $request = $this->requestFactory->createRequest(
                 $requestHandler->getMethod(),
-                $requestHandler->getPath()
+                sprintf('%s%s', $this->deeplRequestFactory->getDeeplBaseUri(), $requestHandler->getPath())
             )->withHeader(
                 'Content-Type',
                 $requestHandler->getContentType()
             )->withBody($requestHandler->getBody());
 
             $response = $this->httpClient->sendRequest($request);
-            
+
             if (in_array('application/json', $response->getHeader('Content-Type'))) {
                 return json_decode($response->getBody()->getContents());
             } else {

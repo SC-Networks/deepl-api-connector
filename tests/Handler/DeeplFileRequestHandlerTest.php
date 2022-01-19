@@ -75,7 +75,7 @@ class DeeplFileRequestHandlerTest extends TestCase
     {
         $this->assertSame(DeeplRequestHandlerInterface::METHOD_GET, $this->subject->getMethod());
     }
-    
+
     public function testGetContentTypeReturnsValue(): void
     {
         $this->assertSame(

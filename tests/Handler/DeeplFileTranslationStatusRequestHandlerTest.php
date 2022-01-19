@@ -16,7 +16,7 @@ class DeeplFileTranslationStatusRequestHandlerTest extends TestCase
      * @var DeeplFileTranslationStatusRequestHandler
      */
     private $subject;
-    
+
     /** @var StreamFactoryInterface|MockObject */
     private $streamFactory;
 
@@ -48,11 +48,11 @@ class DeeplFileTranslationStatusRequestHandlerTest extends TestCase
     public function testGetBodyCanReturnFilteredArray(): void
     {
         $stream = $this->createMock(StreamInterface::class);
-        
+
         $this->fileSubmission->expects($this->once())
             ->method('getDocumentKey')
             ->willReturn('document key');
-        
+
         $this->streamFactory->expects($this->once())
             ->method('createStream')
             ->with(

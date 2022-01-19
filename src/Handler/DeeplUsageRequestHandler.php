@@ -9,7 +9,7 @@ use Psr\Http\Message\StreamInterface;
 
 final class DeeplUsageRequestHandler implements DeeplRequestHandlerInterface
 {
-    public const API_ENDPOINT = 'https://api.deepl.com/v2/usage';
+    public const API_ENDPOINT = '/v2/usage';
 
     private $authKey;
 

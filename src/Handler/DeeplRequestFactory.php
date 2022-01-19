@@ -12,6 +12,9 @@ use Scn\DeeplApiConnector\Model\TranslationConfigInterface;
 
 final class DeeplRequestFactory implements DeeplRequestFactoryInterface
 {
+    public const DEEPL_PAID_BASE_URI = 'https://api.deepl.com';
+    public const DEEPL_FREE_BASE_URI = 'https://api-free.deepl.com';
+
     private $authKey;
 
     private $streamFactory;
@@ -72,5 +75,14 @@ final class DeeplRequestFactory implements DeeplRequestFactoryInterface
             $this->streamFactory,
             $fileSubmission
         );
+    }
+
+    public function getDeeplBaseUri(): string
+    {
+        if (strpos($this->authKey, ':fx')) {
+            return DeeplRequestFactory::DEEPL_FREE_BASE_URI;
+        }
+
+        return DeeplRequestFactory::DEEPL_PAID_BASE_URI;
     }
 }

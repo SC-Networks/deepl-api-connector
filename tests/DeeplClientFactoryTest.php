@@ -15,9 +15,9 @@ class DeeplClientFactoryTest extends TestCase
         $client = $this->createMock(ClientInterface::class);
         $requestFactory = $this->createMock(RequestFactoryInterface::class);
         $streamFactory = $this->createMock(StreamFactoryInterface::class);
-        
+
         $authKey = 'some-auth-key';
-        
+
         $this->assertInstanceOf(
             DeeplClientInterface::class,
             DeeplClientFactory::create(
@@ -28,7 +28,7 @@ class DeeplClientFactoryTest extends TestCase
             )
         );
     }
-    
+
     public function testCreateReturnsClientWithAutoDisovery(): void
     {
         $authKey = 'some-auth-key';

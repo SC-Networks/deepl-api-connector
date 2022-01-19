@@ -17,14 +17,14 @@ class DeeplRequestFactoryTest extends TestCase
      * @var DeeplRequestFactory
      */
     private $subject;
-    
+
     /** @var StreamFactoryInterface|MockObject */
     private $streamFactory;
 
     public function setUp(): void
     {
         $this->streamFactory = $this->createMock(StreamFactoryInterface::class);
-        
+
         $this->subject = new DeeplRequestFactory(
             'some api key',
             $this->streamFactory
@@ -73,5 +73,16 @@ class DeeplRequestFactoryTest extends TestCase
             DeeplFileRequestHandler::class,
             $this->subject->createDeeplFileTranslationRequestHandler($fileSubmission)
         );
+    }
+
+    public function testGetDeeplBaseUriCanReturnPaidBaseUri(): void
+    {
+        $this->assertSame(DeeplRequestFactory::DEEPL_PAID_BASE_URI, $this->subject->getDeeplBaseUri());
+    }
+
+    public function testGetDeeplFreeUriCanReturnFreeBaseUri(): void
+    {
+        $this->subject = new DeeplRequestFactory('something:fx', $this->streamFactory);
+        $this->assertSame(DeeplRequestFactory::DEEPL_FREE_BASE_URI, $this->subject->getDeeplBaseUri());
     }
 }

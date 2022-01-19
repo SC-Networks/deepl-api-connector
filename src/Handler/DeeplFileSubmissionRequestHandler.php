@@ -10,7 +10,7 @@ use Scn\DeeplApiConnector\Model\FileTranslationConfigInterface;
 
 final class DeeplFileSubmissionRequestHandler implements DeeplRequestHandlerInterface
 {
-    public const API_ENDPOINT = 'https://api.deepl.com/v2/document';
+    public const API_ENDPOINT = '/v2/document';
 
     private $authKey;
 

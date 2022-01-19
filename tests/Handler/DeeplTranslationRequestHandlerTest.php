@@ -17,7 +17,7 @@ class DeeplTranslationRequestHandlerTest extends TestCase
      * @var DeeplTranslationRequestHandler
      */
     private $subject;
-    
+
     /** @var StreamFactoryInterface|MockObject */
     private $streamFactory;
 
@@ -46,7 +46,7 @@ class DeeplTranslationRequestHandlerTest extends TestCase
     public function testGetBodyCanReturnFilteredArray(): void
     {
         $stream = $this->createMock(StreamInterface::class);
-        
+
         $this->translation->expects($this->once())
             ->method('getText')
             ->willReturn('some text to translate');
@@ -54,7 +54,7 @@ class DeeplTranslationRequestHandlerTest extends TestCase
         $this->translation->expects($this->once())
             ->method('getTargetLang')
             ->willReturn('some target language');
-        
+
         $this->streamFactory->expects($this->once())
             ->method('createStream')
             ->with(
@@ -77,7 +77,7 @@ class DeeplTranslationRequestHandlerTest extends TestCase
     public function testGetBodyCanReturnArrayWithOptionalTags(): void
     {
         $stream = $this->createMock(StreamInterface::class);
-        
+
         $this->translation->expects($this->once())
             ->method('getText')
             ->willReturn('some text to translate');
@@ -109,7 +109,7 @@ class DeeplTranslationRequestHandlerTest extends TestCase
         $this->translation->expects($this->once())
             ->method('getPreserveFormatting')
             ->willReturn(TextHandlingEnum::PRESERVEFORMATTING_ON);
-        
+
         $this->streamFactory->expects($this->once())
             ->method('createStream')
             ->with(
@@ -124,7 +124,7 @@ class DeeplTranslationRequestHandlerTest extends TestCase
                         'split_sentences' => '1',
                         'preserve_formatting' => '1',
                         'auth_key' => 'some key',
-                    ]                   
+                    ]
                 )
             )
             ->willReturn($stream);
