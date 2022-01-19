@@ -22,7 +22,7 @@ $ composer require scn/deepl-api-connector
 ```php
 require_once __DIR__  . '/vendor/autoload.php';
 
-$deepl = \Scn\DeeplApiConnector\DeeplClient::create('your-api-key');
+$deepl = \Scn\DeeplApiConnector\DeeplClientFactory::create('your-api-key');
 
 try {
     $usageObject = $deepl->getUsage();
@@ -37,7 +37,7 @@ try {
 ```php
 require_once __DIR__  . '/vendor/autoload.php';
 
-$deepl = \Scn\DeeplApiConnector\DeeplClient::create('your-api-key');
+$deepl = \Scn\DeeplApiConnector\DeeplClientFactory::create('your-api-key');
 
 try {
     $translation = new \Scn\DeeplApiConnector\Model\TranslationConfig(
@@ -62,7 +62,7 @@ try {
 ```php
 require_once __DIR__  . '/vendor/autoload.php';
 
-$deepl = \Scn\DeeplApiConnector\DeeplClient::create('your-api-key');
+$deepl = \Scn\DeeplApiConnector\DeeplClientFactory::create('your-api-key');
 
 try {
     $fileTranslation = new \Scn\DeeplApiConnector\Model\FileTranslationConfig(
@@ -85,7 +85,7 @@ try {
 ```php
 require_once __DIR__  . '/vendor/autoload.php';
 
-$deepl = \Scn\DeeplApiConnector\DeeplClient::create('your-api-key');
+$deepl = \Scn\DeeplApiConnector\DeeplClientFactory::create('your-api-key');
 
 try {
     $fileTranslation = new \Scn\DeeplApiConnector\Model\FileTranslationConfig(
@@ -111,7 +111,7 @@ try {
 ```php
 require_once __DIR__  . '/vendor/autoload.php';
 
-$deepl = \Scn\DeeplApiConnector\DeeplClient::create('your-api-key');
+$deepl = \Scn\DeeplApiConnector\DeeplClientFactory::create('your-api-key');
 
 try {
     $fileTranslation = new \Scn\DeeplApiConnector\Model\FileTranslationConfig(
