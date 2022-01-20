@@ -15,9 +15,9 @@ final class DeeplRequestFactory implements DeeplRequestFactoryInterface
     public const DEEPL_PAID_BASE_URI = 'https://api.deepl.com';
     public const DEEPL_FREE_BASE_URI = 'https://api-free.deepl.com';
 
-    private $authKey;
+    private string $authKey;
 
-    private $streamFactory;
+    private StreamFactoryInterface $streamFactory;
 
     public function __construct(
         string $authKey,
@@ -79,7 +79,7 @@ final class DeeplRequestFactory implements DeeplRequestFactoryInterface
 
     public function getDeeplBaseUri(): string
     {
-        if (strpos($this->authKey, ':fx')) {
+        if (strpos($this->authKey, ':fx') !== false) {
             return DeeplRequestFactory::DEEPL_FREE_BASE_URI;
         }
 

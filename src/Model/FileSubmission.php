@@ -6,9 +6,9 @@ namespace Scn\DeeplApiConnector\Model;
 
 final class FileSubmission extends AbstractResponseModel implements FileSubmissionInterface
 {
-    private $documentId;
+    private string $documentId;
 
-    private $documentKey;
+    private string $documentKey;
 
     public function getDocumentId(): string
     {

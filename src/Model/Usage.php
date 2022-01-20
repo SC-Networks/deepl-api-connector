@@ -6,9 +6,9 @@ namespace Scn\DeeplApiConnector\Model;
 
 final class Usage extends AbstractResponseModel implements UsageInterface
 {
-    private $characterCount;
+    private int $characterCount;
 
-    private $characterLimit;
+    private int $characterLimit;
 
     public function getCharacterCount(): int
     {

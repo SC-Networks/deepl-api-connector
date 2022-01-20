@@ -12,6 +12,10 @@
         {
             "name": "Sascha Nützel",
             "homepage": "https://www.sc-networks.com"
+        },
+        {
+            "name": "Daniel Jakob",
+            "homepage": "https://www.sc-networks.com"
         }
     ],
     "require": {
@@ -25,6 +29,9 @@
         "friendsofphp/php-cs-fixer": "^3.5",
         "guzzlehttp/guzzle": "^7.0",
         "nyholm/psr7": "^1.4",
+        "phpstan/phpstan": "^1.4",
+        "phpstan/phpstan-mockery": "^1.0",
+        "phpstan/phpstan-strict-rules": "^1.1",
         "phpunit/phpunit": "^9"
     },
     "autoload": {
@@ -38,7 +45,9 @@
         }
     },
     "scripts": {
+        "qa": "composer check-cs && composer stan && composer tests",
         "tests": "vendor/bin/phpunit -c phpunit.xml.dist",
+        "stan": "vendor/bin/phpstan",
         "check-cs": "vendor/bin/php-cs-fixer fix --dry-run --diff",
         "fix-cs": "vendor/bin/php-cs-fixer fix"
     },

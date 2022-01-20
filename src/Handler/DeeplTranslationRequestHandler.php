@@ -13,11 +13,11 @@ final class DeeplTranslationRequestHandler implements DeeplRequestHandlerInterfa
     private const SEPARATOR = ',';
     public const API_ENDPOINT = '/v2/translate';
 
-    private $authKey;
+    private string $authKey;
 
-    private $streamFactory;
+    private StreamFactoryInterface $streamFactory;
 
-    private $translation;
+    private TranslationConfigInterface $translation;
 
     public function __construct(
         string $authKey,
@@ -50,14 +50,14 @@ final class DeeplTranslationRequestHandler implements DeeplRequestHandlerInterfa
                         'source_lang' => $this->translation->getSourceLang(),
                         'tag_handling' => implode(
                             static::SEPARATOR,
-                            (array) $this->translation->getTagHandling()
+                            $this->translation->getTagHandling()
                         ),
                         'non_splitting_tags' => implode(
                             static::SEPARATOR,
-                            (array) $this->translation->getNonSplittingTags()
+                            $this->translation->getNonSplittingTags()
                         ),
-                        'ignore_tags' => implode(static::SEPARATOR, (array) $this->translation->getIgnoreTags()),
-                        'split_sentences' => (string) $this->translation->getSplitSentences(),
+                        'ignore_tags' => implode(static::SEPARATOR, $this->translation->getIgnoreTags()),
+                        'split_sentences' => $this->translation->getSplitSentences(),
                         'preserve_formatting' => $this->translation->getPreserveFormatting(),
                         'auth_key' => $this->authKey,
                     ]

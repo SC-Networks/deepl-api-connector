@@ -6,9 +6,9 @@ namespace Scn\DeeplApiConnector\Model;
 
 final class Translation extends AbstractResponseModel implements TranslationInterface
 {
-    private $detectedSourceLanguage;
+    private string $detectedSourceLanguage;
 
-    private $text;
+    private string $text;
 
     public function getDetectedSourceLanguage(): string
     {

@@ -6,13 +6,13 @@ namespace Scn\DeeplApiConnector\Model;
 
 final class FileTranslationStatus extends AbstractResponseModel implements FileTranslationStatusInterface
 {
-    private $documentId;
+    private string $documentId;
 
-    private $status;
+    private string $status;
 
-    private $secondsRemaining;
+    private ?int $secondsRemaining;
 
-    private $billedCharacters;
+    private int $billedCharacters;
 
     public function getDocumentId(): string
     {

@@ -1,5 +1,9 @@
 # Changelog
 
+## [4.0.0] - TBD
+### Added
+- phpstan static analyses (dev)
+
 ## [3.0.0] - 2022-01-20
 ### Added
 - Support Deepl Free Api (https://support.deepl.com/hc/en/articles/360021200939-DeepL-API-Free)

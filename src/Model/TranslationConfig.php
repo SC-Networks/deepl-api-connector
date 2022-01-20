@@ -8,21 +8,21 @@ use Scn\DeeplApiConnector\Enum\TextHandlingEnum;
 
 final class TranslationConfig implements TranslationConfigInterface
 {
-    private $text;
+    private string $text;
 
-    private $targetLang;
+    private string $targetLang;
 
-    private $sourceLang;
+    private string $sourceLang;
 
-    private $tagHandling;
+    private array $tagHandling;
 
-    private $nonSplittingTags;
+    private array $nonSplittingTags;
 
-    private $ignoreTags;
+    private array $ignoreTags;
 
-    private $splitSentences;
+    private string $splitSentences;
 
-    private $preserveFormatting;
+    private string $preserveFormatting;
 
     public function __construct(
         string $text,
