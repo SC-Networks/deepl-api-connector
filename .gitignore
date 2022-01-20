@@ -2,4 +2,5 @@ vendor/
 composer.lock
 build/
 .phpunit.result.cache
-.php_cs.cache
+.php-cs-fixer.cache
+.php_cs.dist.php

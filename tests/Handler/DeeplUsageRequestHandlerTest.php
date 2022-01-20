@@ -15,14 +15,14 @@ class DeeplUsageRequestHandlerTest extends TestCase
      * @var DeeplUsageRequestHandler
      */
     private $subject;
-    
+
     /** @var StreamFactoryInterface|MockObject */
     private $streamFactory;
 
     public function setUp(): void
     {
         $this->streamFactory = $this->createMock(StreamFactoryInterface::class);
-        
+
         $this->subject = new DeeplUsageRequestHandler(
             'some key',
             $this->streamFactory
@@ -42,7 +42,7 @@ class DeeplUsageRequestHandlerTest extends TestCase
     public function testGetBodyCanReturnArray(): void
     {
         $stream = $this->createMock(StreamInterface::class);
-        
+
         $this->streamFactory->expects($this->once())
             ->method('createStream')
             ->with(

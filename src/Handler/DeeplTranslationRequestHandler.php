@@ -11,7 +11,7 @@ use Scn\DeeplApiConnector\Model\TranslationConfigInterface;
 final class DeeplTranslationRequestHandler implements DeeplRequestHandlerInterface
 {
     private const SEPARATOR = ',';
-    public const API_ENDPOINT = 'https://api.deepl.com/v2/translate';
+    public const API_ENDPOINT = '/v2/translate';
 
     private $authKey;
 

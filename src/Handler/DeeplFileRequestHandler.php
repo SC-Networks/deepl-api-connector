@@ -8,7 +8,7 @@ use Scn\DeeplApiConnector\Model\FileSubmissionInterface;
 
 final class DeeplFileRequestHandler implements DeeplRequestHandlerInterface
 {
-    public const API_ENDPOINT = 'https://api.deepl.com/v2/document/%s/result';
+    public const API_ENDPOINT = '/v2/document/%s/result';
 
     private $authKey;
 

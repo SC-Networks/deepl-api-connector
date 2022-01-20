@@ -16,7 +16,7 @@ class DeeplFileSubmissionRequestHandlerTest extends TestCase
      * @var DeeplFileRequestHandler
      */
     private $subject;
-    
+
     /** @var MultipartStreamBuilder|MockObject */
     private $streamBuilder;
 
@@ -45,7 +45,7 @@ class DeeplFileSubmissionRequestHandlerTest extends TestCase
     public function testGetBodyCanReturnFilteredArray(): void
     {
         $stream = $this->createMock(StreamInterface::class);
-        
+
         $this->fileTranslation->expects($this->once())
             ->method('getFileName')
             ->willReturn('file name');
@@ -61,7 +61,7 @@ class DeeplFileSubmissionRequestHandlerTest extends TestCase
         $this->fileTranslation->expects($this->once())
             ->method('getTargetLang')
             ->willReturn('target lang');
-        
+
         $this->streamBuilder->expects($this->once())
             ->method('setBoundary')
             ->with('boundary')

@@ -32,7 +32,7 @@ class DeeplClientTest extends TestCase
 
     /** @var DeeplRequestFactoryInterface|MockObject */
     private $deeplRequestFactory;
-    
+
     /** @var RequestFactoryInterface|MockObject */
     private $requestFactory;
 
@@ -368,7 +368,7 @@ class DeeplClientTest extends TestCase
         $response->expects($this->once())
             ->method('getBody')
             ->willReturn($stream);
-        
+
         $request = $this->createRequestExpectations(
             $requestHandler,
             'some method',
@@ -382,15 +382,16 @@ class DeeplClientTest extends TestCase
 
         $this->assertInstanceOf(FileTranslationInterface::class, $this->subject->getFileTranslation($fileSubmission));
     }
-    
+
     private function createRequestExpectations(
         MockObject $requestHandler,
         string $method,
         string $path
     ): MockObject {
+        $base_uri = 'http://something';
         $request = $this->createMock(RequestInterface::class);
         $stream = $this->createMock(StreamInterface::class);
-        
+
         $contentType = 'some-content-type';
         $requestHandler->expects($this->once())
             ->method('getMethod')
@@ -404,12 +405,16 @@ class DeeplClientTest extends TestCase
         $requestHandler->expects($this->once())
             ->method('getContentType')
             ->willReturn($contentType);
-        
+
         $this->requestFactory->expects($this->once())
             ->method('createRequest')
-            ->with($method, $path)
+            ->with($method, sprintf('%s%s', $base_uri, $path))
             ->willReturn($request);
-        
+
+        $this->deeplRequestFactory->expects($this->once())
+            ->method('getDeeplBaseUri')
+            ->willReturn($base_uri);
+
         $request->expects($this->once())
             ->method('withHeader')
             ->with('Content-Type', $contentType)
@@ -418,15 +423,7 @@ class DeeplClientTest extends TestCase
             ->method('withBody')
             ->with($stream)
             ->willReturnSelf();
-        
-        return $request;
-    }
 
-    public function testCreateReturnsConnectorInstance(): void
-    {
-        $this->assertInstanceOf(
-            DeeplClient::class,
-            DeeplClientFactory::create('some-api-key')
-        );
+        return $request;
     }
 }

@@ -25,4 +25,6 @@ interface DeeplRequestFactoryInterface
     public function createDeeplFileTranslationRequestHandler(
         FileSubmissionInterface $fileSubmission
     ): DeeplRequestHandlerInterface;
+
+    public function getDeeplBaseUri(): string;
 }
