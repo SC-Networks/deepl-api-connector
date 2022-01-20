@@ -1,5 +1,5 @@
 # Upgrading
 
-## [3.0.0] - To be released
+## [3.0.0] - 2022-01-20
 ### Breaking
-- `DeepClient::create()` was moved into `DeepClientFactory`
+- `DeeplClient::create()` was moved into `DeeplClientFactory`
