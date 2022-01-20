@@ -7,6 +7,22 @@
 Information about Deepl: https://www.deepl.com
 Information about Deepl API: https://www.deepl.com/api.html
 
+Requirements
+============
+
+- php (See the compatibility table below for supported php versions)
+- A deepl free/pro api key
+
+Compatibility
+=============
+
+| Connector-Version               | PHP-Version(s)     |
+|---------------------------------|--------------------|
+| **master** (dev)                | TBD                |
+| **3.x** (features and bugfixes) | 7.4, 8.0, 8.1      |
+| **2.x** (bugfixes only)         | 7.3, 7.4, 8.0, 8.1 |
+| **1.x** (EOL)                   | 7.2, 7.3, 7.4      |
+
 ## Install
 
 Via Composer
