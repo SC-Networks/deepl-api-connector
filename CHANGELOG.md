@@ -2,10 +2,10 @@
 
 ## [3.0.0] - 2022-01-20
 ### Added
-- Support Deepl Free Api 
+- Support Deepl Free Api (https://support.deepl.com/hc/en/articles/360021200939-DeepL-API-Free)
 - Documentation for own HttpClient Implementation
-- PSR18 Support
-
+- PSR18 Support #39 
+- Documentation improvments
 ### Changed
 - Move SplitSentences/Formatting Options to seperate Enum
 
