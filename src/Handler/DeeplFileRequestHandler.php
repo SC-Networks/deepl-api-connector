@@ -10,11 +10,11 @@ final class DeeplFileRequestHandler implements DeeplRequestHandlerInterface
 {
     public const API_ENDPOINT = '/v2/document/%s/result';
 
-    private $authKey;
+    private string $authKey;
 
-    private $streamFactory;
+    private StreamFactoryInterface $streamFactory;
 
-    private $fileSubmission;
+    private FileSubmissionInterface $fileSubmission;
 
     public function __construct(
         string $authKey,

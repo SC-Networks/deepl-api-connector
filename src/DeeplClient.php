@@ -24,11 +24,11 @@ use stdClass;
 
 class DeeplClient implements DeeplClientInterface
 {
-    private $deeplRequestFactory;
+    private DeeplRequestFactoryInterface $deeplRequestFactory;
 
-    private $httpClient;
+    private ClientInterface $httpClient;
 
-    private $requestFactory;
+    private RequestFactoryInterface $requestFactory;
 
     public function __construct(
         DeeplRequestFactoryInterface $deeplRequestFactory,
@@ -126,13 +126,13 @@ class DeeplClient implements DeeplClientInterface
 
             $response = $this->httpClient->sendRequest($request);
 
-            if (in_array('application/json', $response->getHeader('Content-Type'))) {
-                return json_decode($response->getBody()->getContents());
+            if (in_array('application/json', $response->getHeader('Content-Type'), true)) {
+                $result = json_decode($response->getBody()->getContents());
             } else {
                 $content = new stdClass();
                 $content->content = $response->getBody()->getContents();
 
-                return $content;
+                $result = $content;
             }
         } catch (ClientExceptionInterface $exception) {
             throw new RequestException(
@@ -143,5 +143,8 @@ class DeeplClient implements DeeplClientInterface
                 $exception
             );
         }
+
+        /** @var stdClass $result */
+        return $result;
     }
 }

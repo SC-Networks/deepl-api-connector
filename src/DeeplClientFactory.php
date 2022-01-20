@@ -25,10 +25,10 @@ final class DeeplClientFactory
         return new DeeplClient(
             new DeeplRequestFactory(
                 $authKey,
-                $streamFactory ?: Psr17FactoryDiscovery::findStreamFactory()
+                $streamFactory ?? Psr17FactoryDiscovery::findStreamFactory()
             ),
-            $httpClient ?: Psr18ClientDiscovery::find(),
-            $requestFactory ?: Psr17FactoryDiscovery::findRequestFactory()
+            $httpClient ?? Psr18ClientDiscovery::find(),
+            $requestFactory ?? Psr17FactoryDiscovery::findRequestFactory()
         );
     }
 }

@@ -6,13 +6,13 @@ namespace Scn\DeeplApiConnector\Model;
 
 final class FileTranslationConfig implements FileTranslationConfigInterface
 {
-    private $fileContent;
+    private string $fileContent;
 
-    private $fileName;
+    private string $fileName;
 
-    private $targetLang;
+    private string $targetLang;
 
-    private $sourceLang;
+    private string $sourceLang;
 
     public function __construct(
         string $fileContent,

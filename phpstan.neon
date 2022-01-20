@@ -1,0 +1,9 @@
+parameters:
+	level: 9
+	paths:
+		- src
+
+includes:
+	- phpstan-baseline.neon
+	- vendor/phpstan/phpstan-mockery/extension.neon
+	- vendor/phpstan/phpstan-strict-rules/rules.neon

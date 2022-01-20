@@ -11,9 +11,9 @@ final class DeeplUsageRequestHandler implements DeeplRequestHandlerInterface
 {
     public const API_ENDPOINT = '/v2/usage';
 
-    private $authKey;
+    private string $authKey;
 
-    private $streamFactory;
+    private StreamFactoryInterface $streamFactory;
 
     public function __construct(
         string $authKey,

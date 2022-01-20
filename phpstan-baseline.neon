@@ -1,0 +1,107 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Call to an undefined method Psr\\\\Http\\\\Client\\\\ClientExceptionInterface\\:\\:getResponse\\(\\)\\.$#"
+			count: 1
+			path: src/DeeplClient.php
+
+		-
+			message: "#^Argument of an invalid type stdClass supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: src/Model/AbstractResponseModel.php
+
+		-
+			message: "#^Variable method call on \\$this\\(Scn\\\\DeeplApiConnector\\\\Model\\\\AbstractResponseModel\\)\\.$#"
+			count: 1
+			path: src/Model/AbstractResponseModel.php
+
+		-
+			message: "#^Method Scn\\\\DeeplApiConnector\\\\Model\\\\TranslationConfig\\:\\:__construct\\(\\) has parameter \\$ignoreTags with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/TranslationConfig.php
+
+		-
+			message: "#^Method Scn\\\\DeeplApiConnector\\\\Model\\\\TranslationConfig\\:\\:__construct\\(\\) has parameter \\$nonSplittingTags with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/TranslationConfig.php
+
+		-
+			message: "#^Method Scn\\\\DeeplApiConnector\\\\Model\\\\TranslationConfig\\:\\:__construct\\(\\) has parameter \\$tagHandling with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/TranslationConfig.php
+
+		-
+			message: "#^Method Scn\\\\DeeplApiConnector\\\\Model\\\\TranslationConfig\\:\\:getIgnoreTags\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/TranslationConfig.php
+
+		-
+			message: "#^Method Scn\\\\DeeplApiConnector\\\\Model\\\\TranslationConfig\\:\\:getNonSplittingTags\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/TranslationConfig.php
+
+		-
+			message: "#^Method Scn\\\\DeeplApiConnector\\\\Model\\\\TranslationConfig\\:\\:getTagHandling\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/TranslationConfig.php
+
+		-
+			message: "#^Method Scn\\\\DeeplApiConnector\\\\Model\\\\TranslationConfig\\:\\:setIgnoreTags\\(\\) has parameter \\$ignoreTags with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/TranslationConfig.php
+
+		-
+			message: "#^Method Scn\\\\DeeplApiConnector\\\\Model\\\\TranslationConfig\\:\\:setNonSplittingTags\\(\\) has parameter \\$nonSplittingTags with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/TranslationConfig.php
+
+		-
+			message: "#^Method Scn\\\\DeeplApiConnector\\\\Model\\\\TranslationConfig\\:\\:setTagHandling\\(\\) has parameter \\$tagHandling with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/TranslationConfig.php
+
+		-
+			message: "#^Property Scn\\\\DeeplApiConnector\\\\Model\\\\TranslationConfig\\:\\:\\$ignoreTags type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/TranslationConfig.php
+
+		-
+			message: "#^Property Scn\\\\DeeplApiConnector\\\\Model\\\\TranslationConfig\\:\\:\\$nonSplittingTags type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/TranslationConfig.php
+
+		-
+			message: "#^Property Scn\\\\DeeplApiConnector\\\\Model\\\\TranslationConfig\\:\\:\\$tagHandling type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/TranslationConfig.php
+
+		-
+			message: "#^Method Scn\\\\DeeplApiConnector\\\\Model\\\\TranslationConfigInterface\\:\\:getIgnoreTags\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/TranslationConfigInterface.php
+
+		-
+			message: "#^Method Scn\\\\DeeplApiConnector\\\\Model\\\\TranslationConfigInterface\\:\\:getNonSplittingTags\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/TranslationConfigInterface.php
+
+		-
+			message: "#^Method Scn\\\\DeeplApiConnector\\\\Model\\\\TranslationConfigInterface\\:\\:getTagHandling\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/TranslationConfigInterface.php
+
+		-
+			message: "#^Method Scn\\\\DeeplApiConnector\\\\Model\\\\TranslationConfigInterface\\:\\:setIgnoreTags\\(\\) has parameter \\$ignoreTags with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/TranslationConfigInterface.php
+
+		-
+			message: "#^Method Scn\\\\DeeplApiConnector\\\\Model\\\\TranslationConfigInterface\\:\\:setNonSplittingTags\\(\\) has parameter \\$nonSplittingTags with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/TranslationConfigInterface.php
+
+		-
+			message: "#^Method Scn\\\\DeeplApiConnector\\\\Model\\\\TranslationConfigInterface\\:\\:setTagHandling\\(\\) has parameter \\$tagHandling with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/TranslationConfigInterface.php
+

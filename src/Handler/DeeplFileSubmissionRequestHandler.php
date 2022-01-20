@@ -12,11 +12,11 @@ final class DeeplFileSubmissionRequestHandler implements DeeplRequestHandlerInte
 {
     public const API_ENDPOINT = '/v2/document';
 
-    private $authKey;
+    private string $authKey;
 
-    private $fileTranslation;
+    private FileTranslationConfigInterface $fileTranslation;
 
-    private $multipartStreamBuilder;
+    private MultipartStreamBuilder $multipartStreamBuilder;
 
     public function __construct(
         string $authKey,

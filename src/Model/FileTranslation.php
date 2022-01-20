@@ -6,7 +6,7 @@ namespace Scn\DeeplApiConnector\Model;
 
 final class FileTranslation extends AbstractResponseModel implements FileTranslationInterface
 {
-    private $content;
+    private string $content;
 
     public function getContent(): string
     {
