@@ -4,13 +4,15 @@
 [![License](https://poser.pugx.org/scn/deepl-api-connector/license)](LICENSE)
 [![Build Status](https://travis-ci.org/SC-Networks/deepl-api-connector.svg?branch=master)](https://travis-ci.org/SC-Networks/deepl-api-connector)
 
-Information about Deepl: https://www.deepl.com
-Information about Deepl API: https://www.deepl.com/api.html
+- Information about Deepl: https://www.deepl.com
+- Deepl API Documentation: https://www.deepl.com/api.html
 
 Requirements
 ============
 
 - php (See the compatibility table below for supported php versions)
+- Implementations of [PSR17 (Http-Factories)](https://www.php-fig.org/psr/psr-17/) ([Available packages](https://packagist.org/providers/psr/http-factory-implementation)) and 
+[PSR18 (Http-Client)](https://www.php-fig.org/psr/psr-18/) ([Available packages](https://packagist.org/providers/psr/http-client-implementation))
 - A deepl free/pro api key
 
 Compatibility
@@ -32,6 +34,39 @@ $ composer require scn/deepl-api-connector
 ```
 
 ## Usage
+
+### Api client creation
+
+The `DeeplClientFactory` supports auto-detection of installed psr17/psr18 implementations.
+Just call the `create` method and you are ready to go
+
+```php
+require_once __DIR__  . '/vendor/autoload.php';
+
+use \Scn\DeeplApiConnector\DeeplClientFactory;
+
+$deepl = DeeplClientFactory::create('your-api-key');
+```
+
+Optionally, you can provide already created instances of HttpClient, StreamFactory and RequestFactory as params to the create method.
+
+```php
+require_once __DIR__  . '/vendor/autoload.php';
+
+use \Scn\DeeplApiConnector\DeeplClientFactory;
+
+$deepl = DeeplClientFactory::create(
+    'your-api-key',
+    $existingHttpClientInstance,
+    $existingStreamFactoryInstance,
+    $existingRequestFactoryInstance,
+);
+```
+
+
+If a custom HTTP client implementation is to be used, this can also be done via the DeeplClientFactory::create method.
+The Client must support PSR18.
+
 
 #### Get Usage of API Key
 
@@ -144,17 +179,6 @@ try {
     echo $file->getContent();
     .....
 }
-```
-
-## HttpClient Implementation
-
-If a custom HTTP client implementation is to be used, this can also be done via the DeeplClientFactory::create method. 
-The Client must support PSR18.
-
-```php
-require_once __DIR__  . '/vendor/autoload.php';
-
-$deepl = \Scn\DeeplApiConnector\DeeplClientFactory::create('your-api-key', new AweSomeHttpClient());
 ```
 
 ## Testing
