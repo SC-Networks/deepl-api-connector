@@ -66,12 +66,11 @@ class DeeplFileSubmissionRequestHandlerTest extends TestCase
             ->method('setBoundary')
             ->with('boundary')
             ->willReturn($this->streamBuilder);
-        $this->streamBuilder->expects($this->exactly(5))
+        $this->streamBuilder->expects($this->exactly(4))
             ->method('addResource')
             ->withConsecutive(
                 ['auth_key', 'some key'],
-                ['file', 'file content'],
-                ['filename', 'file name'],
+                ['file', 'file content', ['filename' => 'file name']],
                 ['source_lang', 'source lang'],
                 ['target_lang', 'target lang']
             )

@@ -43,8 +43,7 @@ final class DeeplFileSubmissionRequestHandler implements DeeplRequestHandlerInte
         return $this->multipartStreamBuilder
             ->setBoundary('boundary')
             ->addResource('auth_key', $this->authKey)
-            ->addResource('file', $this->fileTranslation->getFileContent())
-            ->addResource('filename', $this->fileTranslation->getFileName())
+            ->addResource('file', $this->fileTranslation->getFileContent(), ['filename' => $this->fileTranslation->getFileName()])
             ->addResource('source_lang', $this->fileTranslation->getSourceLang())
             ->addResource('target_lang', $this->fileTranslation->getTargetLang())
             ->build();

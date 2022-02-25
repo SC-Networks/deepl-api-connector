@@ -4,6 +4,10 @@
 ### Added
 - phpstan static analyses (dev)
 
+## [3.0.1] - 2022-02-25
+### Fixed
+- File- Upload Error (invalid file data)
+
 ## [3.0.0] - 2022-01-20
 ### Added
 - Support Deepl Free Api (https://support.deepl.com/hc/en/articles/360021200939-DeepL-API-Free)
