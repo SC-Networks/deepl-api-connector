@@ -4,6 +4,10 @@
 ### Added
 - phpstan static analyses (dev)
 
+## [3.0.2] - 2022-02-28
+### CHANGED
+- FileStatus RequestHandler Method from get to post
+
 ## [3.0.1] - 2022-02-25
 ### Fixed
 - File- Upload Error (invalid file data)

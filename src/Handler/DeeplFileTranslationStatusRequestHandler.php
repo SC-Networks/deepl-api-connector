@@ -30,7 +30,7 @@ final class DeeplFileTranslationStatusRequestHandler implements DeeplRequestHand
 
     public function getMethod(): string
     {
-        return DeeplRequestHandlerInterface::METHOD_GET;
+        return DeeplRequestHandlerInterface::METHOD_POST;
     }
 
     public function getPath(): string
