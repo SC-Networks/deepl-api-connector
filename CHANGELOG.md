@@ -4,6 +4,10 @@
 ### Added
 - phpstan static analyses (dev)
 
+## [3.0.3] - 2022-03-01
+### CHANGED
+- File RequestHandler Method from get to post
+
 ## [3.0.2] - 2022-02-28
 ### CHANGED
 - FileStatus RequestHandler Method from get to post
