@@ -6,7 +6,9 @@ namespace Scn\DeeplApiConnector;
 
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
+use Psr\Http\Client\RequestExceptionInterface;
 use Psr\Http\Message\RequestFactoryInterface;
+use Psr\Http\Message\ResponseInterface;
 use Scn\DeeplApiConnector\Exception\RequestException;
 use Scn\DeeplApiConnector\Handler\DeeplRequestFactoryInterface;
 use Scn\DeeplApiConnector\Handler\DeeplRequestHandlerInterface;
@@ -138,7 +140,7 @@ class DeeplClient implements DeeplClientInterface
             throw new RequestException(
                 $exception->getCode().
                 ' '.
-                $exception->getResponse()->getBody()->getContents(),
+                $this->resolveResponseBody($exception),
                 $exception->getCode(),
                 $exception
             );
@@ -146,5 +148,34 @@ class DeeplClient implements DeeplClientInterface
 
         /** @var stdClass $result */
         return $result;
+    }
+
+    /**
+     * Check if the exception includes information on the
+     * response, and returns the response body if available.
+     *
+     * Background: The client exception does not necessarily
+     * have to include response information, so the presence
+     * of the `getResponse()` method must be checked.
+     *
+     * @param ClientExceptionInterface $exception
+     * @return string
+     * @see RequestExceptionInterface
+     */
+    private function resolveResponseBody(ClientExceptionInterface $exception) : string
+    {
+        if(!method_exists($exception, 'getResponse'))
+        {
+            return '(response body not provided)';
+        }
+
+        $response = $exception->getResponse();
+
+        if($response instanceof ResponseInterface)
+        {
+            return $response->getBody()->getContents();
+        }
+
+        return '(response body not provided)';
     }
 }
