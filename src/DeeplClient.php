@@ -164,13 +164,13 @@ class DeeplClient implements DeeplClientInterface
      */
     private function resolveResponseBody(ClientExceptionInterface $exception) : string
     {
-        if(!method_exists($exception, 'getResponse')) {
+        if (!method_exists($exception, 'getResponse')) {
             return '(response body not provided)';
         }
 
         $response = $exception->getResponse();
 
-        if($response instanceof ResponseInterface) {
+        if ($response instanceof ResponseInterface) {
             return $response->getBody()->getContents();
         }
 
