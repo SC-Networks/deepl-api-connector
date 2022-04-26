@@ -1,9 +1,5 @@
 parameters:
 	ignoreErrors:
-		-
-			message: "#^Call to an undefined method Psr\\\\Http\\\\Client\\\\ClientExceptionInterface\\:\\:getResponse\\(\\)\\.$#"
-			count: 1
-			path: src/DeeplClient.php
 
 		-
 			message: "#^Argument of an invalid type stdClass supplied for foreach, only iterables are supported\\.$#"
