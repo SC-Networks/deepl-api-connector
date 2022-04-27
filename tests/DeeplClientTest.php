@@ -60,20 +60,7 @@ class DeeplClientTest extends TestCase
         $this->deeplRequestFactory->method('createDeeplUsageRequestHandler')
             ->willReturn($requestHandler);
 
-        $stream = $this->createMock(StreamInterface::class);
-        $stream->expects($this->once())
-            ->method('getContents')
-            ->willReturn('some content');
-
-        $response = $this->createMock(ResponseInterface::class);
-        $response->expects($this->once())
-            ->method('getBody')
-            ->willReturn($stream);
-
         $clientException = $this->createMock(ClientException::class);
-        $clientException->expects($this->once())
-            ->method('getResponse')
-            ->willReturn($response);
 
         $request = $this->createRequestExpectations(
             $requestHandler,
@@ -144,20 +131,7 @@ class DeeplClientTest extends TestCase
         $this->deeplRequestFactory->method('createDeeplTranslationRequestHandler')
             ->willReturn($requestHandler);
 
-        $stream = $this->createMock(StreamInterface::class);
-        $stream->expects($this->once())
-            ->method('getContents')
-            ->willReturn('some content');
-
-        $response = $this->createMock(ResponseInterface::class);
-        $response->expects($this->once())
-            ->method('getBody')
-            ->willReturn($stream);
-
         $clientException = $this->createMock(ClientException::class);
-        $clientException->expects($this->once())
-            ->method('getResponse')
-            ->willReturn($response);
 
         $request = $this->createRequestExpectations(
             $requestHandler,
