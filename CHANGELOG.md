@@ -1,18 +1,21 @@
 # Changelog
 
-## [4.0.0] - TBD
-### Added
-- phpstan static analyses (dev)
+## [3.0.4] - 2022-04-27
+### Fixed
+- Removed erroneous method call on ClientExceptionInterface instances in error
+  case (psr-18 migration aftermath)
 
 ## [3.0.3] - 2022-03-01
-### CHANGED
+### Changed
 - File RequestHandler Method from get to post
 
 ## [3.0.2] - 2022-02-28
-### CHANGED
+### Changed
 - FileStatus RequestHandler Method from get to post
 
 ## [3.0.1] - 2022-02-25
+### Added
+- phpstan static analyses (dev)
 ### Fixed
 - File- Upload Error (invalid file data)
 
