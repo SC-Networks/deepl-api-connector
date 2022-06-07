@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.0.5] - 2022-06-07
+### Fixed
+- Correct deepl response header parsing for file submissions (the header has  been changed upstream)
+
 ## [3.0.4] - 2022-04-27
 ### Fixed
 - Removed erroneous method call on ClientExceptionInterface instances in error
