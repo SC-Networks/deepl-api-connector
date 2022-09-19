@@ -30,4 +30,7 @@ final class LanguageEnum
     public const LANGUAGE_SK = 'SK';
     public const LANGUAGE_SL = 'SL';
     public const LANGUAGE_SV = 'SV';
+    public const LANGUAGE_TR = 'TR';
+    public const LANGUAGE_ID = 'ID';
+    public const LANGUAGE_UK = 'UK';
 }
