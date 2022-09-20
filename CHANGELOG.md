@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.1.0] - 2022-09-20
+### Added
+- Add support for recently added languages (ukrainian, indonesian, turkish)
+
 ## [3.0.5] - 2022-06-07
 ### Fixed
 - Correct deepl response header parsing for file submissions (the header has  been changed upstream)
