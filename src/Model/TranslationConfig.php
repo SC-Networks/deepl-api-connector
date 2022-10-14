@@ -14,16 +14,24 @@ final class TranslationConfig implements TranslationConfigInterface
 
     private string $sourceLang;
 
+    /** @var array<int, string> */
     private array $tagHandling;
 
+    /** @var array<int, string> */
     private array $nonSplittingTags;
 
+    /** @var array<int, string> */
     private array $ignoreTags;
 
     private string $splitSentences;
 
     private string $preserveFormatting;
 
+    /**
+     * @param array<int, string> $tagHandling
+     * @param array<int, string> $nonSplittingTags
+     * @param array<int, string> $ignoreTags
+     */
     public function __construct(
         string $text,
         string $targetLang,

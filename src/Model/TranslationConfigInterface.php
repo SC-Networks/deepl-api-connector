@@ -16,16 +16,34 @@ interface TranslationConfigInterface
 
     public function setSourceLang(string $sourceLang): TranslationConfigInterface;
 
+    /**
+     * @return array<int, string>
+     */
     public function getTagHandling(): array;
 
+    /**
+     * @param array<int, string> $tagHandling
+     */
     public function setTagHandling(array $tagHandling): TranslationConfigInterface;
 
+    /**
+     * @return array<int, string>
+     */
     public function getNonSplittingTags(): array;
 
+    /**
+     * @param array<int, string> $nonSplittingTags
+     */
     public function setNonSplittingTags(array $nonSplittingTags): TranslationConfigInterface;
 
+    /**
+     * @return array<int, string>
+     */
     public function getIgnoreTags(): array;
 
+    /**
+     * @param array<int, string> $ignoreTags
+     */
     public function setIgnoreTags(array $ignoreTags): TranslationConfigInterface;
 
     public function getSplitSentences(): string;
