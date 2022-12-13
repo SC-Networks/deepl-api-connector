@@ -22,9 +22,14 @@ final class Translation extends AbstractResponseModel implements TranslationInte
         return $this;
     }
 
+    public function hasText() : bool
+    {
+        return isset($this->text);
+    }
+    
     public function getText(): string
     {
-        return $this->text;
+        return $this->text ?? '';
     }
 
     public function setText(string $text): TranslationInterface
