@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.2.0] - 2023-mm-dd
+### Added
+- Add method for retrieving all supported languages by deepl
+
+### Fixed
+- Erroneous responses due to server- or client-errors now throw a `RequestException`
+
 ## [3.1.0] - 2022-09-20
 ### Added
 - Add support for recently added languages (ukrainian, indonesian, turkish)

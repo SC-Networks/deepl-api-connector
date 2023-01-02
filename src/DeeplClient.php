@@ -16,6 +16,7 @@ use Scn\DeeplApiConnector\Model\FileTranslation;
 use Scn\DeeplApiConnector\Model\FileTranslationConfigInterface;
 use Scn\DeeplApiConnector\Model\FileTranslationStatus;
 use Scn\DeeplApiConnector\Model\ResponseModelInterface;
+use Scn\DeeplApiConnector\Model\SupportedLanguages;
 use Scn\DeeplApiConnector\Model\Translation;
 use Scn\DeeplApiConnector\Model\TranslationConfig;
 use Scn\DeeplApiConnector\Model\TranslationConfigInterface;
@@ -107,6 +108,15 @@ class DeeplClient implements DeeplClientInterface
         ));
     }
 
+    public function getSupportedLanguages(): ResponseModelInterface
+    {
+        return (new SupportedLanguages())->hydrate(
+            $this->executeRequest(
+                $this->deeplRequestFactory->createDeeplSupportedLanguageRetrievalRequestHandler()
+            )
+        );
+    }
+
     /**
      * Execute given RequestHandler Request and returns decoded Json Object or throws Exception with Error Code
      * and maybe given Error Message.
@@ -147,10 +157,20 @@ class DeeplClient implements DeeplClientInterface
             );
         }
 
+        // Result handling is kinda broken atm
+
         $headers = (string) json_encode($response->getHeader('Content-Type'));
 
         if (stripos($headers, 'application\/json') !== false) {
             $result = json_decode($response->getBody()->getContents());
+
+            // json responses having an array on root-level need to be converted (sigh)
+            if (is_array($result)) {
+                $content = new stdClass();
+                $content->content = $result;
+
+                $result = $content;
+            }
         } else {
             $content = new stdClass();
             $content->content = $response->getBody()->getContents();

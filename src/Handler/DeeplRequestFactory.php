@@ -77,6 +77,14 @@ final class DeeplRequestFactory implements DeeplRequestFactoryInterface
         );
     }
 
+    public function createDeeplSupportedLanguageRetrievalRequestHandler(): DeeplRequestHandlerInterface
+    {
+        return new DeeplSupportedLanguageRetrievalRequestHandler(
+            $this->authKey,
+            $this->streamFactory
+        );
+    }
+
     public function getDeeplBaseUri(): string
     {
         if (strpos($this->authKey, ':fx') !== false) {

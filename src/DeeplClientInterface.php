@@ -20,4 +20,9 @@ interface DeeplClientInterface
     public function getFileTranslationStatus(FileSubmissionInterface $fileSubmission): ResponseModelInterface;
 
     public function getFileTranslation(FileSubmissionInterface $fileSubmission): ResponseModelInterface;
+
+    /**
+     * Returns list of supported languages
+     */
+    public function getSupportedLanguages(): ResponseModelInterface;
 }
