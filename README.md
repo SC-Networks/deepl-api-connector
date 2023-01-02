@@ -77,9 +77,6 @@ $deepl = \Scn\DeeplApiConnector\DeeplClientFactory::create('your-api-key');
 
 try {
     $usageObject = $deepl->getUsage();
-    
-    
-    .......
 }
 ```
 
@@ -99,12 +96,21 @@ try {
     );
 
     $translationObject = $deepl->getTranslation($translation);
-        
-    .......
+}
+```
+
+```php
+require_once __DIR__  . '/vendor/autoload.php';
+
+$deepl = \Scn\DeeplApiConnector\DeeplClientFactory::create('your-api-key');
+
+try {
+    $translation = new \Scn\DeeplApiConnector\Model\TranslationConfig(
+        'My little Test',
+        \Scn\DeeplApiConnector\Enum\LanguageEnum::LANGUAGE_DE
+    );
     
-    OR
-    
-    $translationObject = $deepl->translate('some text', \Scn\DeeplApiConnector\Model\TranslationConfigInterface::LANGUAGE_DE);
+    $translationObject = $deepl->translate('some text', \Scn\DeeplApiConnector\Enum\LanguageEnum::LANGUAGE_DE);
 }
 ```
 
@@ -126,12 +132,12 @@ try {
     $fileSubmission = $deepl->translateFile($fileTranslation);
 
     $fileSubmission->getDocumentId() 
-    
-    .....
 }
 ```
 
 #### Check File Translation Status
+
+All translation states are available in `FileStatusEnum`
 
 ```php
 require_once __DIR__  . '/vendor/autoload.php';
@@ -149,11 +155,6 @@ try {
     $fileSubmission = $deepl->translateFile($fileTranslation);
 
     $translationStatus = $deepl->getFileTranslationStatus($fileSubmission);
-    
-    if ($translationStatus->getStatus() === \Scn\DeeplApiConnector\Enum\FileStatusEnum::FILE_TRANSLATION_DONE)
-    {
-    ....
-    }
 }
 ```
 
@@ -177,9 +178,12 @@ try {
     $file = $deepl->getFileTranslation($fileSubmission);
 
     echo $file->getContent();
-    .....
 }
 ```
+
+#### Retrieve supported languages
+
+See `example/retrieve_supported_languages.php`
 
 ## Testing
 

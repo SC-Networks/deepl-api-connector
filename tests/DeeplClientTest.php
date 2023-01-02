@@ -18,6 +18,7 @@ use Scn\DeeplApiConnector\Model\FileSubmissionInterface;
 use Scn\DeeplApiConnector\Model\FileTranslationConfigInterface;
 use Scn\DeeplApiConnector\Model\FileTranslationInterface;
 use Scn\DeeplApiConnector\Model\FileTranslationStatusInterface;
+use Scn\DeeplApiConnector\Model\SupportedLanguages;
 use Scn\DeeplApiConnector\Model\TranslationConfigInterface;
 use Scn\DeeplApiConnector\Model\TranslationInterface;
 use Scn\DeeplApiConnector\Model\UsageInterface;
@@ -401,6 +402,47 @@ class DeeplClientTest extends TestCase
         $this->expectExceptionCode($statusCode);
 
         $this->subject->getUsage();
+    }
+
+    public function testGetSupportedLanguagesReturnsSupportedLanguagesModel(): void
+    {
+        $requestHandler = $this->createMock(DeeplRequestHandlerInterface::class);
+        $requestHandler->method('getMethod')
+            ->willReturn('some method');
+        $requestHandler->method('getPath')
+            ->willReturn('some path');
+
+        $this->deeplRequestFactory->method('createDeeplSupportedLanguageRetrievalRequestHandler')
+            ->willReturn($requestHandler);
+
+        $json = json_encode(['with value', 'some-other value']);
+
+        $stream = $this->createMock(StreamInterface::class);
+        $stream->expects($this->once())
+            ->method('getContents')
+            ->willReturn($json);
+
+        $response = $this->createMock(ResponseInterface::class);
+        $response->expects($this->once())
+            ->method('getHeader')
+            ->with('Content-Type')
+            ->willReturn(['application/json']);
+        $response->expects($this->once())
+            ->method('getBody')
+            ->willReturn($stream);
+
+        $request = $this->createRequestExpectations(
+            $requestHandler,
+            'some method',
+            'some path'
+        );
+
+        $this->httpClient->expects($this->once())
+            ->method('sendRequest')
+            ->with($request)
+            ->willReturn($response);
+
+        $this->assertInstanceOf(SupportedLanguages::class, $this->subject->getSupportedLanguages());
     }
 
     private function createRequestExpectations(

@@ -45,11 +45,16 @@
         }
     },
     "scripts": {
-        "qa": "composer check-cs && composer stan && composer tests",
-        "tests": "vendor/bin/phpunit -c phpunit.xml.dist",
-        "stan": "vendor/bin/phpstan",
-        "check-cs": "vendor/bin/php-cs-fixer fix --dry-run --diff",
-        "fix-cs": "vendor/bin/php-cs-fixer fix"
+        "qa": [
+            "@composer check-cs",
+            "@composer stan",
+            "@composer tests"
+        ],
+        "coverage": "XDEBUG_MODE=coverage phpunit --coverage-html build/coverage -c phpunit.xml.dist",
+        "tests": "phpunit -c phpunit.xml.dist",
+        "stan": "phpstan",
+        "check-cs": "php-cs-fixer fix --dry-run --diff",
+        "fix-cs": "php-cs-fixer fix"
     },
     "config": {
         "sort-packages": true
