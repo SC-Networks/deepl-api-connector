@@ -21,8 +21,8 @@ Compatibility
 | Connector-Version               | PHP-Version(s)     |
 |---------------------------------|--------------------|
 | **master** (dev)                | TBD                |
-| **3.x** (features and bugfixes) | 7.4, 8.0, 8.1      |
-| **2.x** (bugfixes only)         | 7.3, 7.4, 8.0, 8.1 |
+| **3.x** (features and bugfixes) | 7.4, 8.0, 8.1, 8.2 |
+| **2.x** (EOL)                   | 7.3, 7.4, 8.0, 8.1 |
 | **1.x** (EOL)                   | 7.2, 7.3, 7.4      |
 
 ## Install
