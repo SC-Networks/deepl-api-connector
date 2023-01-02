@@ -357,6 +357,52 @@ class DeeplClientTest extends TestCase
         $this->assertInstanceOf(FileTranslationInterface::class, $this->subject->getFileTranslation($fileSubmission));
     }
 
+    public function errorStatusCodeProvider(): array
+    {
+        return [
+            [404],
+            [403],
+            [500],
+        ];
+    }
+
+    /**
+     * @dataProvider errorStatusCodeProvider
+     */
+    public function testResponseWithErrorStatusCodeTriggersError(int $statusCode): void
+    {
+        $response = $this->createMock(ResponseInterface::class);
+        $requestHandler = $this->createMock(DeeplRequestHandlerInterface::class);
+
+        $requestHandler->method('getMethod')
+            ->willReturn('some method');
+        $requestHandler->method('getPath')
+            ->willReturn('some path');
+
+        $this->deeplRequestFactory->method('createDeeplUsageRequestHandler')
+            ->willReturn($requestHandler);
+
+        $request = $this->createRequestExpectations(
+            $requestHandler,
+            'some method',
+            'some path'
+        );
+
+        $this->httpClient->expects($this->once())
+            ->method('sendRequest')
+            ->with($request)
+            ->willReturn($response);
+
+        $response->expects($this->once())
+            ->method('getStatusCode')
+            ->willReturn($statusCode);
+
+        $this->expectException(RequestException::class);
+        $this->expectExceptionCode($statusCode);
+
+        $this->subject->getUsage();
+    }
+
     private function createRequestExpectations(
         MockObject $requestHandler,
         string $method,

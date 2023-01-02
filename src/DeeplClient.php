@@ -115,32 +115,47 @@ class DeeplClient implements DeeplClientInterface
      */
     private function executeRequest(DeeplRequestHandlerInterface $requestHandler): stdClass
     {
-        try {
-            $request = $this->requestFactory->createRequest(
+        // build the actual http request
+        $request = $this->requestFactory
+            ->createRequest(
                 $requestHandler->getMethod(),
                 sprintf('%s%s', $this->deeplRequestFactory->getDeeplBaseUri(), $requestHandler->getPath())
-            )->withHeader(
+            )
+            ->withHeader(
                 'Content-Type',
                 $requestHandler->getContentType()
-            )->withBody($requestHandler->getBody());
+            )
+            ->withBody($requestHandler->getBody());
 
+        try {
             $response = $this->httpClient->sendRequest($request);
-            $headers = (string) json_encode($response->getHeader('Content-Type'));
-
-            if (stripos($headers, 'application\/json') !== false) {
-                $result = json_decode($response->getBody()->getContents());
-            } else {
-                $content = new stdClass();
-                $content->content = $response->getBody()->getContents();
-
-                $result = $content;
-            }
         } catch (ClientExceptionInterface $exception) {
             throw new RequestException(
                 $exception->getMessage(),
                 $exception->getCode(),
                 $exception
             );
+        }
+
+        // if the http client doesn't handle errors, catch client- and server errors
+        $statusCode = $response->getStatusCode();
+        $errorType = substr((string) $statusCode, 0, 1);
+        if (in_array($errorType, ['5', '4'], true)) {
+            throw new RequestException(
+                'Http error occurred',
+                $statusCode,
+            );
+        }
+
+        $headers = (string) json_encode($response->getHeader('Content-Type'));
+
+        if (stripos($headers, 'application\/json') !== false) {
+            $result = json_decode($response->getBody()->getContents());
+        } else {
+            $content = new stdClass();
+            $content->content = $response->getBody()->getContents();
+
+            $result = $content;
         }
 
         /** @var stdClass $result */
