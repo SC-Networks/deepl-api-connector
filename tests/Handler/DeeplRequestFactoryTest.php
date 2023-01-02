@@ -75,6 +75,14 @@ class DeeplRequestFactoryTest extends TestCase
         );
     }
 
+    public function testCreateDeeplSupportedLanguageRetrievalRequestHandler(): void
+    {
+        $this->assertInstanceOf(
+            DeeplSupportedLanguageRetrievalRequestHandler::class,
+            $this->subject->createDeeplSupportedLanguageRetrievalRequestHandler()
+        );
+    }
+
     public function testGetDeeplBaseUriCanReturnPaidBaseUri(): void
     {
         $this->assertSame(DeeplRequestFactory::DEEPL_PAID_BASE_URI, $this->subject->getDeeplBaseUri());
