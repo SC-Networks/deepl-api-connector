@@ -6,6 +6,7 @@ namespace Scn\DeeplApiConnector\Handler;
 
 use Http\Message\MultipartStream\MultipartStreamBuilder;
 use Psr\Http\Message\StreamFactoryInterface;
+use Scn\DeeplApiConnector\Model\BatchTranslationConfigInterface;
 use Scn\DeeplApiConnector\Model\FileSubmissionInterface;
 use Scn\DeeplApiConnector\Model\FileTranslationConfigInterface;
 use Scn\DeeplApiConnector\Model\TranslationConfigInterface;
@@ -31,6 +32,16 @@ final class DeeplRequestFactory implements DeeplRequestFactoryInterface
         TranslationConfigInterface $translation
     ): DeeplRequestHandlerInterface {
         return new DeeplTranslationRequestHandler(
+            $this->authKey,
+            $this->streamFactory,
+            $translation
+        );
+    }
+
+    public function createDeeplBatchTranslationRequestHandler(
+        BatchTranslationConfigInterface $translation
+    ): DeeplRequestHandlerInterface {
+        return new DeeplBatchTranslationRequestHandler(
             $this->authKey,
             $this->streamFactory,
             $translation

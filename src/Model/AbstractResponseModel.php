@@ -27,7 +27,7 @@ abstract class AbstractResponseModel implements ResponseModelInterface
         return $this;
     }
 
-    private function getModelSetter(string $key): string
+    protected function getModelSetter(string $key): string
     {
         return self::SETTER_PREFIX.
             str_replace(

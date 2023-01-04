@@ -6,6 +6,7 @@ namespace Scn\DeeplApiConnector\Handler;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Http\Message\StreamFactoryInterface;
+use Scn\DeeplApiConnector\Model\BatchTranslationConfigInterface;
 use Scn\DeeplApiConnector\Model\FileSubmissionInterface;
 use Scn\DeeplApiConnector\Model\FileTranslationConfigInterface;
 use Scn\DeeplApiConnector\Model\TranslationConfigInterface;
@@ -13,15 +14,12 @@ use Scn\DeeplApiConnector\TestCase;
 
 class DeeplRequestFactoryTest extends TestCase
 {
-    /**
-     * @var DeeplRequestFactory
-     */
-    private $subject;
+    private DeeplRequestFactory  $subject;
 
     /** @var StreamFactoryInterface|MockObject */
     private $streamFactory;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->streamFactory = $this->createMock(StreamFactoryInterface::class);
 
@@ -48,7 +46,17 @@ class DeeplRequestFactoryTest extends TestCase
         );
     }
 
-    public function testCreateDeeplfileSubmissionRequestHandler(): void
+    public function testCreateDeeplBatchTranslationRequestHandler(): void
+    {
+        $translation = $this->createMock(BatchTranslationConfigInterface::class);
+
+        $this->assertInstanceOf(
+            DeeplBatchTranslationRequestHandler::class,
+            $this->subject->createDeeplBatchTranslationRequestHandler($translation)
+        );
+    }
+
+    public function testCreateDeeplFileSubmissionRequestHandler(): void
     {
         $fileTranslation = $this->createMock(FileTranslationConfigInterface::class);
         $this->assertInstanceOf(
