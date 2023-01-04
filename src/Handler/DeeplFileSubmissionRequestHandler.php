@@ -40,13 +40,19 @@ final class DeeplFileSubmissionRequestHandler implements DeeplRequestHandlerInte
 
     public function getBody(): StreamInterface
     {
-        return $this->multipartStreamBuilder
+        $streamBuilder = $this->multipartStreamBuilder
             ->setBoundary('boundary')
             ->addResource('auth_key', $this->authKey)
             ->addResource('file', $this->fileTranslation->getFileContent(), ['filename' => $this->fileTranslation->getFileName()])
-            ->addResource('source_lang', $this->fileTranslation->getSourceLang())
-            ->addResource('target_lang', $this->fileTranslation->getTargetLang())
-            ->build();
+            ->addResource('target_lang', $this->fileTranslation->getTargetLang());
+
+        // add sourceLanguage only if set, otherwise the file won't be translated #26
+        $sourceLanguage = $this->fileTranslation->getSourceLang();
+        if ($sourceLanguage !== '') {
+            $streamBuilder = $streamBuilder->addResource('source_lang', $sourceLanguage);
+        }
+
+        return $streamBuilder->build();
     }
 
     public function getContentType(): string
