@@ -65,13 +65,55 @@ class DeeplFileSubmissionRequestHandlerTest extends TestCase
         $this->streamBuilder->expects($this->once())
             ->method('setBoundary')
             ->with('boundary')
-            ->willReturn($this->streamBuilder);
+            ->willReturnSelf();
         $this->streamBuilder->expects($this->exactly(4))
             ->method('addResource')
             ->withConsecutive(
                 ['auth_key', 'some key'],
                 ['file', 'file content', ['filename' => 'file name']],
-                ['source_lang', 'source lang'],
+                ['target_lang', 'target lang'],
+                ['source_lang', 'source lang']
+            )
+            ->willReturnSelf();
+        $this->streamBuilder->expects($this->once())
+            ->method('build')
+            ->willReturn($stream);
+
+        $this->assertSame(
+            $stream,
+            $this->subject->getBody()
+        );
+    }
+
+    public function testGetBodyIgnoresSourceLangIfEmpty(): void
+    {
+        $stream = $this->createMock(StreamInterface::class);
+
+        $this->fileTranslation->expects($this->once())
+            ->method('getFileName')
+            ->willReturn('file name');
+
+        $this->fileTranslation->expects($this->once())
+            ->method('getFileContent')
+            ->willReturn('file content');
+
+        $this->fileTranslation->expects($this->once())
+            ->method('getSourceLang')
+            ->willReturn('');
+
+        $this->fileTranslation->expects($this->once())
+            ->method('getTargetLang')
+            ->willReturn('target lang');
+
+        $this->streamBuilder->expects($this->once())
+            ->method('setBoundary')
+            ->with('boundary')
+            ->willReturnSelf();
+        $this->streamBuilder->expects($this->exactly(3))
+            ->method('addResource')
+            ->withConsecutive(
+                ['auth_key', 'some key'],
+                ['file', 'file content', ['filename' => 'file name']],
                 ['target_lang', 'target lang']
             )
             ->willReturnSelf();
