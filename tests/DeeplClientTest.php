@@ -14,6 +14,7 @@ use Psr\Http\Message\StreamInterface;
 use Scn\DeeplApiConnector\Exception\RequestException;
 use Scn\DeeplApiConnector\Handler\DeeplRequestFactoryInterface;
 use Scn\DeeplApiConnector\Handler\DeeplRequestHandlerInterface;
+use Scn\DeeplApiConnector\Model\BatchTranslationInterface;
 use Scn\DeeplApiConnector\Model\FileSubmissionInterface;
 use Scn\DeeplApiConnector\Model\FileTranslationConfigInterface;
 use Scn\DeeplApiConnector\Model\FileTranslationInterface;
@@ -231,6 +232,49 @@ class DeeplClientTest extends TestCase
             ->willReturn($response);
 
         $this->assertInstanceOf(TranslationInterface::class, $this->subject->translate('some text', 'some language'));
+    }
+
+    public function testTranslateBatchPerformsBatchTranslations(): void
+    {
+        $requestHandler = $this->createMock(DeeplRequestHandlerInterface::class);
+        $stream = $this->createMock(StreamInterface::class);
+        $response = $this->createMock(ResponseInterface::class);
+
+        $requestHandler->method('getMethod')
+            ->willReturn('some method');
+        $requestHandler->method('getPath')
+            ->willReturn('some path');
+
+        $this->deeplRequestFactory->method('createDeeplBatchTranslationRequestHandler')
+            ->willReturn($requestHandler);
+
+        $stream->expects($this->once())
+            ->method('getContents')
+            ->willReturn(json_encode(['translations' => ['content']]));
+
+        $response->expects($this->once())
+            ->method('getHeader')
+            ->with('Content-Type')
+            ->willReturn(['application/json']);
+        $response->expects($this->once())
+            ->method('getBody')
+            ->willReturn($stream);
+
+        $request = $this->createRequestExpectations(
+            $requestHandler,
+            'some method',
+            'some path'
+        );
+
+        $this->httpClient->expects($this->once())
+            ->method('sendRequest')
+            ->with($request)
+            ->willReturn($response);
+
+        $this->assertInstanceOf(
+            BatchTranslationInterface::class,
+            $this->subject->translateBatch(['some text'], 'some language')
+        );
     }
 
     public function testTranslateFileCanReturnInstanceOfResponseModel(): void

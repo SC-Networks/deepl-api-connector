@@ -2,6 +2,7 @@
 
 namespace Scn\DeeplApiConnector\Handler;
 
+use Scn\DeeplApiConnector\Model\BatchTranslationConfigInterface;
 use Scn\DeeplApiConnector\Model\FileSubmissionInterface;
 use Scn\DeeplApiConnector\Model\FileTranslationConfigInterface;
 use Scn\DeeplApiConnector\Model\TranslationConfigInterface;
@@ -10,6 +11,10 @@ interface DeeplRequestFactoryInterface
 {
     public function createDeeplTranslationRequestHandler(
         TranslationConfigInterface $translation
+    ): DeeplRequestHandlerInterface;
+
+    public function createDeeplBatchTranslationRequestHandler(
+        BatchTranslationConfigInterface $translation
     ): DeeplRequestHandlerInterface;
 
     public function createDeeplUsageRequestHandler(): DeeplRequestHandlerInterface;
