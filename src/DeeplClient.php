@@ -10,6 +10,8 @@ use Psr\Http\Message\RequestFactoryInterface;
 use Scn\DeeplApiConnector\Exception\RequestException;
 use Scn\DeeplApiConnector\Handler\DeeplRequestFactoryInterface;
 use Scn\DeeplApiConnector\Handler\DeeplRequestHandlerInterface;
+use Scn\DeeplApiConnector\Model\BatchTranslation;
+use Scn\DeeplApiConnector\Model\BatchTranslationConfig;
 use Scn\DeeplApiConnector\Model\FileSubmission;
 use Scn\DeeplApiConnector\Model\FileSubmissionInterface;
 use Scn\DeeplApiConnector\Model\FileTranslation;
@@ -94,6 +96,15 @@ class DeeplClient implements DeeplClientInterface
         ));
     }
 
+    public function translateBatch(array $text, string $targetLanguage): ResponseModelInterface
+    {
+        return (new BatchTranslation())->hydrate($this->executeRequest(
+            $this->deeplRequestFactory->createDeeplBatchTranslationRequestHandler(
+                new BatchTranslationConfig($text, $targetLanguage)
+            )
+        ));
+    }
+
     public function getFileTranslationStatus(FileSubmissionInterface $fileSubmission): ResponseModelInterface
     {
         return (new FileTranslationStatus())->hydrate($this->executeRequest(
@@ -158,7 +169,6 @@ class DeeplClient implements DeeplClientInterface
         }
 
         // Result handling is kinda broken atm
-
         $headers = (string) json_encode($response->getHeader('Content-Type'));
 
         if (stripos($headers, 'application\/json') !== false) {

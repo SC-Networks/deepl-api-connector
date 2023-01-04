@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.3.0] - 2023-mm-dd
+### Added
+- Add method for batch translation of multiple texts #42
+
 ## [3.2.0] - 2023-01-04
 ### Added
 - Add method for retrieving all supported languages by deepl

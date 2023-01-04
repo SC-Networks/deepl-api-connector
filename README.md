@@ -114,6 +114,8 @@ try {
 }
 ```
 
+Optional you also can translate a batch of texts as once, see `example/translate_batch.php`
+
 #### Add File to Translation Queue
 
 ```php
