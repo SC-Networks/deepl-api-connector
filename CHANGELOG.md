@@ -1,6 +1,6 @@
 # Changelog
 
-## [3.2.0] - 2023-mm-dd
+## [3.2.0] - 2023-01-04
 ### Added
 - Add method for retrieving all supported languages by deepl
 
