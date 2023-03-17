@@ -38,4 +38,12 @@ class BatchTranslationTest extends TestCase
             $this->subject->getTranslations()
         );
     }
+
+    public function testSetTranslationsCanSettArrayOfTextAndCanReturnSelf(): void
+    {
+        $this->assertInstanceOf(
+            BatchTranslationInterface::class,
+            $this->subject->setTranslations(['some', 'thing'])
+        );
+    }
 }
