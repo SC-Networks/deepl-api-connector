@@ -68,7 +68,7 @@ class DeeplFileSubmissionRequestHandlerTest extends TestCase
             ->willReturnSelf();
         $this->streamBuilder->expects($this->exactly(4))
             ->method('addResource')
-            ->withConsecutive(
+            ->willReturnOnConsecutiveCalls(
                 ['auth_key', 'some key'],
                 ['file', 'file content', ['filename' => 'file name']],
                 ['target_lang', 'target lang'],
@@ -111,7 +111,7 @@ class DeeplFileSubmissionRequestHandlerTest extends TestCase
             ->willReturnSelf();
         $this->streamBuilder->expects($this->exactly(3))
             ->method('addResource')
-            ->withConsecutive(
+            ->willReturnOnConsecutiveCalls(
                 ['auth_key', 'some key'],
                 ['file', 'file content', ['filename' => 'file name']],
                 ['target_lang', 'target lang']

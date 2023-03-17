@@ -19,7 +19,7 @@
         }
     ],
     "require": {
-        "php": "^7.4 || ^8.0",
+        "php": "^8.1",
         "ext-json": "*",
         "php-http/discovery": "^1.13",
         "php-http/multipart-stream-builder": "^1.1",
@@ -32,7 +32,7 @@
         "phpstan/phpstan": "^1.4",
         "phpstan/phpstan-mockery": "^1.0",
         "phpstan/phpstan-strict-rules": "^1.1",
-        "phpunit/phpunit": "^9"
+        "phpunit/phpunit": "^10"
     },
     "autoload": {
         "psr-4": {
@@ -57,6 +57,9 @@
         "fix-cs": "php-cs-fixer fix"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "php-http/discovery": false
+        }
     }
 }
