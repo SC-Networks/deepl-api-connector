@@ -1,6 +1,12 @@
 <?xml version="1.0"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd" backupGlobals="true" bootstrap="vendor/autoload.php" colors="true" cacheDirectory=".phpunit.cache" backupStaticProperties="false" requireCoverageMetadata="false">
-  <coverage includeUncoveredFiles="false">
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.4/phpunit.xsd" backupGlobals="true" bootstrap="vendor/autoload.php" colors="true" cacheDirectory=".phpunit.cache" backupStaticProperties="false" requireCoverageMetadata="false">
+  <coverage includeUncoveredFiles="false"/>
+  <testsuites>
+    <testsuite name="Unittests">
+      <directory>tests</directory>
+    </testsuite>
+  </testsuites>
+  <source>
     <include>
       <directory suffix=".php">./</directory>
     </include>
@@ -8,10 +14,5 @@
       <directory suffix=".php">vendor/</directory>
       <directory suffix=".php">tests/</directory>
     </exclude>
-  </coverage>
-  <testsuites>
-    <testsuite name="Unittests">
-      <directory>tests</directory>
-    </testsuite>
-  </testsuites>
+  </source>
 </phpunit>
