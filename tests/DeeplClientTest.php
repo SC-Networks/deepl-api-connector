@@ -402,7 +402,7 @@ class DeeplClientTest extends TestCase
         $this->assertInstanceOf(FileTranslationInterface::class, $this->subject->getFileTranslation($fileSubmission));
     }
 
-    public function errorStatusCodeProvider(): array
+    public static function errorStatusCodeProvider(): array
     {
         return [
             [404],
