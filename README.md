@@ -2,7 +2,7 @@
 
 [![Monthly Downloads](https://poser.pugx.org/scn/deepl-api-connector/d/monthly)](https://packagist.org/packages/scn/deepl-api-connector)
 [![License](https://poser.pugx.org/scn/deepl-api-connector/license)](LICENSE)
-[![Build Status](https://travis-ci.org/SC-Networks/deepl-api-connector.svg?branch=master)](https://travis-ci.org/SC-Networks/deepl-api-connector)
+[![Build status](https://github.com/SC-Networks/deepl-api-connector/actions/workflows/php.yml/badge.svg)](https://github.com/SC-Networks/deepl-api-connector/actions/workflows/php.yml)
 
 - Information about Deepl: https://www.deepl.com
 - Deepl API Documentation: https://www.deepl.com/api.html
