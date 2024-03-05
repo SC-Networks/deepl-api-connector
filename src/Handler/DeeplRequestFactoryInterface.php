@@ -33,5 +33,9 @@ interface DeeplRequestFactoryInterface
 
     public function createDeeplSupportedLanguageRetrievalRequestHandler(): DeeplRequestHandlerInterface;
 
+    public function createDeeplGlossariesSupportedLanguagesPairsRetrievalRequestHandler(): DeeplRequestHandlerInterface;
+
+    public function createDeeplGlossariesListRetrievalRequestHandler(): DeeplRequestHandlerInterface;
+
     public function getDeeplBaseUri(): string;
 }

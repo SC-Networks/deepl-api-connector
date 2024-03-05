@@ -96,6 +96,22 @@ final class DeeplRequestFactory implements DeeplRequestFactoryInterface
         );
     }
 
+    public function createDeeplGlossariesSupportedLanguagesPairsRetrievalRequestHandler(): DeeplRequestHandlerInterface
+    {
+        return new DeeplGlossariesSupportedLanguagesPairsRetrievalRequestHandler(
+            $this->authKey,
+            $this->streamFactory
+        );
+    }
+
+    public function createDeeplGlossariesListRetrievalRequestHandler(): DeeplRequestHandlerInterface
+    {
+        return new DeeplGlossariesListRetrievalRequestHandler(
+            $this->authKey,
+            $this->streamFactory
+        );
+    }
+
     public function getDeeplBaseUri(): string
     {
         if (strpos($this->authKey, ':fx') !== false) {
