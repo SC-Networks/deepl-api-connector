@@ -33,7 +33,12 @@ final class GlossariesList extends AbstractResponseModel implements GlossariesLi
     public function getList(): array
     {
         return array_map(
-            fn (stdClass $item): array => (new Glossary())->hydrate($item)->getDetails(),
+            function (stdClass $item): array {
+                /** @var Glossary $glossary */
+                $glossary = (new Glossary())->hydrate($item);
+
+                return $glossary->getDetails();
+            },
             $this->list
         );
     }
