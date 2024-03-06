@@ -55,4 +55,8 @@ interface BatchTranslationConfigInterface
     public function getPreserveFormatting(): string;
 
     public function setPreserveFormatting(string $preserveFormatting): BatchTranslationConfigInterface;
+
+    public function getGlossaryId(): string;
+
+    public function setGlossaryId(string $glossaryId): BatchTranslationConfigInterface;
 }

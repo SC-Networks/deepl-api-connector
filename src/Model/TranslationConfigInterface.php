@@ -53,4 +53,8 @@ interface TranslationConfigInterface
     public function getPreserveFormatting(): string;
 
     public function setPreserveFormatting(string $preserveFormatting): TranslationConfigInterface;
+
+    public function getGlossaryId(): string;
+
+    public function setGlossaryId(string $glossaryId): TranslationConfigInterface;
 }

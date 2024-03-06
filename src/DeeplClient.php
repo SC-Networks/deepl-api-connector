@@ -12,6 +12,9 @@ use Scn\DeeplApiConnector\Handler\DeeplRequestFactoryInterface;
 use Scn\DeeplApiConnector\Handler\DeeplRequestHandlerInterface;
 use Scn\DeeplApiConnector\Model\BatchTranslation;
 use Scn\DeeplApiConnector\Model\BatchTranslationConfig;
+use Scn\DeeplApiConnector\Model\GlossaryEntries;
+use Scn\DeeplApiConnector\Model\GlossaryIdSubmission;
+use Scn\DeeplApiConnector\Model\GlossarySubmissionInterface;
 use Scn\DeeplApiConnector\Model\FileSubmission;
 use Scn\DeeplApiConnector\Model\FileSubmissionInterface;
 use Scn\DeeplApiConnector\Model\FileTranslation;
@@ -19,6 +22,7 @@ use Scn\DeeplApiConnector\Model\FileTranslationConfigInterface;
 use Scn\DeeplApiConnector\Model\FileTranslationStatus;
 use Scn\DeeplApiConnector\Model\GlossariesList;
 use Scn\DeeplApiConnector\Model\GlossariesSupportedLanguagesPairs;
+use Scn\DeeplApiConnector\Model\Glossary;
 use Scn\DeeplApiConnector\Model\ResponseModelInterface;
 use Scn\DeeplApiConnector\Model\SupportedLanguages;
 use Scn\DeeplApiConnector\Model\Translation;
@@ -148,6 +152,36 @@ class DeeplClient implements DeeplClientInterface
         );
     }
 
+    public function createGlossary(GlossarySubmissionInterface $submission): ResponseModelInterface
+    {
+        return (new Glossary())->hydrate($this->executeRequest(
+            $this->deeplRequestFactory->createDeeplGlossaryCreateRequestHandler($submission)
+        ));
+    }
+
+    public function retrieveGlossary(GlossaryIdSubmission $submission): ResponseModelInterface
+    {
+        return (new Glossary())->hydrate($this->executeRequest(
+            $this->deeplRequestFactory->createDeeplGlossaryRetrieveRequestHandler($submission)
+        ));
+    }
+
+    public function deleteGlossary(GlossaryIdSubmission $submission): bool
+    {
+        $this->executeRequest(
+            $this->deeplRequestFactory->createDeeplGlossaryDeleteRequestHandler($submission)
+        );
+
+        return true;
+    }
+
+    public function retrieveGlossaryEntries(GlossaryIdSubmission $submission): ResponseModelInterface
+    {
+        return (new GlossaryEntries())->hydrate($this->executeRequest(
+            $this->deeplRequestFactory->createDeeplGlossaryEntriesRetrieveRequestHandler($submission)
+        ));
+    }
+
     /**
      * Execute given RequestHandler Request and returns decoded Json Object or throws Exception with Error Code
      * and maybe given Error Message.
@@ -167,6 +201,14 @@ class DeeplClient implements DeeplClientInterface
                 $requestHandler->getContentType()
             )
             ->withBody($requestHandler->getBody());
+
+        if (!is_null($requestHandler->getAuthHeader())) {
+            $request = $request->withHeader('Authorization', $requestHandler->getAuthHeader());
+        }
+
+        if (!is_null($requestHandler->getAcceptHeader())) {
+            $request = $request->withHeader('Accept', $requestHandler->getAcceptHeader());
+        }
 
         try {
             $response = $this->httpClient->sendRequest($request);

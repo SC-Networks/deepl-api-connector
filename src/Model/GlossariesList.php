@@ -14,23 +14,26 @@ final class GlossariesList extends AbstractResponseModel implements GlossariesLi
 
     public function hydrate(stdClass $responseModel): ResponseModelInterface
     {
-        $this->list = $responseModel->content->supported_languages;
+        $this->list = $responseModel->glossaries;
 
         return $this;
     }
 
+    /**
+     * @return array<array{
+     *  glossary_id: string,
+     *  name: string,
+     *  ready: boolean,
+     *  source_lang: string,
+     *  target_lang: string,
+     *  creation_time: DateTimeImmutable,
+     *  entry_count: int
+     * }>
+     */
     public function getList(): array
     {
         return array_map(
-            fn (stdClass $item): array => [
-                'glossary_id' => $item->glossary_id,
-                'name' => $item->name,
-                'ready' => $item->ready,
-                'source_lang' => $item->source_lang,
-                'target_lang' => $item->target_lang,
-                'creation_time' => new DateTimeImmutable($item->creation_time),
-                'entry_count' => $item->entry_count,
-            ],
+            fn (stdClass $item): array => (new Glossary())->hydrate($item)->getDetails(),
             $this->list
         );
     }

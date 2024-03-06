@@ -1,36 +1,39 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Scn\DeeplApiConnector\Handler;
 
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\StreamInterface;
+use Scn\DeeplApiConnector\Model\GlossaryIdSubmissionInterface;
 
-final class DeeplGlossariesSupportedLanguagesPairsRetrievalRequestHandler extends AbstractDeeplHandler
+final class DeeplGlossaryDeleteRequestHandler extends AbstractDeeplHandler
 {
-    public const API_ENDPOINT = '/v2/glossary-language-pairs';
+    public const API_ENDPOINT = '/v2/glossaries/%s';
 
     private string $authKey;
 
     private StreamFactoryInterface $streamFactory;
 
+    private GlossaryIdSubmissionInterface $submission;
+
     public function __construct(
         string $authKey,
-        StreamFactoryInterface $streamFactory
+        StreamFactoryInterface $streamFactory,
+        GlossaryIdSubmissionInterface $submission
     ) {
         $this->authKey = $authKey;
         $this->streamFactory = $streamFactory;
+        $this->submission = $submission;
     }
 
     public function getMethod(): string
     {
-        return DeeplRequestHandlerInterface::METHOD_GET;
+        return DeeplRequestHandlerInterface::METHOD_DELETE;
     }
 
     public function getPath(): string
     {
-        return static::API_ENDPOINT;
+        return sprintf(static::API_ENDPOINT, $this->submission->getId());
     }
 
     public function getBody(): StreamInterface

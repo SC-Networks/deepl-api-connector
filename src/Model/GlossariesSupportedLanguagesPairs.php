@@ -13,11 +13,17 @@ final class GlossariesSupportedLanguagesPairs extends AbstractResponseModel impl
 
     public function hydrate(stdClass $responseModel): ResponseModelInterface
     {
-        $this->list = $responseModel->content->supported_languages;
+        $this->list = $responseModel->supported_languages;
 
         return $this;
     }
 
+    /**
+     * @return array<array{
+     *  source_lang: string,
+     *  target_lang: string
+     * }>
+     */
     public function getList(): array
     {
         return array_map(

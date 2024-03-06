@@ -1,26 +1,29 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Scn\DeeplApiConnector\Handler;
 
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\StreamInterface;
+use Scn\DeeplApiConnector\Model\GlossaryIdSubmissionInterface;
 
-final class DeeplGlossariesSupportedLanguagesPairsRetrievalRequestHandler extends AbstractDeeplHandler
+final class DeeplGlossaryEntriesRetrieveRequestHandler extends AbstractDeeplHandler
 {
-    public const API_ENDPOINT = '/v2/glossary-language-pairs';
+    public const API_ENDPOINT = '/v2/glossaries/%s/entries';
 
     private string $authKey;
 
     private StreamFactoryInterface $streamFactory;
 
+    private GlossaryIdSubmissionInterface $submission;
+
     public function __construct(
         string $authKey,
-        StreamFactoryInterface $streamFactory
+        StreamFactoryInterface $streamFactory,
+        GlossaryIdSubmissionInterface $submission
     ) {
         $this->authKey = $authKey;
         $this->streamFactory = $streamFactory;
+        $this->submission = $submission;
     }
 
     public function getMethod(): string
@@ -30,7 +33,7 @@ final class DeeplGlossariesSupportedLanguagesPairsRetrievalRequestHandler extend
 
     public function getPath(): string
     {
-        return static::API_ENDPOINT;
+        return sprintf(static::API_ENDPOINT, $this->submission->getId());
     }
 
     public function getBody(): StreamInterface
@@ -41,6 +44,11 @@ final class DeeplGlossariesSupportedLanguagesPairsRetrievalRequestHandler extend
     public function getAuthHeader(): ?string
     {
         return sprintf('DeepL-Auth-Key %s', $this->authKey);
+    }
+
+    public function getAcceptHeader(): ?string
+    {
+        return 'text/tab-separated-values';
     }
 
     public function getContentType(): string

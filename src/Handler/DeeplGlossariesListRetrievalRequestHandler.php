@@ -7,7 +7,7 @@ namespace Scn\DeeplApiConnector\Handler;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\StreamInterface;
 
-final class DeeplGlossariesListRetrievalRequestHandler implements DeeplRequestHandlerInterface
+final class DeeplGlossariesListRetrievalRequestHandler extends AbstractDeeplHandler
 {
     public const API_ENDPOINT = '/v2/glossaries';
 
@@ -44,6 +44,11 @@ final class DeeplGlossariesListRetrievalRequestHandler implements DeeplRequestHa
                 )
             )
         );
+    }
+
+    public function getAuthHeader(): ?string
+    {
+        return sprintf('DeepL-Auth-Key %s', $this->authKey);
     }
 
     public function getContentType(): string

@@ -1,13 +1,16 @@
 <?php
+
 namespace Scn\DeeplApiConnector\Model;
 
-interface GlossariesSupportedLanguagesPairsInterfaces
+interface GlossaryEntriesInterface
 {
     /**
      * @return array<array{
-     *  source_lang: string,
-     *  target_lang: string
+     *  source: string,
+     *  target: string
      * }>
      */
     public function getList(): array;
+
+    public function getResult(): string;
 }
