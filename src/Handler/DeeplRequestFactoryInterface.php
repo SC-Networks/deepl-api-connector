@@ -3,6 +3,8 @@
 namespace Scn\DeeplApiConnector\Handler;
 
 use Scn\DeeplApiConnector\Model\BatchTranslationConfigInterface;
+use Scn\DeeplApiConnector\Model\GlossaryIdSubmissionInterface;
+use Scn\DeeplApiConnector\Model\GlossarySubmissionInterface;
 use Scn\DeeplApiConnector\Model\FileSubmissionInterface;
 use Scn\DeeplApiConnector\Model\FileTranslationConfigInterface;
 use Scn\DeeplApiConnector\Model\TranslationConfigInterface;
@@ -32,6 +34,26 @@ interface DeeplRequestFactoryInterface
     ): DeeplRequestHandlerInterface;
 
     public function createDeeplSupportedLanguageRetrievalRequestHandler(): DeeplRequestHandlerInterface;
+
+    public function createDeeplGlossariesSupportedLanguagesPairsRetrievalRequestHandler(): DeeplRequestHandlerInterface;
+
+    public function createDeeplGlossariesListRetrievalRequestHandler(): DeeplRequestHandlerInterface;
+
+    public function createDeeplGlossaryCreateRequestHandler(
+        GlossarySubmissionInterface $submission
+    ): DeeplRequestHandlerInterface;
+
+    public function createDeeplGlossaryRetrieveRequestHandler(
+        GlossaryIdSubmissionInterface $submission
+    ): DeeplRequestHandlerInterface;
+
+    public function createDeeplGlossaryDeleteRequestHandler(
+        GlossaryIdSubmissionInterface $submission
+    ): DeeplRequestHandlerInterface;
+
+    public function createDeeplGlossaryEntriesRetrieveRequestHandler(
+        GlossaryIdSubmissionInterface $submission
+    ): DeeplRequestHandlerInterface;
 
     public function getDeeplBaseUri(): string;
 }

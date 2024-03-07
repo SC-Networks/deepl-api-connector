@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector;
 
-use Psr\Http\Client\ClientInterface;
 use GuzzleHttp\Exception\ClientException;
 use PHPUnit\Framework\MockObject\MockObject;
+use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -19,6 +19,12 @@ use Scn\DeeplApiConnector\Model\FileSubmissionInterface;
 use Scn\DeeplApiConnector\Model\FileTranslationConfigInterface;
 use Scn\DeeplApiConnector\Model\FileTranslationInterface;
 use Scn\DeeplApiConnector\Model\FileTranslationStatusInterface;
+use Scn\DeeplApiConnector\Model\Glossaries;
+use Scn\DeeplApiConnector\Model\GlossariesSupportedLanguagesPairs;
+use Scn\DeeplApiConnector\Model\Glossary;
+use Scn\DeeplApiConnector\Model\GlossaryEntries;
+use Scn\DeeplApiConnector\Model\GlossaryIdSubmission;
+use Scn\DeeplApiConnector\Model\GlossarySubmission;
 use Scn\DeeplApiConnector\Model\SupportedLanguages;
 use Scn\DeeplApiConnector\Model\TranslationConfigInterface;
 use Scn\DeeplApiConnector\Model\TranslationInterface;
@@ -487,6 +493,257 @@ class DeeplClientTest extends TestCase
             ->willReturn($response);
 
         $this->assertInstanceOf(SupportedLanguages::class, $this->subject->getSupportedLanguages());
+    }
+
+    public function testGetGlossariesSupportedLanguagesPairsGetCorrectModel(): void
+    {
+        $requestHandler = $this->createMock(DeeplRequestHandlerInterface::class);
+        $requestHandler->method('getMethod')
+            ->willReturn('some method');
+        $requestHandler->method('getPath')
+            ->willReturn('some path');
+
+        $this->deeplRequestFactory->method('createDeeplGlossariesSupportedLanguagesPairsRetrievalRequestHandler')
+            ->willReturn($requestHandler);
+
+        $json = json_encode(['supported_languages' => ['with value', 'some-other value']]);
+
+        $stream = $this->createMock(StreamInterface::class);
+        $stream->expects($this->once())
+            ->method('getContents')
+            ->willReturn($json);
+
+        $response = $this->createMock(ResponseInterface::class);
+        $response->expects($this->once())
+            ->method('getHeader')
+            ->with('Content-Type')
+            ->willReturn(['application/json']);
+        $response->expects($this->once())
+            ->method('getBody')
+            ->willReturn($stream);
+
+        $request = $this->createRequestExpectations(
+            $requestHandler,
+            'some method',
+            'some path'
+        );
+
+        $this->httpClient->expects($this->once())
+            ->method('sendRequest')
+            ->with($request)
+            ->willReturn($response);
+
+        $this->assertInstanceOf(GlossariesSupportedLanguagesPairs::class, $this->subject->getGlossariesSupportedLanguagesPairs());
+    }
+
+    public function testGetGlossariesListGetCorrectModel(): void
+    {
+        $requestHandler = $this->createMock(DeeplRequestHandlerInterface::class);
+        $requestHandler->method('getMethod')
+            ->willReturn('some method');
+        $requestHandler->method('getPath')
+            ->willReturn('some path');
+
+        $this->deeplRequestFactory->method('createDeeplGlossariesListRetrievalRequestHandler')
+            ->willReturn($requestHandler);
+
+        $json = json_encode(['glossaries' => ['with value', 'some-other value']]);
+
+        $stream = $this->createMock(StreamInterface::class);
+        $stream->expects($this->once())
+            ->method('getContents')
+            ->willReturn($json);
+
+        $response = $this->createMock(ResponseInterface::class);
+        $response->expects($this->once())
+            ->method('getHeader')
+            ->with('Content-Type')
+            ->willReturn(['application/json']);
+        $response->expects($this->once())
+            ->method('getBody')
+            ->willReturn($stream);
+
+        $request = $this->createRequestExpectations(
+            $requestHandler,
+            'some method',
+            'some path'
+        );
+
+        $this->httpClient->expects($this->once())
+            ->method('sendRequest')
+            ->with($request)
+            ->willReturn($response);
+
+        $this->assertInstanceOf(Glossaries::class, $this->subject->getGlossariesList());
+    }
+
+    public function testCreateGlossaryGetCorrectModel(): void
+    {
+        $requestHandler = $this->createMock(DeeplRequestHandlerInterface::class);
+        $requestHandler->method('getMethod')
+            ->willReturn('some method');
+        $requestHandler->method('getPath')
+            ->willReturn('some path');
+
+        $this->deeplRequestFactory->method('createDeeplGlossaryCreateRequestHandler')
+            ->willReturn($requestHandler);
+
+        $json = json_encode(['with value', 'some-other value']);
+
+        $stream = $this->createMock(StreamInterface::class);
+        $stream->expects($this->once())
+            ->method('getContents')
+            ->willReturn($json);
+
+        $response = $this->createMock(ResponseInterface::class);
+        $response->expects($this->once())
+            ->method('getHeader')
+            ->with('Content-Type')
+            ->willReturn(['application/json']);
+        $response->expects($this->once())
+            ->method('getBody')
+            ->willReturn($stream);
+
+        $request = $this->createRequestExpectations(
+            $requestHandler,
+            'some method',
+            'some path'
+        );
+
+        $this->httpClient->expects($this->once())
+            ->method('sendRequest')
+            ->with($request)
+            ->willReturn($response);
+
+        $submission = $this->createMock(GlossarySubmission::class);
+
+        $this->assertInstanceOf(Glossary::class, $this->subject->createGlossary($submission));
+    }
+
+    public function testRetrieveGlossaryGetCorrectModel(): void
+    {
+        $requestHandler = $this->createMock(DeeplRequestHandlerInterface::class);
+        $requestHandler->method('getMethod')
+            ->willReturn('some method');
+        $requestHandler->method('getPath')
+            ->willReturn('some path');
+
+        $this->deeplRequestFactory->method('createDeeplGlossaryRetrieveRequestHandler')
+            ->willReturn($requestHandler);
+
+        $json = json_encode(['with value', 'some-other value']);
+
+        $stream = $this->createMock(StreamInterface::class);
+        $stream->expects($this->once())
+            ->method('getContents')
+            ->willReturn($json);
+
+        $response = $this->createMock(ResponseInterface::class);
+        $response->expects($this->once())
+            ->method('getHeader')
+            ->with('Content-Type')
+            ->willReturn(['application/json']);
+        $response->expects($this->once())
+            ->method('getBody')
+            ->willReturn($stream);
+
+        $request = $this->createRequestExpectations(
+            $requestHandler,
+            'some method',
+            'some path'
+        );
+
+        $this->httpClient->expects($this->once())
+            ->method('sendRequest')
+            ->with($request)
+            ->willReturn($response);
+
+        $submission = $this->createMock(GlossaryIdSubmission::class);
+        $this->assertInstanceOf(Glossary::class, $this->subject->retrieveGlossary($submission));
+    }
+
+    public function testDeleteGlossaryGetCorrectBoolean(): void
+    {
+        $requestHandler = $this->createMock(DeeplRequestHandlerInterface::class);
+        $requestHandler->method('getMethod')
+            ->willReturn('some method');
+        $requestHandler->method('getPath')
+            ->willReturn('some path');
+
+        $this->deeplRequestFactory->method('createDeeplGlossaryDeleteRequestHandler')
+            ->willReturn($requestHandler);
+
+        $json = json_encode(['with value', 'some-other value']);
+
+        $stream = $this->createMock(StreamInterface::class);
+        $stream->expects($this->once())
+            ->method('getContents')
+            ->willReturn($json);
+
+        $response = $this->createMock(ResponseInterface::class);
+        $response->expects($this->once())
+            ->method('getHeader')
+            ->with('Content-Type')
+            ->willReturn(['application/json']);
+        $response->expects($this->once())
+            ->method('getBody')
+            ->willReturn($stream);
+
+        $request = $this->createRequestExpectations(
+            $requestHandler,
+            'some method',
+            'some path'
+        );
+
+        $this->httpClient->expects($this->once())
+            ->method('sendRequest')
+            ->with($request)
+            ->willReturn($response);
+
+        $submission = $this->createMock(GlossaryIdSubmission::class);
+        $this->assertTrue($this->subject->deleteGlossary($submission));
+    }
+
+    public function testRetrieveGlossaryEntriesGetCorrectModel(): void
+    {
+        $requestHandler = $this->createMock(DeeplRequestHandlerInterface::class);
+        $requestHandler->method('getMethod')
+            ->willReturn('some method');
+        $requestHandler->method('getPath')
+            ->willReturn('some path');
+
+        $this->deeplRequestFactory->method('createDeeplGlossaryEntriesRetrieveRequestHandler')
+            ->willReturn($requestHandler);
+
+        $json = json_encode(['content' => 'test']);
+
+        $stream = $this->createMock(StreamInterface::class);
+        $stream->expects($this->once())
+            ->method('getContents')
+            ->willReturn($json);
+
+        $response = $this->createMock(ResponseInterface::class);
+        $response->expects($this->once())
+            ->method('getHeader')
+            ->with('Content-Type')
+            ->willReturn(['application/json']);
+        $response->expects($this->once())
+            ->method('getBody')
+            ->willReturn($stream);
+
+        $request = $this->createRequestExpectations(
+            $requestHandler,
+            'some method',
+            'some path'
+        );
+
+        $this->httpClient->expects($this->once())
+            ->method('sendRequest')
+            ->with($request)
+            ->willReturn($response);
+
+        $submission = $this->createMock(GlossaryIdSubmission::class);
+        $this->assertInstanceOf(GlossaryEntries::class, $this->subject->retrieveGlossaryEntries($submission));
     }
 
     private function createRequestExpectations(

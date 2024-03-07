@@ -24,6 +24,13 @@ final class TranslationConfig implements TranslationConfigInterface
 
     private string $preserveFormatting;
 
+    private string $glossaryId;
+
+    /**
+     * @param array<int, string> $tagHandling
+     * @param array<int, string> $nonSplittingTags
+     * @param array<int, string> $ignoreTags
+     */
     public function __construct(
         string $text,
         string $targetLang,
@@ -32,7 +39,8 @@ final class TranslationConfig implements TranslationConfigInterface
         array $nonSplittingTags = [],
         array $ignoreTags = [],
         string $splitSentences = TextHandlingEnum::SPLITSENTENCES_ON,
-        string $preserveFormatting = TextHandlingEnum::PRESERVEFORMATTING_OFF
+        string $preserveFormatting = TextHandlingEnum::PRESERVEFORMATTING_OFF,
+        string $glossaryId = '',
     ) {
         $this->setText($text);
         $this->setTargetLang($targetLang);
@@ -42,6 +50,7 @@ final class TranslationConfig implements TranslationConfigInterface
         $this->setIgnoreTags($ignoreTags);
         $this->setSplitSentences($splitSentences);
         $this->setPreserveFormatting($preserveFormatting);
+        $this->setGlossaryId($glossaryId);
     }
 
     public function getText(): string
@@ -136,6 +145,18 @@ final class TranslationConfig implements TranslationConfigInterface
     public function setPreserveFormatting(string $preserveFormatting): TranslationConfigInterface
     {
         $this->preserveFormatting = $preserveFormatting;
+
+        return $this;
+    }
+
+    public function getGlossaryId(): string
+    {
+        return $this->glossaryId;
+    }
+
+    public function setGlossaryId(string $glossaryId): TranslationConfigInterface
+    {
+        $this->glossaryId = $glossaryId;
 
         return $this;
     }

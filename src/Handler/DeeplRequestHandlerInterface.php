@@ -8,6 +8,7 @@ interface DeeplRequestHandlerInterface
 {
     public const METHOD_POST = 'POST';
     public const METHOD_GET = 'GET';
+    public const METHOD_DELETE = 'DELETE';
 
     public function getMethod(): string;
 
@@ -16,4 +17,8 @@ interface DeeplRequestHandlerInterface
     public function getBody(): StreamInterface;
 
     public function getContentType(): string;
+
+    public function getAuthHeader(): ?string;
+
+    public function getAcceptHeader(): ?string;
 }

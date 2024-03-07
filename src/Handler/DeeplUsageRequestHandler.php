@@ -7,7 +7,7 @@ namespace Scn\DeeplApiConnector\Handler;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\StreamInterface;
 
-final class DeeplUsageRequestHandler implements DeeplRequestHandlerInterface
+final class DeeplUsageRequestHandler extends AbstractDeeplHandler
 {
     public const API_ENDPOINT = '/v2/usage';
 

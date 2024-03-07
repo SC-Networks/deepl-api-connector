@@ -187,6 +187,10 @@ try {
 
 See `example/retrieve_supported_languages.php`
 
+#### Working with glossaries
+
+See [use_glossaries.php](example/use_glossaries.php)
+
 ## Testing
 
 ``` bash

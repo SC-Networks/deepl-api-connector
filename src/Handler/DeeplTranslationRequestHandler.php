@@ -8,7 +8,7 @@ use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\StreamInterface;
 use Scn\DeeplApiConnector\Model\TranslationConfigInterface;
 
-final class DeeplTranslationRequestHandler implements DeeplRequestHandlerInterface
+final class DeeplTranslationRequestHandler extends AbstractDeeplHandler
 {
     private const SEPARATOR = ',';
     public const API_ENDPOINT = '/v2/translate';
@@ -59,6 +59,7 @@ final class DeeplTranslationRequestHandler implements DeeplRequestHandlerInterfa
                         'ignore_tags' => implode(static::SEPARATOR, $this->translation->getIgnoreTags()),
                         'split_sentences' => $this->translation->getSplitSentences(),
                         'preserve_formatting' => $this->translation->getPreserveFormatting(),
+                        'glossary_id' => $this->translation->getGlossaryId(),
                         'auth_key' => $this->authKey,
                     ]
                 )

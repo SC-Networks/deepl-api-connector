@@ -11,7 +11,7 @@ use Scn\DeeplApiConnector\Model\BatchTranslationConfigInterface;
 /**
  * Builds the request body for batch translations
  */
-final class DeeplBatchTranslationRequestHandler implements DeeplRequestHandlerInterface
+final class DeeplBatchTranslationRequestHandler extends AbstractDeeplHandler
 {
     private const SEPARATOR = ',';
     public const API_ENDPOINT = '/v2/translate';
@@ -59,6 +59,7 @@ final class DeeplBatchTranslationRequestHandler implements DeeplRequestHandlerIn
                     'ignore_tags' => implode(static::SEPARATOR, $this->translation->getIgnoreTags()),
                     'split_sentences' => $this->translation->getSplitSentences(),
                     'preserve_formatting' => $this->translation->getPreserveFormatting(),
+                    'glossary_id' => $this->translation->getGlossaryId(),
                     'auth_key' => $this->authKey,
                 ]
             )

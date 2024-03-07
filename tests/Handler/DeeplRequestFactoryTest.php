@@ -9,6 +9,8 @@ use Psr\Http\Message\StreamFactoryInterface;
 use Scn\DeeplApiConnector\Model\BatchTranslationConfigInterface;
 use Scn\DeeplApiConnector\Model\FileSubmissionInterface;
 use Scn\DeeplApiConnector\Model\FileTranslationConfigInterface;
+use Scn\DeeplApiConnector\Model\GlossaryIdSubmission;
+use Scn\DeeplApiConnector\Model\GlossarySubmission;
 use Scn\DeeplApiConnector\Model\TranslationConfigInterface;
 use Scn\DeeplApiConnector\TestCase;
 
@@ -101,4 +103,61 @@ class DeeplRequestFactoryTest extends TestCase
         $this->subject = new DeeplRequestFactory('something:fx', $this->streamFactory);
         $this->assertSame(DeeplRequestFactory::DEEPL_FREE_BASE_URI, $this->subject->getDeeplBaseUri());
     }
+
+    public function testCreateDeeplGlossariesSupportedLanguagesPairsRetrievalRequestHandler(): void
+    {
+        $this->assertInstanceOf(
+            DeeplGlossariesSupportedLanguagesPairsRetrievalRequestHandler::class,
+            $this->subject->createDeeplGlossariesSupportedLanguagesPairsRetrievalRequestHandler()
+        );
+    }
+
+    public function testCreateDeeplGlossariesListRetrievalRequestHandler(): void
+    {
+        $this->assertInstanceOf(
+            DeeplGlossariesListRetrievalRequestHandler::class,
+            $this->subject->createDeeplGlossariesListRetrievalRequestHandler()
+        );
+    }
+
+    public function testCreateDeeplGlossaryCreateRequestHandler(): void
+    {
+        $submission = $this->createMock(GlossarySubmission::class);
+
+        $this->assertInstanceOf(
+            DeeplGlossaryCreateRequestHandler::class,
+            $this->subject->createDeeplGlossaryCreateRequestHandler($submission)
+        );
+    }
+
+    public function testCreateDeeplGlossaryRetrieveRequestHandler(): void
+    {
+        $submission = $this->createMock(GlossaryIdSubmission::class);
+
+        $this->assertInstanceOf(
+            DeeplGlossaryRetrieveRequestHandler::class,
+            $this->subject->createDeeplGlossaryRetrieveRequestHandler($submission)
+        );
+    }
+
+    public function testCreateDeeplGlossaryDeleteRequestHandler(): void
+    {
+        $submission = $this->createMock(GlossaryIdSubmission::class);
+
+        $this->assertInstanceOf(
+            DeeplGlossaryDeleteRequestHandler::class,
+            $this->subject->createDeeplGlossaryDeleteRequestHandler($submission)
+        );
+    }
+
+    public function testCreateDeeplGlossaryEntriesRetrieveRequestHandler(): void
+    {
+        $submission = $this->createMock(GlossaryIdSubmission::class);
+
+        $this->assertInstanceOf(
+            DeeplGlossaryEntriesRetrieveRequestHandler::class,
+            $this->subject->createDeeplGlossaryEntriesRetrieveRequestHandler($submission)
+        );
+    }
+    //TODO tests
 }
