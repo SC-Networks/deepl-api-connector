@@ -202,11 +202,11 @@ class DeeplClient implements DeeplClientInterface
             )
             ->withBody($requestHandler->getBody());
 
-        if (!is_null($requestHandler->getAuthHeader())) {
+        if ($requestHandler->getAuthHeader() !== null) {
             $request = $request->withHeader('Authorization', $requestHandler->getAuthHeader());
         }
 
-        if (!is_null($requestHandler->getAcceptHeader())) {
+        if ($requestHandler->getAcceptHeader() !== null) {
             $request = $request->withHeader('Accept', $requestHandler->getAcceptHeader());
         }
 
