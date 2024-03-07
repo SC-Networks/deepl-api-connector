@@ -43,9 +43,7 @@ final class DeeplGlossaryCreateRequestHandler extends AbstractDeeplHandler
         return $this->streamFactory->createStream(
             http_build_query(
                 array_filter(
-                    array_merge(
-                        $this->submission->toArrayRequest(),
-                    )
+                    $this->submission->toArrayRequest(),
                 )
             )
         );

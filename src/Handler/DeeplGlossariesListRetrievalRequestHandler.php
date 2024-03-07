@@ -35,15 +35,7 @@ final class DeeplGlossariesListRetrievalRequestHandler extends AbstractDeeplHand
 
     public function getBody(): StreamInterface
     {
-        return $this->streamFactory->createStream(
-            http_build_query(
-                array_filter(
-                    [
-                        'auth_key' => $this->authKey,
-                    ]
-                )
-            )
-        );
+        return $this->streamFactory->createStream();
     }
 
     public function getAuthHeader(): ?string
