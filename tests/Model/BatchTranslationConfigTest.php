@@ -74,4 +74,10 @@ class BatchTranslationConfigTest extends TestCase
 
         static::assertSame(TextHandlingEnum::SPLITSENTENCES_NONEWLINES, $this->subject->getSplitSentences());
     }
+
+    public function testGetGlossaryIdCanReturnInteger(): void
+    {
+        $this->subject->setGlossaryId('id');
+        $this->assertSame('id', $this->subject->getGlossaryId());
+    }
 }
