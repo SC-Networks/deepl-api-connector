@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Scn\DeeplApiConnector\Handler;
 
 use Psr\Http\Message\StreamFactoryInterface;

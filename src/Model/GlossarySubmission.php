@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Scn\DeeplApiConnector\Model;
 
 use Scn\DeeplApiConnector\Enum\GlossarySubmissionEntryFormatEnum;
