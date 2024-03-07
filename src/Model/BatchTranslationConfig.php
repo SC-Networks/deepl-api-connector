@@ -26,6 +26,8 @@ final class BatchTranslationConfig implements BatchTranslationConfigInterface
 
     private string $preserveFormatting;
 
+    private string $glossaryId;
+
     /**
      * @param array<string> $text
      * @param array<int, string> $tagHandling
@@ -39,7 +41,8 @@ final class BatchTranslationConfig implements BatchTranslationConfigInterface
         array $nonSplittingTags = [],
         array $ignoreTags = [],
         string $splitSentences = TextHandlingEnum::SPLITSENTENCES_ON,
-        string $preserveFormatting = TextHandlingEnum::PRESERVEFORMATTING_OFF
+        string $preserveFormatting = TextHandlingEnum::PRESERVEFORMATTING_OFF,
+        string $glossaryId = '',
     ) {
         $this->setText($text);
         $this->setTargetLang($targetLang);
@@ -48,6 +51,7 @@ final class BatchTranslationConfig implements BatchTranslationConfigInterface
         $this->setIgnoreTags($ignoreTags);
         $this->setSplitSentences($splitSentences);
         $this->setPreserveFormatting($preserveFormatting);
+        $this->setGlossaryId($glossaryId);
     }
 
     /**
@@ -136,6 +140,18 @@ final class BatchTranslationConfig implements BatchTranslationConfigInterface
     public function setPreserveFormatting(string $preserveFormatting): BatchTranslationConfigInterface
     {
         $this->preserveFormatting = $preserveFormatting;
+
+        return $this;
+    }
+
+    public function getGlossaryId(): string
+    {
+        return $this->glossaryId;
+    }
+
+    public function setGlossaryId(string $glossaryId): BatchTranslationConfigInterface
+    {
+        $this->glossaryId = $glossaryId;
 
         return $this;
     }

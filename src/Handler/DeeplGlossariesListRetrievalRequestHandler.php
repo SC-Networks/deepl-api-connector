@@ -7,9 +7,9 @@ namespace Scn\DeeplApiConnector\Handler;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\StreamInterface;
 
-final class DeeplSupportedLanguageRetrievalRequestHandler extends AbstractDeeplHandler
+final class DeeplGlossariesListRetrievalRequestHandler extends AbstractDeeplHandler
 {
-    public const API_ENDPOINT = '/v2/languages?type=target';
+    public const API_ENDPOINT = '/v2/glossaries';
 
     private string $authKey;
 
@@ -35,15 +35,12 @@ final class DeeplSupportedLanguageRetrievalRequestHandler extends AbstractDeeplH
 
     public function getBody(): StreamInterface
     {
-        return $this->streamFactory->createStream(
-            http_build_query(
-                array_filter(
-                    [
-                        'auth_key' => $this->authKey,
-                    ]
-                )
-            )
-        );
+        return $this->streamFactory->createStream();
+    }
+
+    public function getAuthHeader(): ?string
+    {
+        return sprintf('DeepL-Auth-Key %s', $this->authKey);
     }
 
     public function getContentType(): string

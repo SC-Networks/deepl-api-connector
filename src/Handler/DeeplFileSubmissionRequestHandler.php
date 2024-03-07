@@ -8,7 +8,7 @@ use Http\Message\MultipartStream\MultipartStreamBuilder;
 use Psr\Http\Message\StreamInterface;
 use Scn\DeeplApiConnector\Model\FileTranslationConfigInterface;
 
-final class DeeplFileSubmissionRequestHandler implements DeeplRequestHandlerInterface
+final class DeeplFileSubmissionRequestHandler extends AbstractDeeplHandler
 {
     public const API_ENDPOINT = '/v2/document';
 

@@ -5,6 +5,8 @@ namespace Scn\DeeplApiConnector;
 use Scn\DeeplApiConnector\Enum\LanguageEnum;
 use Scn\DeeplApiConnector\Model\FileSubmissionInterface;
 use Scn\DeeplApiConnector\Model\FileTranslationConfigInterface;
+use Scn\DeeplApiConnector\Model\GlossaryIdSubmission;
+use Scn\DeeplApiConnector\Model\GlossarySubmissionInterface;
 use Scn\DeeplApiConnector\Model\ResponseModelInterface;
 use Scn\DeeplApiConnector\Model\TranslationConfigInterface;
 
@@ -59,4 +61,34 @@ interface DeeplClientInterface
      * Returns list of supported languages
      */
     public function getSupportedLanguages(): ResponseModelInterface;
+
+    /**
+     * Returns list of supported languages pairs for glossaries
+     */
+    public function getGlossariesSupportedLanguagesPairs(): ResponseModelInterface;
+
+    /**
+     * Returns list of glossaries
+     */
+    public function getGlossariesList(): ResponseModelInterface;
+
+    /**
+     * Create a glossary and return glossary object
+     */
+    public function createGlossary(GlossarySubmissionInterface $submission): ResponseModelInterface;
+
+    /**
+     * Returns a glossary using id
+     */
+    public function retrieveGlossary(GlossaryIdSubmission $submission): ResponseModelInterface;
+
+    /**
+     * Delete a glossary using id
+     */
+    public function deleteGlossary(GlossaryIdSubmission $submission): bool;
+
+    /**
+     * Returns list of entries
+     */
+    public function retrieveGlossaryEntries(GlossaryIdSubmission $submission): ResponseModelInterface;
 }

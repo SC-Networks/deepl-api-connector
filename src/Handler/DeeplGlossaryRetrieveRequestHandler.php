@@ -6,21 +6,26 @@ namespace Scn\DeeplApiConnector\Handler;
 
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\StreamInterface;
+use Scn\DeeplApiConnector\Model\GlossaryIdSubmissionInterface;
 
-final class DeeplSupportedLanguageRetrievalRequestHandler extends AbstractDeeplHandler
+final class DeeplGlossaryRetrieveRequestHandler extends AbstractDeeplHandler
 {
-    public const API_ENDPOINT = '/v2/languages?type=target';
+    public const API_ENDPOINT = '/v2/glossaries/%s';
 
     private string $authKey;
 
     private StreamFactoryInterface $streamFactory;
 
+    private GlossaryIdSubmissionInterface $submission;
+
     public function __construct(
         string $authKey,
-        StreamFactoryInterface $streamFactory
+        StreamFactoryInterface $streamFactory,
+        GlossaryIdSubmissionInterface $submission
     ) {
         $this->authKey = $authKey;
         $this->streamFactory = $streamFactory;
+        $this->submission = $submission;
     }
 
     public function getMethod(): string
@@ -30,20 +35,17 @@ final class DeeplSupportedLanguageRetrievalRequestHandler extends AbstractDeeplH
 
     public function getPath(): string
     {
-        return static::API_ENDPOINT;
+        return sprintf(static::API_ENDPOINT, $this->submission->getId());
     }
 
     public function getBody(): StreamInterface
     {
-        return $this->streamFactory->createStream(
-            http_build_query(
-                array_filter(
-                    [
-                        'auth_key' => $this->authKey,
-                    ]
-                )
-            )
-        );
+        return $this->streamFactory->createStream();
+    }
+
+    public function getAuthHeader(): ?string
+    {
+        return sprintf('DeepL-Auth-Key %s', $this->authKey);
     }
 
     public function getContentType(): string

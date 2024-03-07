@@ -9,6 +9,8 @@ use Psr\Http\Message\StreamFactoryInterface;
 use Scn\DeeplApiConnector\Model\BatchTranslationConfigInterface;
 use Scn\DeeplApiConnector\Model\FileSubmissionInterface;
 use Scn\DeeplApiConnector\Model\FileTranslationConfigInterface;
+use Scn\DeeplApiConnector\Model\GlossaryIdSubmissionInterface;
+use Scn\DeeplApiConnector\Model\GlossarySubmissionInterface;
 use Scn\DeeplApiConnector\Model\TranslationConfigInterface;
 
 final class DeeplRequestFactory implements DeeplRequestFactoryInterface
@@ -93,6 +95,62 @@ final class DeeplRequestFactory implements DeeplRequestFactoryInterface
         return new DeeplSupportedLanguageRetrievalRequestHandler(
             $this->authKey,
             $this->streamFactory
+        );
+    }
+
+    public function createDeeplGlossariesSupportedLanguagesPairsRetrievalRequestHandler(): DeeplRequestHandlerInterface
+    {
+        return new DeeplGlossariesSupportedLanguagesPairsRetrievalRequestHandler(
+            $this->authKey,
+            $this->streamFactory
+        );
+    }
+
+    public function createDeeplGlossariesListRetrievalRequestHandler(): DeeplRequestHandlerInterface
+    {
+        return new DeeplGlossariesListRetrievalRequestHandler(
+            $this->authKey,
+            $this->streamFactory
+        );
+    }
+
+    public function createDeeplGlossaryCreateRequestHandler(
+        GlossarySubmissionInterface $submission
+    ): DeeplRequestHandlerInterface {
+        return new DeeplGlossaryCreateRequestHandler(
+            $this->authKey,
+            $this->streamFactory,
+            $submission
+        );
+    }
+
+    public function createDeeplGlossaryRetrieveRequestHandler(
+        GlossaryIdSubmissionInterface $submission
+    ): DeeplRequestHandlerInterface {
+        return new DeeplGlossaryRetrieveRequestHandler(
+            $this->authKey,
+            $this->streamFactory,
+            $submission
+        );
+    }
+
+    public function createDeeplGlossaryDeleteRequestHandler(
+        GlossaryIdSubmissionInterface $submission
+    ): DeeplRequestHandlerInterface {
+        return new DeeplGlossaryDeleteRequestHandler(
+            $this->authKey,
+            $this->streamFactory,
+            $submission
+        );
+    }
+
+    public function createDeeplGlossaryEntriesRetrieveRequestHandler(
+        GlossaryIdSubmissionInterface $submission
+    ): DeeplRequestHandlerInterface {
+        return new DeeplGlossaryEntriesRetrieveRequestHandler(
+            $this->authKey,
+            $this->streamFactory,
+            $submission
         );
     }
 
