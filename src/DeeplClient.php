@@ -20,7 +20,7 @@ use Scn\DeeplApiConnector\Model\FileSubmissionInterface;
 use Scn\DeeplApiConnector\Model\FileTranslation;
 use Scn\DeeplApiConnector\Model\FileTranslationConfigInterface;
 use Scn\DeeplApiConnector\Model\FileTranslationStatus;
-use Scn\DeeplApiConnector\Model\GlossariesList;
+use Scn\DeeplApiConnector\Model\Glossaries;
 use Scn\DeeplApiConnector\Model\GlossariesSupportedLanguagesPairs;
 use Scn\DeeplApiConnector\Model\Glossary;
 use Scn\DeeplApiConnector\Model\ResponseModelInterface;
@@ -145,7 +145,7 @@ class DeeplClient implements DeeplClientInterface
 
     public function getGlossariesList(): ResponseModelInterface
     {
-        return (new GlossariesList())->hydrate(
+        return (new Glossaries())->hydrate(
             $this->executeRequest(
                 $this->deeplRequestFactory->createDeeplGlossariesListRetrievalRequestHandler()
             )

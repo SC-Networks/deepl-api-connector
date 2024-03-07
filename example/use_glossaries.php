@@ -6,7 +6,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use Scn\DeeplApiConnector\DeeplClientFactory;
 use Scn\DeeplApiConnector\Enum\GlossarySubmissionEntryFormatEnum;
-use Scn\DeeplApiConnector\Model\GlossariesListInterface;
+use Scn\DeeplApiConnector\Model\GlossariesInterface;
 use Scn\DeeplApiConnector\Model\GlossaryEntries;
 use Scn\DeeplApiConnector\Model\GlossaryIdSubmission;
 use Scn\DeeplApiConnector\Model\GlossaryInterface;
@@ -25,7 +25,7 @@ $result = $deepl->getGlossariesSupportedLanguagesPairs();
  */
 var_dump($result->getList());
 
-/** @var GlossariesListInterface $result */
+/** @var GlossariesInterface $result */
 $result = $deepl->getGlossariesList();
 /**
  * List all glossaries
@@ -81,7 +81,7 @@ var_dump($result);
  */
 $source = 'en';
 $target = 'nl';
-/** @var GlossariesListInterface $glossaries */
+/** @var GlossariesInterface $glossaries */
 $glossaries = $deepl->getGlossariesList();
 $glossary = current(array_filter(
     $glossaries->getList(),

@@ -3,7 +3,7 @@ namespace Scn\DeeplApiConnector\Model;
 
 use DateTimeImmutable;
 
-interface GlossariesListInterface
+interface GlossariesInterface
 {
     /**
      * @return array<array{

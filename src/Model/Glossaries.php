@@ -7,7 +7,7 @@ namespace Scn\DeeplApiConnector\Model;
 use DateTimeImmutable;
 use stdClass;
 
-final class GlossariesList extends AbstractResponseModel implements GlossariesListInterface
+final class Glossaries extends AbstractResponseModel implements GlossariesInterface
 {
     /** @var array<stdClass> */
     private array $list;
