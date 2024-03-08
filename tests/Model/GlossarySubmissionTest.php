@@ -21,41 +21,26 @@ class GlossarySubmissionTest extends TestCase
     public function testGetNameReturnString(): void
     {
         $value = 'some value';
-        $this->assertSame(
-            $value,
-            $this->subject->setName($value)->getName()
-        );
+        self::assertSame($value, $this->subject->setName($value)->getName());
     }
     public function testGetSourceLangReturnString(): void
     {
         $value = 'some value';
-        $this->assertSame(
-            $value,
-            $this->subject->setSourceLang($value)->getSourceLang()
-        );
+        self::assertSame($value, $this->subject->setSourceLang($value)->getSourceLang());
     }
     public function testGetTargetLangReturnString(): void
     {
         $value = 'some value';
-        $this->assertSame(
-            $value,
-            $this->subject->setTargetLang($value)->getTargetLang()
-        );
+        self::assertSame($value, $this->subject->setTargetLang($value)->getTargetLang());
     }
     public function testGetEntriesReturnString(): void
     {
         $value = 'some value';
-        $this->assertSame(
-            $value,
-            $this->subject->setEntries($value)->getEntries()
-        );
+        self::assertSame($value, $this->subject->setEntries($value)->getEntries());
     }
     public function testGetEntriesFormatReturnString(): void
     {
         $value = 'some value';
-        $this->assertSame(
-            $value,
-            $this->subject->setEntriesFormat($value)->getEntriesFormat()
-        );
+        self::assertSame($value, $this->subject->setEntriesFormat($value)->getEntriesFormat());
     }
 }

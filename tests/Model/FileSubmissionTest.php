@@ -21,18 +21,12 @@ class FileSubmissionTest extends TestCase
     public function testGetDocumentIdCanReturnString(): void
     {
         $value = 'some value';
-        $this->assertSame(
-            $value,
-            $this->subject->setDocumentId($value)->getDocumentId()
-        );
+        self::assertSame($value, $this->subject->setDocumentId($value)->getDocumentId());
     }
 
     public function testGetDocumentKeyCanReturnString(): void
     {
         $value = 'some value';
-        $this->assertSame(
-            $value,
-            $this->subject->setDocumentKey($value)->getDocumentKey()
-        );
+        self::assertSame($value, $this->subject->setDocumentKey($value)->getDocumentKey());
     }
 }

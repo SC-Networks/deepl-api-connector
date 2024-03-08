@@ -39,7 +39,7 @@ class DeeplFileSubmissionRequestHandlerTest extends TestCase
 
     public function testGetPathCanReturnPath(): void
     {
-        $this->assertSame(DeeplFileSubmissionRequestHandler::API_ENDPOINT, $this->subject->getPath());
+        self::assertSame(DeeplFileSubmissionRequestHandler::API_ENDPOINT, $this->subject->getPath());
     }
 
     public function testGetBodyCanReturnFilteredArray(): void
@@ -79,10 +79,7 @@ class DeeplFileSubmissionRequestHandlerTest extends TestCase
             ->method('build')
             ->willReturn($stream);
 
-        $this->assertSame(
-            $stream,
-            $this->subject->getBody()
-        );
+        self::assertSame($stream, $this->subject->getBody());
     }
 
     public function testGetBodyIgnoresSourceLangIfEmpty(): void
@@ -121,22 +118,16 @@ class DeeplFileSubmissionRequestHandlerTest extends TestCase
             ->method('build')
             ->willReturn($stream);
 
-        $this->assertSame(
-            $stream,
-            $this->subject->getBody()
-        );
+        self::assertSame($stream, $this->subject->getBody());
     }
 
     public function testGetMethodCanReturnMethod(): void
     {
-        $this->assertSame(DeeplRequestHandlerInterface::METHOD_POST, $this->subject->getMethod());
+        self::assertSame(DeeplRequestHandlerInterface::METHOD_POST, $this->subject->getMethod());
     }
 
     public function testGetContentTypeReturnsValue(): void
     {
-        $this->assertSame(
-            'multipart/form-data;boundary="boundary"',
-            $this->subject->getContentType()
-        );
+        self::assertSame('multipart/form-data;boundary="boundary"', $this->subject->getContentType());
     }
 }

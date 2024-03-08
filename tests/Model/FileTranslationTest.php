@@ -21,9 +21,6 @@ class FileTranslationTest extends TestCase
     public function testGetContentCanReturnString(): void
     {
         $this->subject->setContent('some content');
-        $this->assertSame(
-            'some content',
-            $this->subject->getContent()
-        );
+        self::assertSame('some content', $this->subject->getContent());
     }
 }

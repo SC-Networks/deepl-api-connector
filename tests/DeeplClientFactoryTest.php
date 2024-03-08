@@ -18,26 +18,20 @@ class DeeplClientFactoryTest extends TestCase
 
         $authKey = 'some-auth-key';
 
-        $this->assertInstanceOf(
-            DeeplClientInterface::class,
-            DeeplClientFactory::create(
-                $authKey,
-                $client,
-                $requestFactory,
-                $streamFactory
-            )
-        );
+        self::assertInstanceOf(DeeplClientInterface::class, DeeplClientFactory::create(
+            $authKey,
+            $client,
+            $requestFactory,
+            $streamFactory
+        ));
     }
 
     public function testCreateReturnsClientWithAutoDisovery(): void
     {
         $authKey = 'some-auth-key';
 
-        $this->assertInstanceOf(
-            DeeplClientInterface::class,
-            DeeplClientFactory::create(
-                $authKey
-            )
-        );
+        self::assertInstanceOf(DeeplClientInterface::class, DeeplClientFactory::create(
+            $authKey
+        ));
     }
 }

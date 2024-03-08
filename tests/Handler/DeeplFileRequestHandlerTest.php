@@ -42,7 +42,7 @@ class DeeplFileRequestHandlerTest extends TestCase
         $this->fileSubmission->expects($this->once())
             ->method('getDocumentId')
             ->willReturn('documentId');
-        $this->assertSame(sprintf(DeeplFileRequestHandler::API_ENDPOINT, 'documentId'), $this->subject->getPath());
+        self::assertSame(sprintf(DeeplFileRequestHandler::API_ENDPOINT, 'documentId'), $this->subject->getPath());
     }
 
     public function testGetBodyCanReturnFilteredArray(): void
@@ -65,22 +65,16 @@ class DeeplFileRequestHandlerTest extends TestCase
             )
             ->willReturn($stream);
 
-        $this->assertSame(
-            $stream,
-            $this->subject->getBody()
-        );
+        self::assertSame($stream, $this->subject->getBody());
     }
 
     public function testGetMethodCanReturnMethod(): void
     {
-        $this->assertSame(DeeplRequestHandlerInterface::METHOD_POST, $this->subject->getMethod());
+        self::assertSame(DeeplRequestHandlerInterface::METHOD_POST, $this->subject->getMethod());
     }
 
     public function testGetContentTypeReturnsValue(): void
     {
-        $this->assertSame(
-            'application/x-www-form-urlencoded',
-            $this->subject->getContentType()
-        );
+        self::assertSame('application/x-www-form-urlencoded', $this->subject->getContentType());
     }
 }

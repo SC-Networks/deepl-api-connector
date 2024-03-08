@@ -41,9 +41,6 @@ class BatchTranslationTest extends TestCase
 
     public function testSetTranslationsCanSettArrayOfTextAndCanReturnSelf(): void
     {
-        $this->assertInstanceOf(
-            BatchTranslationInterface::class,
-            $this->subject->setTranslations(['some', 'thing'])
-        );
+        self::assertInstanceOf(BatchTranslationInterface::class, $this->subject->setTranslations(['some', 'thing']));
     }
 }

@@ -21,9 +21,6 @@ class GlossaryIdSubmissionTest extends TestCase
     public function testGetIdReturnString(): void
     {
         $value = 'some value';
-        $this->assertSame(
-            $value,
-            $this->subject->setId($value)->getId()
-        );
+        self::assertSame($value, $this->subject->setId($value)->getId());
     }
 }

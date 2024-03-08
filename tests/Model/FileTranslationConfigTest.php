@@ -26,33 +26,21 @@ class FileTranslationConfigTest extends TestCase
 
     public function testGetFileContentCanReturnString(): void
     {
-        $this->assertSame(
-            'abc',
-            $this->subject->getFileContent()
-        );
+        self::assertSame('abc', $this->subject->getFileContent());
     }
 
     public function testGetFileNameCanReturnString(): void
     {
-        $this->assertSame(
-            'abc.txt',
-            $this->subject->getFileName()
-        );
+        self::assertSame('abc.txt', $this->subject->getFileName());
     }
 
     public function testGetTargetLangCanReturnString(): void
     {
-        $this->assertSame(
-            LanguageEnum::LANGUAGE_EN,
-            $this->subject->getTargetLang()
-        );
+        self::assertSame(LanguageEnum::LANGUAGE_EN, $this->subject->getTargetLang());
     }
 
     public function testGetSourceLangCanReturnString(): void
     {
-        $this->assertSame(
-            LanguageEnum::LANGUAGE_DE,
-            $this->subject->getSourceLang()
-        );
+        self::assertSame(LanguageEnum::LANGUAGE_DE, $this->subject->getSourceLang());
     }
 }

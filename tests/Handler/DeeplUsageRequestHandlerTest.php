@@ -31,12 +31,12 @@ class DeeplUsageRequestHandlerTest extends TestCase
 
     public function testGetPathCanReturnApiPath(): void
     {
-        $this->assertSame(DeeplUsageRequestHandler::API_ENDPOINT, $this->subject->getPath());
+        self::assertSame(DeeplUsageRequestHandler::API_ENDPOINT, $this->subject->getPath());
     }
 
     public function testGetMethodCanReturnMethod(): void
     {
-        $this->assertSame(DeeplRequestHandlerInterface::METHOD_GET, $this->subject->getMethod());
+        self::assertSame(DeeplRequestHandlerInterface::METHOD_GET, $this->subject->getMethod());
     }
 
     public function testGetBodyCanReturnArray(): void
@@ -50,17 +50,11 @@ class DeeplUsageRequestHandlerTest extends TestCase
             )
             ->willReturn($stream);
 
-        $this->assertSame(
-            $stream,
-            $this->subject->getBody()
-        );
+        self::assertSame($stream, $this->subject->getBody());
     }
 
     public function testGetContentTypeReturnsValue(): void
     {
-        $this->assertSame(
-            'application/x-www-form-urlencoded',
-            $this->subject->getContentType()
-        );
+        self::assertSame('application/x-www-form-urlencoded', $this->subject->getContentType());
     }
 }

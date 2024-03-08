@@ -18,39 +18,27 @@ class FileTranslationStatusTest extends TestCase
         $this->subject = new FileTranslationStatus();
     }
 
-    public function testGetDocumentIdCanReturnString()
+    public function testGetDocumentIdCanReturnString(): void
     {
         $value = 'some value';
-        $this->assertSame(
-            $value,
-            $this->subject->setDocumentId($value)->getDocumentId()
-        );
+        self::assertSame($value, $this->subject->setDocumentId($value)->getDocumentId());
     }
 
     public function testGetStatusCanReturnString(): void
     {
         $value = 'some value';
-        $this->assertSame(
-            $value,
-            $this->subject->setStatus($value)->getStatus()
-        );
+        self::assertSame($value, $this->subject->setStatus($value)->getStatus());
     }
 
     public function testGetSecondsRemainingCanReturnInteger(): void
     {
         $value = 1234;
-        $this->assertSame(
-            $value,
-            $this->subject->setSecondsRemaining($value)->getSecondsRemaining()
-        );
+        self::assertSame($value, $this->subject->setSecondsRemaining($value)->getSecondsRemaining());
     }
 
     public function testGetBilledCharactersCanReturnInteger(): void
     {
         $value = 1234;
-        $this->assertSame(
-            $value,
-            $this->subject->setBilledCharacters($value)->getBilledCharacters()
-        );
+        self::assertSame($value, $this->subject->setBilledCharacters($value)->getBilledCharacters());
     }
 }

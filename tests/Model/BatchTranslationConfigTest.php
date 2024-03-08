@@ -78,6 +78,6 @@ class BatchTranslationConfigTest extends TestCase
     public function testGetGlossaryIdCanReturnInteger(): void
     {
         $this->subject->setGlossaryId('id');
-        $this->assertSame('id', $this->subject->getGlossaryId());
+        self::assertSame('id', $this->subject->getGlossaryId());
     }
 }

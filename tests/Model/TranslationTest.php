@@ -21,13 +21,13 @@ class TranslationTest extends TestCase
     public function testGetDetectedSourceLanguageCanReturnString(): void
     {
         $this->subject->setDetectedSourceLanguage('DE');
-        $this->assertSame('DE', $this->subject->getDetectedSourceLanguage());
+        self::assertSame('DE', $this->subject->getDetectedSourceLanguage());
     }
 
     public function testGetTextCanReturnString(): void
     {
         $this->subject->setText('some text');
-        $this->assertSame('some text', $this->subject->getText());
+        self::assertSame('some text', $this->subject->getText());
     }
 
     public function testHydrateCanHydrateUsageStdClass(): void
@@ -35,7 +35,7 @@ class TranslationTest extends TestCase
         $demo_response = json_decode('{ "translations": [ { "detected_source_language": "DE", "text": "Hello World!" } ] }');
 
         $this->subject->hydrate($demo_response);
-        $this->assertEquals('DE', $this->subject->getDetectedSourceLanguage());
-        $this->assertEquals('Hello World!', $this->subject->getText());
+        self::assertEquals('DE', $this->subject->getDetectedSourceLanguage());
+        self::assertEquals('Hello World!', $this->subject->getText());
     }
 }
