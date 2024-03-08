@@ -1,8 +1,9 @@
 # Changelog
 
-## [3.3.0] - 2023-mm-dd
+## [3.3.0] - 2024-03-08
 ### Added
 - Add method for batch translation of multiple texts #42
+- Add support for glossaries #47 (Thanks @Ciloe)
 
 ## [3.2.0] - 2023-01-04
 ### Added
