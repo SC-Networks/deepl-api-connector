@@ -19,20 +19,21 @@
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "ext-json": "*",
         "php-http/discovery": "^1.13",
         "php-http/multipart-stream-builder": "^1.1",
         "psr/http-factory": "^1.0"
     },
     "require-dev": {
+        "php": "^8.2",
         "friendsofphp/php-cs-fixer": "^3.5",
         "guzzlehttp/guzzle": "^7.0",
         "nyholm/psr7": "^1.4",
         "phpstan/phpstan": "^1.4",
         "phpstan/phpstan-mockery": "^1.0",
         "phpstan/phpstan-strict-rules": "^1.1",
-        "phpunit/phpunit": "^10"
+        "phpunit/phpunit": "^11"
     },
     "autoload": {
         "psr-4": {

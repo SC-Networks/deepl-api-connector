@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Scn\DeeplApiConnector;
 
 use GuzzleHttp\Exception\ClientException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
@@ -32,17 +33,13 @@ use Scn\DeeplApiConnector\Model\UsageInterface;
 
 class DeeplClientTest extends TestCase
 {
-    /** @var DeeplClient */
-    private $subject;
+    private DeeplClient $subject;
 
-    /** @var ClientInterface|MockObject */
-    private $httpClient;
+    private ClientInterface&MockObject $httpClient;
 
-    /** @var DeeplRequestFactoryInterface|MockObject */
-    private $deeplRequestFactory;
+    private DeeplRequestFactoryInterface&MockObject $deeplRequestFactory;
 
-    /** @var RequestFactoryInterface|MockObject */
-    private $requestFactory;
+    private RequestFactoryInterface&MockObject $requestFactory;
 
     public function setUp(): void
     {
@@ -417,9 +414,7 @@ class DeeplClientTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider errorStatusCodeProvider
-     */
+    #[DataProvider(methodName: 'errorStatusCodeProvider')]
     public function testResponseWithErrorStatusCodeTriggersError(int $statusCode): void
     {
         $response = $this->createMock(ResponseInterface::class);
