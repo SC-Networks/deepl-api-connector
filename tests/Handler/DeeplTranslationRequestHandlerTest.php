@@ -40,7 +40,7 @@ class DeeplTranslationRequestHandlerTest extends TestCase
 
     public function testGetPathCanReturnPath(): void
     {
-        $this->assertSame(DeeplTranslationRequestHandler::API_ENDPOINT, $this->subject->getPath());
+        self::assertSame(DeeplTranslationRequestHandler::API_ENDPOINT, $this->subject->getPath());
     }
 
     public function testGetBodyCanReturnFilteredArray(): void
@@ -68,10 +68,7 @@ class DeeplTranslationRequestHandlerTest extends TestCase
             )
             ->willReturn($stream);
 
-        $this->assertSame(
-            $stream,
-            $this->subject->getBody()
-        );
+        self::assertSame($stream, $this->subject->getBody());
     }
 
     public function testGetBodyCanReturnArrayWithOptionalTags(): void
@@ -129,22 +126,16 @@ class DeeplTranslationRequestHandlerTest extends TestCase
             )
             ->willReturn($stream);
 
-        $this->assertSame(
-            $stream,
-            $this->subject->getBody()
-        );
+        self::assertSame($stream, $this->subject->getBody());
     }
 
     public function testGetMethodCanReturnMethod(): void
     {
-        $this->assertSame(DeeplRequestHandlerInterface::METHOD_POST, $this->subject->getMethod());
+        self::assertSame(DeeplRequestHandlerInterface::METHOD_POST, $this->subject->getMethod());
     }
 
     public function testGetContentTypeReturnsValue(): void
     {
-        $this->assertSame(
-            'application/x-www-form-urlencoded',
-            $this->subject->getContentType()
-        );
+        self::assertSame('application/x-www-form-urlencoded', $this->subject->getContentType());
     }
 }

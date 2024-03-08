@@ -49,14 +49,14 @@ final class DeeplTranslationRequestHandler extends AbstractDeeplHandler
                         'target_lang' => $this->translation->getTargetLang(),
                         'source_lang' => $this->translation->getSourceLang(),
                         'tag_handling' => implode(
-                            static::SEPARATOR,
+                            self::SEPARATOR,
                             $this->translation->getTagHandling()
                         ),
                         'non_splitting_tags' => implode(
-                            static::SEPARATOR,
+                            self::SEPARATOR,
                             $this->translation->getNonSplittingTags()
                         ),
-                        'ignore_tags' => implode(static::SEPARATOR, $this->translation->getIgnoreTags()),
+                        'ignore_tags' => implode(self::SEPARATOR, $this->translation->getIgnoreTags()),
                         'split_sentences' => $this->translation->getSplitSentences(),
                         'preserve_formatting' => $this->translation->getPreserveFormatting(),
                         'glossary_id' => $this->translation->getGlossaryId(),

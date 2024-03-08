@@ -120,7 +120,7 @@ class DeeplClientTest extends TestCase
             ->with($request)
             ->willReturn($response);
 
-        $this->assertInstanceOf(UsageInterface::class, $this->subject->getUsage());
+        self::assertInstanceOf(UsageInterface::class, $this->subject->getUsage());
     }
 
     public function testGetTranslationCanThrowException(): void
@@ -193,7 +193,7 @@ class DeeplClientTest extends TestCase
             ->with($request)
             ->willReturn($response);
 
-        $this->assertInstanceOf(TranslationInterface::class, $this->subject->getTranslation($translation));
+        self::assertInstanceOf(TranslationInterface::class, $this->subject->getTranslation($translation));
     }
 
     public function testTranslateCanReturnJsonEncodedObject(): void
@@ -234,7 +234,7 @@ class DeeplClientTest extends TestCase
             ->with($request)
             ->willReturn($response);
 
-        $this->assertInstanceOf(TranslationInterface::class, $this->subject->translate('some text', 'some language'));
+        self::assertInstanceOf(TranslationInterface::class, $this->subject->translate('some text', 'some language'));
     }
 
     public function testTranslateBatchPerformsBatchTranslations(): void
@@ -274,10 +274,7 @@ class DeeplClientTest extends TestCase
             ->with($request)
             ->willReturn($response);
 
-        $this->assertInstanceOf(
-            BatchTranslationInterface::class,
-            $this->subject->translateBatch(['some text'], 'some language')
-        );
+        self::assertInstanceOf(BatchTranslationInterface::class, $this->subject->translateBatch(['some text'], 'some language'));
     }
 
     public function testTranslateFileCanReturnInstanceOfResponseModel(): void
@@ -320,7 +317,7 @@ class DeeplClientTest extends TestCase
             ->with($request)
             ->willReturn($response);
 
-        $this->assertInstanceOf(FileSubmissionInterface::class, $this->subject->translateFile($fileTranslation));
+        self::assertInstanceOf(FileSubmissionInterface::class, $this->subject->translateFile($fileTranslation));
     }
 
     public function testGetFileTranslationStatusCanReturnInstanceOfResponseModel(): void
@@ -363,7 +360,7 @@ class DeeplClientTest extends TestCase
             ->with($request)
             ->willReturn($response);
 
-        $this->assertInstanceOf(FileTranslationStatusInterface::class, $this->subject->getFileTranslationStatus($fileSubmission));
+        self::assertInstanceOf(FileTranslationStatusInterface::class, $this->subject->getFileTranslationStatus($fileSubmission));
     }
 
     public function testGetFileTranslationCanReturnInstanceOfResponseModel(): void
@@ -402,7 +399,7 @@ class DeeplClientTest extends TestCase
             ->with($request)
             ->willReturn($response);
 
-        $this->assertInstanceOf(FileTranslationInterface::class, $this->subject->getFileTranslation($fileSubmission));
+        self::assertInstanceOf(FileTranslationInterface::class, $this->subject->getFileTranslation($fileSubmission));
     }
 
     public static function errorStatusCodeProvider(): array
@@ -487,7 +484,7 @@ class DeeplClientTest extends TestCase
             ->with($request)
             ->willReturn($response);
 
-        $this->assertInstanceOf(SupportedLanguages::class, $this->subject->getSupportedLanguages());
+        self::assertInstanceOf(SupportedLanguages::class, $this->subject->getSupportedLanguages());
     }
 
     public function testGetGlossariesSupportedLanguagesPairsGetCorrectModel(): void
@@ -528,7 +525,7 @@ class DeeplClientTest extends TestCase
             ->with($request)
             ->willReturn($response);
 
-        $this->assertInstanceOf(GlossariesSupportedLanguagesPairs::class, $this->subject->getGlossariesSupportedLanguagesPairs());
+        self::assertInstanceOf(GlossariesSupportedLanguagesPairs::class, $this->subject->getGlossariesSupportedLanguagesPairs());
     }
 
     public function testGetGlossariesListGetCorrectModel(): void
@@ -569,7 +566,7 @@ class DeeplClientTest extends TestCase
             ->with($request)
             ->willReturn($response);
 
-        $this->assertInstanceOf(Glossaries::class, $this->subject->getGlossariesList());
+        self::assertInstanceOf(Glossaries::class, $this->subject->getGlossariesList());
     }
 
     public function testCreateGlossaryGetCorrectModel(): void
@@ -612,7 +609,7 @@ class DeeplClientTest extends TestCase
 
         $submission = $this->createMock(GlossarySubmission::class);
 
-        $this->assertInstanceOf(Glossary::class, $this->subject->createGlossary($submission));
+        self::assertInstanceOf(Glossary::class, $this->subject->createGlossary($submission));
     }
 
     public function testRetrieveGlossaryGetCorrectModel(): void
@@ -654,7 +651,7 @@ class DeeplClientTest extends TestCase
             ->willReturn($response);
 
         $submission = $this->createMock(GlossaryIdSubmission::class);
-        $this->assertInstanceOf(Glossary::class, $this->subject->retrieveGlossary($submission));
+        self::assertInstanceOf(Glossary::class, $this->subject->retrieveGlossary($submission));
     }
 
     public function testDeleteGlossaryGetCorrectBoolean(): void
@@ -696,7 +693,7 @@ class DeeplClientTest extends TestCase
             ->willReturn($response);
 
         $submission = $this->createMock(GlossaryIdSubmission::class);
-        $this->assertTrue($this->subject->deleteGlossary($submission));
+        self::assertTrue($this->subject->deleteGlossary($submission));
     }
 
     public function testRetrieveGlossaryEntriesGetCorrectModel(): void
@@ -738,7 +735,7 @@ class DeeplClientTest extends TestCase
             ->willReturn($response);
 
         $submission = $this->createMock(GlossaryIdSubmission::class);
-        $this->assertInstanceOf(GlossaryEntries::class, $this->subject->retrieveGlossaryEntries($submission));
+        self::assertInstanceOf(GlossaryEntries::class, $this->subject->retrieveGlossaryEntries($submission));
     }
 
     private function createRequestExpectations(
