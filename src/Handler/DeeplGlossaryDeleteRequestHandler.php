@@ -35,7 +35,7 @@ final class DeeplGlossaryDeleteRequestHandler extends AbstractDeeplHandler
 
     public function getPath(): string
     {
-        return sprintf(static::API_ENDPOINT, $this->submission->getId());
+        return sprintf(self::API_ENDPOINT, $this->submission->getId());
     }
 
     public function getBody(): StreamInterface
