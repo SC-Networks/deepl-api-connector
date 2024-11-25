@@ -35,7 +35,7 @@ final class DeeplFileRequestHandler extends AbstractDeeplHandler
 
     public function getPath(): string
     {
-        return sprintf(static::API_ENDPOINT, $this->fileSubmission->getDocumentId());
+        return sprintf(self::API_ENDPOINT, $this->fileSubmission->getDocumentId());
     }
 
     public function getBody(): StreamInterface

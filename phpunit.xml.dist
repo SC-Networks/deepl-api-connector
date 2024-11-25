@@ -1,6 +1,12 @@
 <?xml version="1.0"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.4/phpunit.xsd" backupGlobals="true" bootstrap="vendor/autoload.php" colors="true" cacheDirectory=".phpunit.cache" backupStaticProperties="false" requireCoverageMetadata="false">
-  <coverage includeUncoveredFiles="false"/>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.4/phpunit.xsd"
+         backupGlobals="true"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+         cacheDirectory=".phpunit.cache"
+  >
+  <coverage/>
   <testsuites>
     <testsuite name="Unittests">
       <directory>tests</directory>
@@ -8,11 +14,11 @@
   </testsuites>
   <source>
     <include>
-      <directory suffix=".php">./</directory>
+      <directory>src</directory>
     </include>
     <exclude>
-      <directory suffix=".php">vendor/</directory>
-      <directory suffix=".php">tests/</directory>
+      <directory>vendor/</directory>
+      <directory>tests/</directory>
     </exclude>
   </source>
 </phpunit>

@@ -36,7 +36,7 @@ final class DeeplTranslationRequestHandler extends AbstractDeeplHandler
 
     public function getPath(): string
     {
-        return static::API_ENDPOINT;
+        return self::API_ENDPOINT;
     }
 
     public function getBody(): StreamInterface
