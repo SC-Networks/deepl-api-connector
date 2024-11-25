@@ -18,9 +18,9 @@ final class DeeplClientFactory
 {
     public static function create(
         string $authKey,
-        ClientInterface $httpClient = null,
-        RequestFactoryInterface $requestFactory = null,
-        StreamFactoryInterface $streamFactory = null
+        ?ClientInterface $httpClient = null,
+        ?RequestFactoryInterface $requestFactory = null,
+        ?StreamFactoryInterface $streamFactory = null
     ): DeeplClientInterface {
         return new DeeplClient(
             new DeeplRequestFactory(

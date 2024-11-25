@@ -6,6 +6,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use Scn\DeeplApiConnector\DeeplClientFactory;
 use Scn\DeeplApiConnector\Enum\GlossarySubmissionEntryFormatEnum;
+use Scn\DeeplApiConnector\Enum\TextHandlingEnum;
 use Scn\DeeplApiConnector\Model\GlossariesInterface;
 use Scn\DeeplApiConnector\Model\GlossaryEntries;
 use Scn\DeeplApiConnector\Model\GlossaryIdSubmission;
@@ -92,7 +93,12 @@ $translationConfig = new TranslationConfig(
     'Hello World',
     $target,
     $source,
-    glossaryId: $glossary !== false ? $glossary['glossary_id'] : ''
+    [],
+    [],
+    [],
+    TextHandlingEnum::SPLITSENTENCES_ON,
+    TextHandlingEnum::PRESERVEFORMATTING_OFF,
+    $glossary !== false ? $glossary['glossary_id'] : ''
 );
 $translationObj = $deepl->getTranslation($translationConfig);
 var_dump($translationObj);
