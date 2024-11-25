@@ -42,7 +42,7 @@ final class BatchTranslationConfig implements BatchTranslationConfigInterface
         array $ignoreTags = [],
         string $splitSentences = TextHandlingEnum::SPLITSENTENCES_ON,
         string $preserveFormatting = TextHandlingEnum::PRESERVEFORMATTING_OFF,
-        string $glossaryId = '',
+        string $glossaryId = ''
     ) {
         $this->setText($text);
         $this->setTargetLang($targetLang);
