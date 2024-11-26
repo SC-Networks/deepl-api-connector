@@ -1,6 +1,10 @@
 # Changelog
 
-## [3.3.0] - 2023-mm-dd
+## [3.3.1] - 2024-11-26
+### Fixed
+- Remove some trailing commas to ensure php 7.4 compatibility 
+
+## [3.3.0] - 2023-03-08
 ### Added
 - Add method for batch translation of multiple texts #42
 
