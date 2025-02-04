@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Handler;
 
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\StreamInterface;
 use Scn\DeeplApiConnector\Model\GlossaryIdSubmission;
@@ -11,13 +13,11 @@ use Scn\DeeplApiConnector\TestCase;
 
 class DeeplGlossaryEntriesRetrieveRequestHandlerTest extends TestCase
 {
-    private string $authKey = 'some-auth-key';
+    private StreamFactoryInterface&MockObject $streamFactory;
 
-    private StreamFactoryInterface $streamFactory;
+    private GlossaryIdSubmission&MockObject $submission;
 
     private DeeplGlossaryEntriesRetrieveRequestHandler $subject;
-
-    private GlossaryIdSubmission $submission;
 
     protected function setUp(): void
     {
@@ -25,69 +25,64 @@ class DeeplGlossaryEntriesRetrieveRequestHandlerTest extends TestCase
         $this->submission = $this->createMock(GlossaryIdSubmission::class);
 
         $this->subject = new DeeplGlossaryEntriesRetrieveRequestHandler(
-            $this->authKey,
             $this->streamFactory,
             $this->submission,
         );
     }
 
-    public function testGetMethodReturnsValue(): void
+    #[Test]
+    public function getMethod(): void
     {
-        static::assertSame(
+        self::assertSame(
             DeeplRequestHandlerInterface::METHOD_GET,
-            $this->subject->getMethod()
+            $this->subject->getMethod(),
         );
     }
 
-    public function testGetPathReturnsValue(): void
+    #[Test]
+    public function getPath(): void
     {
-        $this->submission->expects($this->once())
+        $this->submission->expects(self::once())
             ->method('getId')
             ->with()
             ->willReturn('1');
 
-        static::assertSame(
+        self::assertSame(
             '/v2/glossaries/1/entries',
-            $this->subject->getPath()
+            $this->subject->getPath(),
         );
     }
 
-    public function testGetContentTypeReturnsValue(): void
+    #[Test]
+    public function getContentType(): void
     {
-        static::assertSame(
-            'application/x-www-form-urlencoded',
-            $this->subject->getContentType()
+        self::assertSame(
+            'application/json',
+            $this->subject->getContentType(),
         );
     }
 
-    public function testGetAuthHeader(): void
+    #[Test]
+    public function getAcceptHeader(): void
     {
-        static::assertSame(
-            'DeepL-Auth-Key some-auth-key',
-            $this->subject->getAuthHeader()
-        );
-    }
-
-    public function testGetAcceptHeader(): void
-    {
-        static::assertSame(
+        self::assertSame(
             'text/tab-separated-values',
-            $this->subject->getAcceptHeader()
+            $this->subject->getAcceptHeader(),
         );
     }
 
-    public function testGetBodyReturnsValue(): void
+    public function getBody(): void
     {
         $body = $this->createMock(StreamInterface::class);
 
-        $this->streamFactory->expects($this->once())
+        $this->streamFactory->expects(self::once())
             ->method('createStream')
             ->with()
             ->willReturn($body);
 
-        static::assertSame(
+        self::assertSame(
             $body,
-            $this->subject->getBody()
+            $this->subject->getBody(),
         );
     }
 }

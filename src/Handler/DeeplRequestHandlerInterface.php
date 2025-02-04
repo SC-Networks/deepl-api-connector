@@ -18,7 +18,5 @@ interface DeeplRequestHandlerInterface
 
     public function getContentType(): string;
 
-    public function getAuthHeader(): ?string;
-
     public function getAcceptHeader(): ?string;
 }

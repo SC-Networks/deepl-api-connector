@@ -23,8 +23,8 @@ final class DeeplClientFactory
         StreamFactoryInterface $streamFactory = null
     ): DeeplClientInterface {
         return new DeeplClient(
+            $authKey,
             new DeeplRequestFactory(
-                $authKey,
                 $streamFactory ?? Psr17FactoryDiscovery::findStreamFactory()
             ),
             $httpClient ?? Psr18ClientDiscovery::find(),

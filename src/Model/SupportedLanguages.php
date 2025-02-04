@@ -31,9 +31,9 @@ final class SupportedLanguages extends AbstractResponseModel implements Supporte
             fn (stdClass $item): array => [
                 'language_code' => $item->language,
                 'name' => $item->name,
-                'supports_formality' => $item->supports_formality,
+                'supports_formality' => $item->supports_formality ?? false,
             ],
-            $this->languages
+            $this->languages,
         );
     }
 }

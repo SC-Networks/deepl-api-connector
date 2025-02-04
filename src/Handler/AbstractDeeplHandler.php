@@ -6,13 +6,13 @@ namespace Scn\DeeplApiConnector\Handler;
 
 abstract class AbstractDeeplHandler implements DeeplRequestHandlerInterface
 {
-    public function getAuthHeader(): ?string
+    public function getAcceptHeader(): ?string
     {
         return null;
     }
 
-    public function getAcceptHeader(): ?string
+    public function getContentType(): string
     {
-        return null;
+        return 'application/json';
     }
 }

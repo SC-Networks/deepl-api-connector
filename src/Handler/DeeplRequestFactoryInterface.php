@@ -54,6 +54,4 @@ interface DeeplRequestFactoryInterface
     public function createDeeplGlossaryEntriesRetrieveRequestHandler(
         GlossaryIdSubmissionInterface $submission
     ): DeeplRequestHandlerInterface;
-
-    public function getDeeplBaseUri(): string;
 }

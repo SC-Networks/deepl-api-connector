@@ -11,15 +11,11 @@ final class DeeplUsageRequestHandler extends AbstractDeeplHandler
 {
     public const API_ENDPOINT = '/v2/usage';
 
-    private string $authKey;
-
     private StreamFactoryInterface $streamFactory;
 
     public function __construct(
-        string $authKey,
-        StreamFactoryInterface $streamFactory
+        StreamFactoryInterface $streamFactory,
     ) {
-        $this->authKey = $authKey;
         $this->streamFactory = $streamFactory;
     }
 
@@ -35,19 +31,6 @@ final class DeeplUsageRequestHandler extends AbstractDeeplHandler
 
     public function getBody(): StreamInterface
     {
-        return $this->streamFactory->createStream(
-            http_build_query(
-                array_filter(
-                    [
-                        'auth_key' => $this->authKey,
-                    ]
-                )
-            )
-        );
-    }
-
-    public function getContentType(): string
-    {
-        return 'application/x-www-form-urlencoded';
+        return $this->streamFactory->createStream();
     }
 }

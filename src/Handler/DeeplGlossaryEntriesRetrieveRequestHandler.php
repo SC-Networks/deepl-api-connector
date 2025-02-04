@@ -12,18 +12,14 @@ final class DeeplGlossaryEntriesRetrieveRequestHandler extends AbstractDeeplHand
 {
     public const API_ENDPOINT = '/v2/glossaries/%s/entries';
 
-    private string $authKey;
-
     private StreamFactoryInterface $streamFactory;
 
     private GlossaryIdSubmissionInterface $submission;
 
     public function __construct(
-        string $authKey,
         StreamFactoryInterface $streamFactory,
-        GlossaryIdSubmissionInterface $submission
+        GlossaryIdSubmissionInterface $submission,
     ) {
-        $this->authKey = $authKey;
         $this->streamFactory = $streamFactory;
         $this->submission = $submission;
     }
@@ -43,18 +39,8 @@ final class DeeplGlossaryEntriesRetrieveRequestHandler extends AbstractDeeplHand
         return $this->streamFactory->createStream();
     }
 
-    public function getAuthHeader(): ?string
-    {
-        return sprintf('DeepL-Auth-Key %s', $this->authKey);
-    }
-
     public function getAcceptHeader(): ?string
     {
         return 'text/tab-separated-values';
-    }
-
-    public function getContentType(): string
-    {
-        return 'application/x-www-form-urlencoded';
     }
 }

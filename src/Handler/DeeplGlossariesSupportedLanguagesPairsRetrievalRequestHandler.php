@@ -11,15 +11,11 @@ final class DeeplGlossariesSupportedLanguagesPairsRetrievalRequestHandler extend
 {
     public const API_ENDPOINT = '/v2/glossary-language-pairs';
 
-    private string $authKey;
-
     private StreamFactoryInterface $streamFactory;
 
     public function __construct(
-        string $authKey,
-        StreamFactoryInterface $streamFactory
+        StreamFactoryInterface $streamFactory,
     ) {
-        $this->authKey = $authKey;
         $this->streamFactory = $streamFactory;
     }
 
@@ -36,15 +32,5 @@ final class DeeplGlossariesSupportedLanguagesPairsRetrievalRequestHandler extend
     public function getBody(): StreamInterface
     {
         return $this->streamFactory->createStream();
-    }
-
-    public function getAuthHeader(): ?string
-    {
-        return sprintf('DeepL-Auth-Key %s', $this->authKey);
-    }
-
-    public function getContentType(): string
-    {
-        return 'application/x-www-form-urlencoded';
     }
 }
