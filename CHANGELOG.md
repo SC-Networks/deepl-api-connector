@@ -1,5 +1,18 @@
 # Changelog
+## [4.0.0] - 2025-02-06
+### Added
+- Add method to translate a batch of texts
+- Check all Headers for json reponse
+- Add several new languages
+- Update Dependencies & Apply some variable descriptions
+- Throw RequestExeption on client- or server errors #68
+- Implement method to retrieve supported languages
+- Issue #47 : Glossary implementation
 
+### Changed
+- Remove source_lang from file translation request if empty
+- Move API key in request header and change body to json format (#89)
+  
 ## [3.3.1] - 2024-11-26
 ### Fixed
 - Remove some trailing commas to ensure php 7.4 compatibility 
