@@ -33,6 +33,10 @@ use stdClass;
 
 class DeeplClient implements DeeplClientInterface
 {
+    private const DEEPL_PAID_BASE_URI = 'https://api.deepl.com';
+    private const DEEPL_FREE_BASE_URI = 'https://api-free.deepl.com';
+
+    private string $apiKey;
     private DeeplRequestFactoryInterface $deeplRequestFactory;
 
     private ClientInterface $httpClient;
@@ -40,17 +44,19 @@ class DeeplClient implements DeeplClientInterface
     private RequestFactoryInterface $requestFactory;
 
     public function __construct(
+        string $apiKey,
         DeeplRequestFactoryInterface $deeplRequestFactory,
         ClientInterface $httpClient,
-        RequestFactoryInterface $requestFactory
+        RequestFactoryInterface $requestFactory,
     ) {
+        $this->apiKey = $apiKey;
         $this->deeplRequestFactory = $deeplRequestFactory;
         $this->httpClient = $httpClient;
         $this->requestFactory = $requestFactory;
     }
 
     /**
-     * Return Usage of API- Key
+     * Return Usage of API-Key
      * Possible Return:.
      *
      * Usage
@@ -62,7 +68,7 @@ class DeeplClient implements DeeplClientInterface
     public function getUsage(): ResponseModelInterface
     {
         return (new Usage())->hydrate(
-            $this->executeRequest($this->deeplRequestFactory->createDeeplUsageRequestHandler())
+            $this->executeRequest($this->deeplRequestFactory->createDeeplUsageRequestHandler()),
         );
     }
 
@@ -79,7 +85,7 @@ class DeeplClient implements DeeplClientInterface
     public function getTranslation(TranslationConfigInterface $translation): ResponseModelInterface
     {
         return (new Translation())->hydrate($this->executeRequest(
-            $this->deeplRequestFactory->createDeeplTranslationRequestHandler($translation)
+            $this->deeplRequestFactory->createDeeplTranslationRequestHandler($translation),
         ));
     }
 
@@ -98,7 +104,7 @@ class DeeplClient implements DeeplClientInterface
     public function translateFile(FileTranslationConfigInterface $fileTranslation): ResponseModelInterface
     {
         return (new FileSubmission())->hydrate($this->executeRequest(
-            $this->deeplRequestFactory->createDeeplFileSubmissionRequestHandler($fileTranslation)
+            $this->deeplRequestFactory->createDeeplFileSubmissionRequestHandler($fileTranslation),
         ));
     }
 
@@ -106,7 +112,7 @@ class DeeplClient implements DeeplClientInterface
     {
         return (new BatchTranslation())->hydrate($this->executeRequest(
             $this->deeplRequestFactory->createDeeplBatchTranslationRequestHandler(
-                new BatchTranslationConfig($text, $targetLanguage)
+                new BatchTranslationConfig($text, $targetLanguage),
             )
         ));
     }
@@ -114,14 +120,14 @@ class DeeplClient implements DeeplClientInterface
     public function getFileTranslationStatus(FileSubmissionInterface $fileSubmission): ResponseModelInterface
     {
         return (new FileTranslationStatus())->hydrate($this->executeRequest(
-            $this->deeplRequestFactory->createDeeplFileTranslationStatusRequestHandler($fileSubmission)
+            $this->deeplRequestFactory->createDeeplFileTranslationStatusRequestHandler($fileSubmission),
         ));
     }
 
     public function getFileTranslation(FileSubmissionInterface $fileSubmission): ResponseModelInterface
     {
         return (new FileTranslation())->hydrate($this->executeRequest(
-            $this->deeplRequestFactory->createDeeplFileTranslationRequestHandler($fileSubmission)
+            $this->deeplRequestFactory->createDeeplFileTranslationRequestHandler($fileSubmission),
         ));
     }
 
@@ -129,7 +135,7 @@ class DeeplClient implements DeeplClientInterface
     {
         return (new SupportedLanguages())->hydrate(
             $this->executeRequest(
-                $this->deeplRequestFactory->createDeeplSupportedLanguageRetrievalRequestHandler()
+                $this->deeplRequestFactory->createDeeplSupportedLanguageRetrievalRequestHandler(),
             )
         );
     }
@@ -138,7 +144,7 @@ class DeeplClient implements DeeplClientInterface
     {
         return (new GlossariesSupportedLanguagesPairs())->hydrate(
             $this->executeRequest(
-                $this->deeplRequestFactory->createDeeplGlossariesSupportedLanguagesPairsRetrievalRequestHandler()
+                $this->deeplRequestFactory->createDeeplGlossariesSupportedLanguagesPairsRetrievalRequestHandler(),
             )
         );
     }
@@ -147,7 +153,7 @@ class DeeplClient implements DeeplClientInterface
     {
         return (new Glossaries())->hydrate(
             $this->executeRequest(
-                $this->deeplRequestFactory->createDeeplGlossariesListRetrievalRequestHandler()
+                $this->deeplRequestFactory->createDeeplGlossariesListRetrievalRequestHandler(),
             )
         );
     }
@@ -194,20 +200,23 @@ class DeeplClient implements DeeplClientInterface
         $request = $this->requestFactory
             ->createRequest(
                 $requestHandler->getMethod(),
-                sprintf('%s%s', $this->deeplRequestFactory->getDeeplBaseUri(), $requestHandler->getPath())
+                sprintf('%s%s', $this->getDeeplBaseUri(), $requestHandler->getPath()),
+            )
+            ->withHeader(
+                'Authorization',
+                $this->getAuthHeader(),
             )
             ->withHeader(
                 'Content-Type',
-                $requestHandler->getContentType()
+                $requestHandler->getContentType(),
             )
-            ->withBody($requestHandler->getBody());
+            ->withBody(
+                $requestHandler->getBody(),
+            );
 
-        if ($requestHandler->getAuthHeader() !== null) {
-            $request = $request->withHeader('Authorization', $requestHandler->getAuthHeader());
-        }
-
-        if ($requestHandler->getAcceptHeader() !== null) {
-            $request = $request->withHeader('Accept', $requestHandler->getAcceptHeader());
+        $acceptHeader = $requestHandler->getAcceptHeader();
+        if ($acceptHeader !== null) {
+            $request = $request->withHeader('Accept', $acceptHeader);
         }
 
         try {
@@ -216,7 +225,7 @@ class DeeplClient implements DeeplClientInterface
             throw new RequestException(
                 $exception->getMessage(),
                 $exception->getCode(),
-                $exception
+                $exception,
             );
         }
 
@@ -252,5 +261,19 @@ class DeeplClient implements DeeplClientInterface
 
         /** @var stdClass $result */
         return $result;
+    }
+
+    private function getAuthHeader(): string
+    {
+        return sprintf('DeepL-Auth-Key %s', $this->apiKey);
+    }
+
+    private function getDeeplBaseUri(): string
+    {
+        if (str_contains($this->apiKey, ':fx')) {
+            return self::DEEPL_FREE_BASE_URI;
+        }
+
+        return self::DEEPL_PAID_BASE_URI;
     }
 }

@@ -13,18 +13,14 @@ final class DeeplTranslationRequestHandler extends AbstractDeeplHandler
     private const SEPARATOR = ',';
     public const API_ENDPOINT = '/v2/translate';
 
-    private string $authKey;
-
     private StreamFactoryInterface $streamFactory;
 
     private TranslationConfigInterface $translation;
 
     public function __construct(
-        string $authKey,
         StreamFactoryInterface $streamFactory,
-        TranslationConfigInterface $translation
+        TranslationConfigInterface $translation,
     ) {
-        $this->authKey = $authKey;
         $this->streamFactory = $streamFactory;
         $this->translation = $translation;
     }
@@ -42,33 +38,28 @@ final class DeeplTranslationRequestHandler extends AbstractDeeplHandler
     public function getBody(): StreamInterface
     {
         return $this->streamFactory->createStream(
-            http_build_query(
+            json_encode(
                 array_filter(
                     [
-                        'text' => $this->translation->getText(),
+                        'text' => [$this->translation->getText()],
                         'target_lang' => $this->translation->getTargetLang(),
                         'source_lang' => $this->translation->getSourceLang(),
                         'tag_handling' => implode(
                             self::SEPARATOR,
-                            $this->translation->getTagHandling()
+                            $this->translation->getTagHandling(),
                         ),
                         'non_splitting_tags' => implode(
                             self::SEPARATOR,
-                            $this->translation->getNonSplittingTags()
+                            $this->translation->getNonSplittingTags(),
                         ),
                         'ignore_tags' => implode(self::SEPARATOR, $this->translation->getIgnoreTags()),
                         'split_sentences' => $this->translation->getSplitSentences(),
                         'preserve_formatting' => $this->translation->getPreserveFormatting(),
                         'glossary_id' => $this->translation->getGlossaryId(),
-                        'auth_key' => $this->authKey,
-                    ]
-                )
+                    ],
+                ),
+                JSON_THROW_ON_ERROR
             )
         );
-    }
-
-    public function getContentType(): string
-    {
-        return 'application/x-www-form-urlencoded';
     }
 }

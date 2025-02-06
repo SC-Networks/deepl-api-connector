@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Scn\DeeplApiConnector\Handler;
 
 use Http\Message\MultipartStream\MultipartStreamBuilder;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Http\Message\StreamInterface;
 use Scn\DeeplApiConnector\Model\FileTranslationConfigInterface;
@@ -12,121 +13,117 @@ use Scn\DeeplApiConnector\TestCase;
 
 class DeeplFileSubmissionRequestHandlerTest extends TestCase
 {
-    /**
-     * @var DeeplFileRequestHandler
-     */
-    private $subject;
+    private DeeplFileSubmissionRequestHandler $subject;
 
-    /** @var MultipartStreamBuilder|MockObject */
-    private $streamBuilder;
+    private MultipartStreamBuilder&MockObject $streamBuilder;
 
-    /**
-     * @var FileTranslationConfigInterface|MockObject
-     */
-    private $fileTranslation;
+    private FileTranslationConfigInterface&MockObject $fileTranslation;
 
     public function setUp(): void
     {
-        $this->streamBuilder = $this->createMock(MultipartStreamBuilder::class);
         $this->fileTranslation = $this->createMock(FileTranslationConfigInterface::class);
+        $this->streamBuilder = $this->createMock(MultipartStreamBuilder::class);
 
         $this->subject = new DeeplFileSubmissionRequestHandler(
-            'some key',
             $this->fileTranslation,
-            $this->streamBuilder
+            $this->streamBuilder,
         );
     }
 
-    public function testGetPathCanReturnPath(): void
+    #[Test]
+    public function getPath(): void
     {
         self::assertSame(DeeplFileSubmissionRequestHandler::API_ENDPOINT, $this->subject->getPath());
     }
 
-    public function testGetBodyCanReturnFilteredArray(): void
+    #[Test]
+    public function getBodyFiltered(): void
     {
         $stream = $this->createMock(StreamInterface::class);
 
-        $this->fileTranslation->expects($this->once())
+        $this->fileTranslation->expects(self::once())
             ->method('getFileName')
             ->willReturn('file name');
 
-        $this->fileTranslation->expects($this->once())
+        $this->fileTranslation->expects(self::once())
             ->method('getFileContent')
             ->willReturn('file content');
 
-        $this->fileTranslation->expects($this->once())
+        $this->fileTranslation->expects(self::once())
             ->method('getSourceLang')
             ->willReturn('source lang');
 
-        $this->fileTranslation->expects($this->once())
+        $this->fileTranslation->expects(self::once())
             ->method('getTargetLang')
             ->willReturn('target lang');
 
-        $this->streamBuilder->expects($this->once())
+        $this->streamBuilder->expects(self::once())
             ->method('setBoundary')
             ->with('boundary')
             ->willReturnSelf();
-        $this->streamBuilder->expects($this->exactly(4))
+
+        $this->streamBuilder->expects(self::exactly(3))
             ->method('addResource')
             ->willReturnOnConsecutiveCalls(
-                ['auth_key', 'some key'],
                 ['file', 'file content', ['filename' => 'file name']],
                 ['target_lang', 'target lang'],
-                ['source_lang', 'source lang']
+                ['source_lang', 'source lang'],
             )
             ->willReturnSelf();
-        $this->streamBuilder->expects($this->once())
+        $this->streamBuilder->expects(self::once())
             ->method('build')
             ->willReturn($stream);
 
         self::assertSame($stream, $this->subject->getBody());
     }
 
-    public function testGetBodyIgnoresSourceLangIfEmpty(): void
+    #[Test]
+    public function getBodyOnIgnoresSourceLangIfEmpty(): void
     {
         $stream = $this->createMock(StreamInterface::class);
 
-        $this->fileTranslation->expects($this->once())
+        $this->fileTranslation->expects(self::once())
             ->method('getFileName')
             ->willReturn('file name');
 
-        $this->fileTranslation->expects($this->once())
+        $this->fileTranslation->expects(self::once())
             ->method('getFileContent')
             ->willReturn('file content');
 
-        $this->fileTranslation->expects($this->once())
+        $this->fileTranslation->expects(self::once())
             ->method('getSourceLang')
             ->willReturn('');
 
-        $this->fileTranslation->expects($this->once())
+        $this->fileTranslation->expects(self::once())
             ->method('getTargetLang')
             ->willReturn('target lang');
 
-        $this->streamBuilder->expects($this->once())
+        $this->streamBuilder->expects(self::once())
             ->method('setBoundary')
             ->with('boundary')
             ->willReturnSelf();
-        $this->streamBuilder->expects($this->exactly(3))
+        $this->streamBuilder->expects(self::exactly(2))
             ->method('addResource')
             ->willReturnOnConsecutiveCalls(
-                ['auth_key', 'some key'],
                 ['file', 'file content', ['filename' => 'file name']],
-                ['target_lang', 'target lang']
+                ['target_lang', 'target lang'],
             )
             ->willReturnSelf();
-        $this->streamBuilder->expects($this->once())
+        $this->streamBuilder->expects(self::once())
             ->method('build')
             ->willReturn($stream);
 
         self::assertSame($stream, $this->subject->getBody());
     }
 
-    public function testGetMethodCanReturnMethod(): void
+    #[Test]
+    public function getMethod(): void
     {
         self::assertSame(DeeplRequestHandlerInterface::METHOD_POST, $this->subject->getMethod());
     }
 
-    public function testGetContentTypeReturnsValue(): void
+    #[Test]
+    public function getContentType(): void
     {
         self::assertSame('multipart/form-data;boundary="boundary"', $this->subject->getContentType());
     }

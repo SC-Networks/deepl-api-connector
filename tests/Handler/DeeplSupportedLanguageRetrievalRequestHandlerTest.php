@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Handler;
 
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\StreamInterface;
 use Scn\DeeplApiConnector\TestCase;
 
 class DeeplSupportedLanguageRetrievalRequestHandlerTest extends TestCase
 {
-    private string $authKey = 'some-auth-key';
-
-    private StreamFactoryInterface $streamFactory;
+    private StreamFactoryInterface&MockObject $streamFactory;
 
     private DeeplSupportedLanguageRetrievalRequestHandler $subject;
 
@@ -21,53 +21,49 @@ class DeeplSupportedLanguageRetrievalRequestHandlerTest extends TestCase
         $this->streamFactory = $this->createMock(StreamFactoryInterface::class);
 
         $this->subject = new DeeplSupportedLanguageRetrievalRequestHandler(
-            $this->authKey,
-            $this->streamFactory
+            $this->streamFactory,
         );
     }
 
-    public function testGetMethodReturnsValue(): void
+    #[Test]
+    public function getMethod(): void
     {
-        static::assertSame(
+        self::assertSame(
             DeeplRequestHandlerInterface::METHOD_GET,
-            $this->subject->getMethod()
+            $this->subject->getMethod(),
         );
     }
 
-    public function testGetPathReturnsValue(): void
+    #[Test]
+    public function getPath(): void
     {
-        static::assertSame(
+        self::assertSame(
             '/v2/languages?type=target',
-            $this->subject->getPath()
+            $this->subject->getPath(),
         );
     }
 
-    public function testGetContentTypeReturnsValue(): void
+    #[Test]
+    public function getContentType(): void
     {
-        static::assertSame(
-            'application/x-www-form-urlencoded',
-            $this->subject->getContentType()
+        self::assertSame(
+            'application/json',
+            $this->subject->getContentType(),
         );
     }
 
-    public function testGetBodyReturnsValue(): void
+    #[Test]
+    public function getBody(): void
     {
         $body = $this->createMock(StreamInterface::class);
 
-        $this->streamFactory->expects($this->once())
+        $this->streamFactory->expects(self::once())
             ->method('createStream')
-            ->with(
-                http_build_query(
-                    [
-                        'auth_key' => $this->authKey,
-                    ]
-                )
-            )
             ->willReturn($body);
 
-        static::assertSame(
+        self::assertSame(
             $body,
-            $this->subject->getBody()
+            $this->subject->getBody(),
         );
     }
 }

@@ -12,18 +12,14 @@ final class DeeplFileRequestHandler extends AbstractDeeplHandler
 {
     public const API_ENDPOINT = '/v2/document/%s/result';
 
-    private string $authKey;
-
     private StreamFactoryInterface $streamFactory;
 
     private FileSubmissionInterface $fileSubmission;
 
     public function __construct(
-        string $authKey,
         StreamFactoryInterface $streamFactory,
-        FileSubmissionInterface $fileSubmission
+        FileSubmissionInterface $fileSubmission,
     ) {
-        $this->authKey = $authKey;
         $this->streamFactory = $streamFactory;
         $this->fileSubmission = $fileSubmission;
     }
@@ -41,19 +37,14 @@ final class DeeplFileRequestHandler extends AbstractDeeplHandler
     public function getBody(): StreamInterface
     {
         return $this->streamFactory->createStream(
-            http_build_query(
+            json_encode(
                 array_filter(
                     [
-                        'auth_key' => $this->authKey,
                         'document_key' => $this->fileSubmission->getDocumentKey(),
-                    ]
-                )
-            )
+                    ],
+                ),
+                JSON_THROW_ON_ERROR
+            ),
         );
-    }
-
-    public function getContentType(): string
-    {
-        return 'application/x-www-form-urlencoded';
     }
 }

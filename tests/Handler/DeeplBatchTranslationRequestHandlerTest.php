@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Scn\DeeplApiConnector\Handler;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\StreamInterface;
@@ -15,11 +16,9 @@ class DeeplBatchTranslationRequestHandlerTest extends TestCase
 {
     private DeeplBatchTranslationRequestHandler $subject;
 
-    /** @var StreamFactoryInterface|MockObject */
-    private $streamFactory;
+    private StreamFactoryInterface&MockObject $streamFactory;
 
-    /** @var BatchTranslationConfigInterface|MockObject */
-    private $translation;
+    private BatchTranslationConfigInterface&MockObject $translation;
 
     protected function setUp(): void
     {
@@ -27,60 +26,57 @@ class DeeplBatchTranslationRequestHandlerTest extends TestCase
         $this->translation = $this->createMock(BatchTranslationConfigInterface::class);
 
         $this->subject = new DeeplBatchTranslationRequestHandler(
-            'some key',
             $this->streamFactory,
-            $this->translation
+            $this->translation,
         );
     }
 
     public function testGetPathCanReturnPath(): void
     {
-        static::assertSame(DeeplTranslationRequestHandler::API_ENDPOINT, $this->subject->getPath());
+        self::assertSame(DeeplTranslationRequestHandler::API_ENDPOINT, $this->subject->getPath());
     }
 
-    public function testGetBodyCanReturnFilteredArray(): void
+    #[Test]
+    public function getBodyFiltered(): void
     {
-        $text1 = 'some-text';
-        $text2 = 'some-other-text';
-
         $stream = $this->createMock(StreamInterface::class);
 
-        $query = http_build_query(
+        $query = json_encode(
             [
-                'target_lang' => 'some target language',
-                'auth_key' => 'some key',
-            ]
+            'target_lang' => $lang = 'DE',
+            'text' => [
+                $text1 = 'some-text',
+                $text2 = 'some-other-text',
+            ]],
         );
 
-        $query .= sprintf('&text=%s', $text1);
-        $query .= sprintf('&text=%s', $text2);
-
-        $this->translation->expects($this->once())
+        $this->translation->expects(self::once())
             ->method('getText')
             ->willReturn([$text1, $text2]);
 
-        $this->translation->expects($this->once())
+        $this->translation->expects(self::once())
             ->method('getTargetLang')
-            ->willReturn('some target language');
+            ->willReturn($lang);
 
-        $this->streamFactory->expects($this->once())
+        $this->streamFactory->expects(self::once())
             ->method('createStream')
             ->with($query)
             ->willReturn($stream);
 
-        static::assertSame(
+        self::assertSame(
             $stream,
-            $this->subject->getBody()
+            $this->subject->getBody(),
         );
     }
 
-    public function testGetBodyCanReturnArrayWithOptionalTags(): void
+    #[Test]
+    public function getBodyWithOptionalTags(): void
     {
         $stream = $this->createMock(StreamInterface::class);
 
         $text = 'some text to translate';
 
-        $query = http_build_query(
+        $body = json_encode(
             [
                 'target_lang' => 'some target language',
                 'tag_handling' => 'a,b',
@@ -88,61 +84,61 @@ class DeeplBatchTranslationRequestHandlerTest extends TestCase
                 'ignore_tags' => 'ef,fa,qa',
                 'split_sentences' => '1',
                 'preserve_formatting' => '1',
-                'auth_key' => 'some key',
+                'text' => [$text],
             ]
         );
 
-        $query .= sprintf('&text=%s', $text);
-
-        $this->translation->expects($this->once())
+        $this->translation->expects(self::once())
             ->method('getText')
             ->willReturn([$text]);
 
-        $this->translation->expects($this->once())
+        $this->translation->expects(self::once())
             ->method('getTargetLang')
             ->willReturn('some target language');
 
-        $this->translation->expects($this->once())
+        $this->translation->expects(self::once())
             ->method('getTagHandling')
             ->willReturn(['a', 'b']);
 
-        $this->translation->expects($this->once())
+        $this->translation->expects(self::once())
             ->method('getNonSplittingTags')
             ->willReturn(['b', 'a', 'c']);
 
-        $this->translation->expects($this->once())
+        $this->translation->expects(self::once())
             ->method('getIgnoreTags')
             ->willReturn(['ef', 'fa', 'qa']);
 
-        $this->translation->expects($this->once())
+        $this->translation->expects(self::once())
             ->method('getSplitSentences')
             ->willReturn(TextHandlingEnum::SPLITSENTENCES_ON);
 
-        $this->translation->expects($this->once())
+        $this->translation->expects(self::once())
             ->method('getPreserveFormatting')
             ->willReturn(TextHandlingEnum::PRESERVEFORMATTING_ON);
 
-        $this->streamFactory->expects($this->once())
+        $this->streamFactory->expects(self::once())
             ->method('createStream')
-            ->with($query)
+            ->with($body)
             ->willReturn($stream);
 
-        static::assertSame(
+        self::assertSame(
             $stream,
-            $this->subject->getBody()
+            $this->subject->getBody(),
         );
     }
 
-    public function testGetMethodCanReturnMethod(): void
+    #[Test]
+    public function getMethod(): void
     {
-        static::assertSame(DeeplRequestHandlerInterface::METHOD_POST, $this->subject->getMethod());
+        self::assertSame(DeeplRequestHandlerInterface::METHOD_POST, $this->subject->getMethod());
     }
 
-    public function testGetContentTypeReturnsValue(): void
+    #[Test]
+    public function getContentType(): void
     {
-        static::assertSame(
-            'application/x-www-form-urlencoded',
-            $this->subject->getContentType()
+        self::assertSame(
+            'application/json',
+            $this->subject->getContentType(),
         );
     }
 }

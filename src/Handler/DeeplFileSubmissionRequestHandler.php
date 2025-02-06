@@ -12,18 +12,14 @@ final class DeeplFileSubmissionRequestHandler extends AbstractDeeplHandler
 {
     public const API_ENDPOINT = '/v2/document';
 
-    private string $authKey;
-
     private FileTranslationConfigInterface $fileTranslation;
 
     private MultipartStreamBuilder $multipartStreamBuilder;
 
     public function __construct(
-        string $authKey,
         FileTranslationConfigInterface $fileTranslation,
-        MultipartStreamBuilder $multipartStreamBuilder
+        MultipartStreamBuilder $multipartStreamBuilder,
     ) {
-        $this->authKey = $authKey;
         $this->fileTranslation = $fileTranslation;
         $this->multipartStreamBuilder = $multipartStreamBuilder;
     }
@@ -42,7 +38,6 @@ final class DeeplFileSubmissionRequestHandler extends AbstractDeeplHandler
     {
         $streamBuilder = $this->multipartStreamBuilder
             ->setBoundary('boundary')
-            ->addResource('auth_key', $this->authKey)
             ->addResource('file', $this->fileTranslation->getFileContent(), ['filename' => $this->fileTranslation->getFileName()])
             ->addResource('target_lang', $this->fileTranslation->getTargetLang());
 
