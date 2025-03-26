@@ -48,11 +48,8 @@ final class DeeplTranslationRequestHandler extends AbstractDeeplHandler
                             self::SEPARATOR,
                             $this->translation->getTagHandling(),
                         ),
-                        'non_splitting_tags' => implode(
-                            self::SEPARATOR,
-                            $this->translation->getNonSplittingTags(),
-                        ),
-                        'ignore_tags' => implode(self::SEPARATOR, $this->translation->getIgnoreTags()),
+                        'non_splitting_tags' => $this->translation->getNonSplittingTags(),
+                        'ignore_tags' => $this->translation->getIgnoreTags(),
                         'split_sentences' => $this->translation->getSplitSentences(),
                         'preserve_formatting' => $this->translation->getPreserveFormatting(),
                         'glossary_id' => $this->translation->getGlossaryId(),
